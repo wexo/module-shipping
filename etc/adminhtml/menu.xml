@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wexo_Shipping::shipping" title="Wexo Shipping" translate="title" module="Wexo_Shipping" sortOrder="80"
+             parent="Magento_Backend::stores" resource="Wexo_Shipping::shipping"/>
+        <add id="Wexo_Shipping::rates" title="Shipping Rates" translate="title" module="Wexo_Shipping" sortOrder="10"
+             parent="Wexo_Shipping::shipping" action="wexo_shipping/rate" resource="Wexo_Shipping::rates"/>
+
+        <add id="Wexo_Shipping::wexo_shipping" title="Wexo Shipping" translate="title" module="Wexo_Shipping"
+             sortOrder="80" parent="Wexo_Core::wexo_menu" resource="Wexo_Shipping::shipping"/>
+        <add id="Wexo_Shipping::wexo_rates" title="Shipping Rates" translate="title" module="Wexo_Shipping"
+             sortOrder="10" parent="Wexo_Shipping::wexo_shipping" action="wexo_shipping/rate"
+             resource="Wexo_Shipping::rates"/>
+    </menu>
+</config>

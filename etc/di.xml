@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Wexo\Shipping\Api\Data\RateInterface" type="Wexo\Shipping\Model\Rate"/>
+    <type name="Wexo\Shipping\Model\Provider\CurrentRate" shared="true"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wexo_shipping_rate_listing_data_source" xsi:type="string">
+                    Wexo\Shipping\Model\ResourceModel\Rate\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Wexo\Shipping\Model\ResourceModel\Rate\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wexo_shipping_rate</argument>
+            <argument name="eventPrefix" xsi:type="string">wexo_shipping_rate_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">shipping_rate_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Wexo\Shipping\Model\ResourceModel\Rate</argument>
+        </arguments>
+    </type>
+</config>

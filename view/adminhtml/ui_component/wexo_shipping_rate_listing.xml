@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">wexo_shipping_rate_listing.wexo_shipping_rate_listing_data_source
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Create new Rate</label>
+            </button>
+        </buttons>
+        <spinner>wexo_shipping_rate_columns</spinner>
+        <deps>
+            <dep>wexo_shipping_rate_listing.wexo_shipping_rate_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="wexo_shipping_rate_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Wexo_Shipping::page</aclResource>
+        <dataProvider class="Magento\Cms\Ui\Component\DataProvider" name="wexo_shipping_rate_listing_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="wexo_shipping_rate_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="carrier_type">
+            <settings>
+                <options class="Wexo\Shipping\Model\Options\Carrier"/>
+                <label translate="true">Carrier Type</label>
+                <componentType>Magento_Ui/js/grid/columns/select</componentType>
+                <dataType>select</dataType>
+                <filter>select</filter>
+            </settings>
+        </column>
+
+        <column name="method_type">
+            <settings>
+                <options class="Wexo\Shipping\Model\Options\CarrierMethodType"/>
+                <label translate="true">Method</label>
+                <componentType>Magento_Ui/js/grid/columns/select</componentType>
+                <dataType>select</dataType>
+                <filter>select</filter>
+            </settings>
+        </column>
+
+        <column name="is_active">
+            <settings>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <label translate="true">Status</label>
+                <componentType>Magento_Ui/js/grid/columns/select</componentType>
+                <dataType>select</dataType>
+                <filter>select</filter>
+            </settings>
+        </column>
+
+        <column name="title">
+            <settings>
+                <label translate="true">Title</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="price">
+            <settings>
+                <label translate="true">Price</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Magento\Backend\Ui\Component\Listing\Column\EditAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="editUrlPath" xsi:type="string">wexo_shipping/rate/edit</item>
+                </item>
+            </argument>
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

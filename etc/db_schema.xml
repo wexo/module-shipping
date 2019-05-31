@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="wexo_shipping_rate" resource="default" engine="innodb" comment="Shipping Rates">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="carrier_type" nullable="true" length="32" comment="Carrier Type. Ex GLS"/>
+        <column xsi:type="varchar" name="method_type" nullable="true" length="128"
+                comment="Method Type. Ex ParcelShop"/>
+        <column xsi:type="mediumtext" name="conditions_serialized" nullable="true" comment="Conditions Serialized"/>
+
+        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" default="0"
+                comment="Is Active"/>
+        <column xsi:type="smallint" name="allow_free" padding="6" unsigned="false" nullable="false" default="1"
+                comment="If allows free shipping"/>
+        <column xsi:type="int" name="sort_order" padding="10" unsigned="true" nullable="false" default="0"
+                comment="Sort Order"/>
+
+        <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Shipping Rate Title."/>
+        <column xsi:type="decimal" name="price" nullable="false" default="0" comment="Price"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <index referenceId="WEXO_SHIPPING_RATES_IS_ACTIVE_SORT_ORDER" indexType="btree">
+            <column name="is_active"/>
+            <column name="sort_order"/>
+        </index>
+        <index referenceId="WEXO_SHIPPING_RATES_CARRIER_TYPE" indexType="btree">
+            <column name="carrier_type"/>
+        </index>
+    </table>
+
+    <table name="sales_order">
+        <column xsi:type="mediumtext" name="wexo_shipping_data" nullable="true" comment="Conditions Serialized"/>
+    </table>
+    <table name="quote">
+        <column xsi:type="mediumtext" name="wexo_shipping_data" nullable="true" comment="Conditions Serialized"/>
+    </table>
+</schema>
