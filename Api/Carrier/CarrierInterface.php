@@ -2,6 +2,9 @@
 
 namespace Wexo\Shipping\Api\Carrier;
 
+use Magento\Quote\Api\Data\ShippingMethodInterface;
+use Magento\Quote\Model\Quote\Address\Rate;
+
 interface CarrierInterface
 {
     /**
@@ -14,10 +17,17 @@ interface CarrierInterface
     /**
      * @return array
      */
-    public function getMethodTypes(): array;
+    public function getMethodTypesHandlers(): array;
 
     /**
      * @return string
      */
     public function getTitle();
+
+    /**
+     * @param ShippingMethodInterface $shippingMethod
+     * @param Rate $rate
+     * @return CarrierInterface
+     */
+    public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate);
 }

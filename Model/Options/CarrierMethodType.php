@@ -3,7 +3,6 @@
 namespace Wexo\Shipping\Model\Options;
 
 use Magento\Framework\Data\OptionSourceInterface;
-use Wexo\Shipping\Api\Carrier\MethodTypeInterface;
 use Wexo\Shipping\Model\Carrier\AbstractCarrier;
 use Wexo\Shipping\Model\ComponentManagement;
 
@@ -39,12 +38,12 @@ class CarrierMethodType implements OptionSourceInterface
 
             /**
              * @var string $key
-             * @var MethodTypeInterface $methodType
+             * @var array $methodType
              */
-            foreach ($carrierComponent->getMethodTypes() as $key => $methodType) {
+            foreach ($carrierComponent->getMethodTypesHandlers() as $key => $methodType) {
                 $option[] = [
-                    'value' => "{$carrierComponent->getTypeName()}_$key",
-                    'label' => $methodType->getTitle(),
+                    'value' => $key,
+                    'label' => $methodType['label'],
                     'carrier' => $carrierComponent->getTypeName()
                 ];
             }

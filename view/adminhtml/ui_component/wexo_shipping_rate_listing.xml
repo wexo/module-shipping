@@ -28,7 +28,8 @@
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>Wexo_Shipping::page</aclResource>
-        <dataProvider class="Magento\Cms\Ui\Component\DataProvider" name="wexo_shipping_rate_listing_data_source">
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="wexo_shipping_rate_listing_data_source">
             <settings>
                 <requestFieldName>entity_id</requestFieldName>
                 <primaryFieldName>entity_id</primaryFieldName>
@@ -78,7 +79,7 @@
             </settings>
         </column>
 
-        <column name="carrier_type">
+        <column name="carrier_type" sortOrder="50">
             <settings>
                 <options class="Wexo\Shipping\Model\Options\Carrier"/>
                 <label translate="true">Carrier Type</label>
@@ -88,7 +89,7 @@
             </settings>
         </column>
 
-        <column name="method_type">
+        <column name="method_type" sortOrder="60">
             <settings>
                 <options class="Wexo\Shipping\Model\Options\CarrierMethodType"/>
                 <label translate="true">Method</label>
@@ -98,31 +99,43 @@
             </settings>
         </column>
 
-        <column name="is_active">
+        <column name="is_active" sortOrder="70">
             <settings>
                 <options class="Magento\Config\Model\Config\Source\Yesno"/>
                 <label translate="true">Status</label>
                 <componentType>Magento_Ui/js/grid/columns/select</componentType>
                 <dataType>select</dataType>
                 <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
             </settings>
         </column>
 
-        <column name="title">
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store" sortOrder="80">
+            <settings>
+                <label translate="true">Store View</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <dataType>multiselect</dataType>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+
+        <column name="title" sortOrder="90">
             <settings>
                 <label translate="true">Title</label>
                 <filter>text</filter>
             </settings>
         </column>
 
-        <column name="price">
+        <column name="price" sortOrder="100">
             <settings>
                 <label translate="true">Price</label>
                 <filter>text</filter>
             </settings>
         </column>
 
-        <actionsColumn name="actions" class="Magento\Backend\Ui\Component\Listing\Column\EditAction">
+        <actionsColumn name="actions" class="Magento\Backend\Ui\Component\Listing\Column\EditAction" sortOrder="1000">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="editUrlPath" xsi:type="string">wexo_shipping/rate/edit</item>

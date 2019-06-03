@@ -85,9 +85,11 @@ class RateRepository
         $this->collectionProcessor->process($criteria, $collection);
 
         return $this->searchResultFactory->create([
-            SearchResultInterface::ITEMS => $collection->getItems(),
-            SearchResultInterface::TOTAL_COUNT => $collection->getSize(),
-            SearchResultInterface::SEARCH_CRITERIA => $criteria,
+            'data' => [
+                SearchResultInterface::ITEMS => $collection->getItems(),
+                SearchResultInterface::TOTAL_COUNT => $collection->getSize(),
+                SearchResultInterface::SEARCH_CRITERIA => $criteria
+            ]
         ]);
     }
 

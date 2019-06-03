@@ -16,6 +16,8 @@
                 comment="Method Type. Ex ParcelShop"/>
         <column xsi:type="mediumtext" name="conditions_serialized" nullable="true" comment="Conditions Serialized"/>
 
+        <column xsi:type="varchar" name="store_id" nullable="true" length="128" comment="Store Ids"/>
+
         <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" default="0"
                 comment="Is Active"/>
         <column xsi:type="smallint" name="allow_free" padding="6" unsigned="false" nullable="false" default="1"

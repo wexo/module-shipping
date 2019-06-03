@@ -70,6 +70,10 @@ class Save extends Action implements HttpPostActionInterface
                 $data['entity_id'] = null;
             }
 
+            if (isset($data['store_id'])) {
+                $data['store_id'] = implode(',', $data['store_id']);
+            }
+
             $rate = $this->rateInterfaceFactory->create();
 
             $id = $this->getRequest()->getParam('entity_id');
@@ -84,6 +88,7 @@ class Save extends Action implements HttpPostActionInterface
 
             if (isset($data['rule'])) {
                 $rate->loadPost($data['rule']);
+                unset($data['conditions_serialized']);
                 unset($data['rule']);
             }
 

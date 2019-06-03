@@ -15,6 +15,7 @@ interface RateInterface
     const TITLE = 'title';
     const PRICE = 'price';
     const ALLOW_FREE = 'allow_free';
+    const STORE_ID = 'store_id';
 
     public function getId();
 
@@ -28,15 +29,15 @@ interface RateInterface
 
     public function getConditionsSerialized(): ?string;
 
-    public function setConditionsSerialized(string $conditionalsSerialized): RateInterface;
+    public function setConditionsSerialized(?string $conditionalsSerialized): RateInterface;
 
     public function getIsActive(): ?bool;
 
-    public function setIsActive(bool $isActive): RateInterface;
+    public function setIsActive(?bool $isActive): RateInterface;
 
     public function getSortOrder(): ?int;
 
-    public function setSortOrder(int $sortOrder): RateInterface;
+    public function setSortOrder(?int $sortOrder): RateInterface;
 
     public function getTitle(): ?string;
 
@@ -48,5 +49,9 @@ interface RateInterface
 
     public function getAllowFree(): ?bool;
 
-    public function setAllowFree(bool $allowFree);
+    public function setAllowFree(?bool $allowFree);
+
+    public function getStoreId(): ?string;
+
+    public function setStoreId(?string $storeIds): RateInterface;
 }

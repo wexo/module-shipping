@@ -2,6 +2,7 @@
 
 namespace Wexo\Shipping\Model;
 
+use Magento\Framework\Api\ExtensibleDataInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Wexo\Shipping\Api\Data\RateInterface;
 use Wexo\Shipping\Model\Carrier\AbstractCarrier;
@@ -32,7 +33,7 @@ class RateManagement
     /**
      * @param AbstractCarrier $abstractCarrier
      * @param bool $onlyActive
-     * @return RateInterface[]
+     * @return ExtensibleDataInterface[]
      */
     public function getRates(AbstractCarrier $abstractCarrier, $onlyActive = false)
     {
@@ -40,7 +41,7 @@ class RateManagement
             ->addFilter(RateInterface::CARRIER_TYPE, $abstractCarrier->getTypeName());
 
         if ($onlyActive) {
-            $searchCriteriaBuilder->addFilter(RateInterface::IS_ACTIVE, 1);
+            $searchCriteriaBuilder->addFilter(RateInterface::IS_ACTIVE, RateInterface::STATUS_ENABLED);
         }
 
         return $this->rateRepository->getList(

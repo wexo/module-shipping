@@ -1,10 +1,11 @@
 <?php
 
-
 namespace Wexo\Shipping\Model\Carrier;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
+use Magento\Quote\Api\Data\ShippingMethodInterface;
+use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
@@ -14,7 +15,8 @@ use Magento\Shipping\Model\Rate\ResultFactory;
 use Psr\Log\LoggerInterface;
 use Wexo\Reepay\Api\Reepay\MethodInterface;
 use Wexo\Shipping\Api\Carrier\CarrierInterface;
-use Wexo\Shipping\Api\Carrier\MethodTypeInterface;
+use Wexo\Shipping\Api\Carrier\MethodTypeHandlerInterface;
+use Wexo\Shipping\Api\Data\RateInterface;
 use Wexo\Shipping\Model\RateManagement;
 
 abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements CarrierInterface
@@ -39,12 +41,12 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     /**
      * @var array
      */
-    private $methodTypes;
+    private $methodTypesHandlers;
 
     /**
      * @var MethodInterface|null
      */
-    private $defaultMethodType;
+    private $defaultMethodTypeHandler;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -53,8 +55,8 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      * @param RateManagement $rateManagement
      * @param MethodFactory $methodFactory
      * @param ResultFactory $resultFactory
-     * @param MethodInterface|null $defaultMethodType
-     * @param array $methodTypes
+     * @param MethodTypeHandlerInterface $defaultMethodTypeHandler
+     * @param array $methodTypeHandlers
      * @param array $data
      */
     public function __construct(
@@ -64,16 +66,16 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         RateManagement $rateManagement,
         MethodFactory $methodFactory,
         ResultFactory $resultFactory,
-        MethodInterface $defaultMethodType = null,
-        array $methodTypes = [],
+        MethodTypeHandlerInterface $defaultMethodTypeHandler = null,
+        array $methodTypeHandlers = [],
         array $data = []
     ) {
         $this->_code = $this->getTypeName();
         $this->rateManagement = $rateManagement;
         $this->methodFactory = $methodFactory;
         $this->resultFactory = $resultFactory;
-        $this->defaultMethodType = $defaultMethodType;
-        $this->methodTypes = $methodTypes;
+        $this->defaultMethodTypeHandler = $defaultMethodTypeHandler;
+        $this->methodTypesHandlers = $methodTypeHandlers;
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
     }
 
@@ -83,18 +85,20 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      */
     public function collectRates(RateRequest $request)
     {
-        if ($this->getConfigFlag('active')) {
+        if (!$this->getConfigFlag('active')) {
             return false;
         }
-        $result = $this->resultFactory->create();
-        $rates = $this->rateManagement->getRates($this);
 
+        $result = $this->resultFactory->create();
+        $rates = $this->rateManagement->getRates($this, true);
+
+        /** @var RateInterface $rate */
         foreach ($rates as $rate) {
             /** @var Method $method */
             $method = $this->methodFactory->create();
             $method->setData('carrier', $this->_code);
             $method->setData('carrier_title', $this->getTitle());
-            $method->setData('method', $this->_code . $rate->getMethodType());
+            $method->setData('method', $this->makeMethodCode($rate));
             $method->setData('method_title', $rate->getTitle());
             $method->setPrice(
                 $request->getFreeShipping() && $rate->getAllowFree() ? 0 : $rate->getPrice()
@@ -114,15 +118,70 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     }
 
     /**
-     * @return MethodTypeInterface[]
+     * @param RateInterface $rate
+     * @return string
      */
-    public function getMethodTypes(): array
+    public function makeMethodCode(RateInterface $rate)
     {
-        return array_map(function ($method) {
-            return [
+        return "{$rate->getMethodType()}_{$rate->getId()}";
+    }
+
+    /**
+     * @param ShippingMethodInterface $shippingMethod
+     * @param Rate $rate
+     * @return void|CarrierInterface
+     */
+    public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate)
+    {
+        $methodType = $this->getMethodTypeByMethod($rate->getMethod());
+        $shippingMethod->getExtensionAttributes()->setWexoShippingMethodType($methodType);
+
+        $methodTypeHandler = $this->getMethodTypeHandler($methodType);
+        if ($methodTypeHandler && isset($methodTypeHandler['type']) && $methodTypeHandler['type'] instanceof MethodTypeHandlerInterface) {
+            $shippingMethod->getExtensionAttributes()->setWexoShippingMethodTypeHandler(
+                ($methodTypeHandler['type'])->getCode()
+            );
+        }
+    }
+
+    /**
+     * @param string $method
+     * @return mixed
+     */
+    public function getMethodTypeByMethod(string $method)
+    {
+        $methodCodeParts = explode('_', $method);
+        return reset($methodCodeParts);
+    }
+
+    /**
+     * @param string $type
+     * @return array|null
+     */
+    public function getMethodTypeHandler(string $type): ?array
+    {
+        $types = $this->getMethodTypesHandlers();
+        if (isset($types[$type])) {
+            return $types[$type];
+        }
+        return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMethodTypesHandlers(): array
+    {
+        $handlers = [];
+
+        foreach ($this->methodTypesHandlers as $key => $method) {
+            $handlers[$key] = [
                 'label' => $method['label'],
-                'type' => $method['type'] ?? $this->defaultMethodType
+                'type' => $method['type'] ?? $this->defaultMethodTypeHandler,
+                'key' => $key
             ];
-        }, $this->methodTypes);
+        }
+
+        return $handlers;
     }
 }

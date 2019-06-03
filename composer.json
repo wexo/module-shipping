@@ -1,6 +1,6 @@
 {
   "name": "wexo/module-shipping",
-  "description": "Wexo Shipping core module",
+  "description": "Wexo Shipping Module that supports GLS, PostNord and Bring",
   "require": {
     "php": "~7.1.0|~7.2.0",
     "guzzlehttp/guzzle": "^6.3"

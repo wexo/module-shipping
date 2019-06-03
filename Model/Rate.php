@@ -127,7 +127,7 @@ class Rate extends AbstractModel implements RateInterface
      * @param bool $isActive
      * @return RateInterface
      */
-    public function setIsActive(bool $isActive): RateInterface
+    public function setIsActive(?bool $isActive): RateInterface
     {
         $this->setData(static::IS_ACTIVE, $isActive);
         return $this;
@@ -145,7 +145,7 @@ class Rate extends AbstractModel implements RateInterface
      * @param int $sortOrder
      * @return RateInterface
      */
-    public function setSortOrder(int $sortOrder): RateInterface
+    public function setSortOrder(?int $sortOrder): RateInterface
     {
         $this->setData(static::SORT_ORDER, $sortOrder);
         return $this;
@@ -199,7 +199,7 @@ class Rate extends AbstractModel implements RateInterface
      * @param bool $allowFree
      * @return $this
      */
-    public function setAllowFree(bool $allowFree)
+    public function setAllowFree(?bool $allowFree)
     {
         $this->setData(static::ALLOW_FREE, $allowFree);
         return $this;
@@ -219,7 +219,6 @@ class Rate extends AbstractModel implements RateInterface
             );
             $this->conditions = null;
         }
-
         return parent::beforeSave();
     }
 
@@ -242,6 +241,7 @@ class Rate extends AbstractModel implements RateInterface
             }
             $this->unsetData(static::CONDITIONS_SERIALIZED);
         }
+
 
         return $this->conditions;
     }
@@ -293,7 +293,7 @@ class Rate extends AbstractModel implements RateInterface
      * @param string $conditionalsSerialized
      * @return RateInterface
      */
-    public function setConditionsSerialized(string $conditionalsSerialized): RateInterface
+    public function setConditionsSerialized(?string $conditionalsSerialized): RateInterface
     {
         $this->setData(static::CONDITIONS_SERIALIZED, $conditionalsSerialized);
         return $this;
@@ -319,7 +319,6 @@ class Rate extends AbstractModel implements RateInterface
      * @param string $formName
      * @return string
      */
-s
     public function getConditionsFieldSetId($formName = '')
     {
         return $formName . 'rule_conditions_fieldset_' . $this->getId();
@@ -336,9 +335,10 @@ s
     {
         $arr = $this->convertFlatToRecursive($data);
         if (isset($arr['conditions'])) {
-            $this->getConditions()->setConditions([])->loadArray($arr['conditions'][1]);
+            $this->setConditions(
+                $this->getConditions()->setData('conditions', [])->loadArray($arr['conditions'][1])
+            );
         }
-
         return $this;
     }
 
@@ -381,6 +381,23 @@ s
         }
 
         return $arr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStoreId(): ?string
+    {
+        return $this->getData(static::STORE_ID);
+    }
+
+    /**
+     * @param string|null $storeIds
+     * @return RateInterface
+     */
+    public function setStoreId(?string $storeIds): RateInterface
+    {
+        return $this->setData(static::STORE_ID, $storeIds);
     }
 }
 
