@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="checkout.root">
             <arguments>
@@ -16,10 +17,15 @@
                                                     <item name="children" xsi:type="array">
                                                         <item name="shippingAdditional" xsi:type="array">
                                                             <item name="component" xsi:type="string">uiComponent</item>
-                                                            <item name="displayArea" xsi:type="string">shippingAdditional</item>
+                                                            <item name="displayArea" xsi:type="string">
+                                                                shippingAdditional
+                                                            </item>
                                                             <item name="children" xsi:type="array">
-                                                                <item name="wexoShippingAdditionalData" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Wexo_Shipping/js/view/checkout/shipping/additional-data</item>
+                                                                <item name="wexoShippingAdditionalData"
+                                                                      xsi:type="array">
+                                                                    <item name="component" xsi:type="string">
+                                                                        Wexo_Shipping/js/view/checkout/shipping/additional-data
+                                                                    </item>
                                                                 </item>
                                                             </item>
                                                         </item>
@@ -35,7 +41,9 @@
                                                         <item name="additional-payment-validators" xsi:type="array">
                                                             <item name="children" xsi:type="array">
                                                                 <item name="wexoShipping" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Wexo_Shipping/js/view/shipping-validator</item>
+                                                                    <item name="component" xsi:type="string">
+                                                                        Wexo_Shipping/js/view/shipping-validator
+                                                                    </item>
                                                                 </item>
                                                             </item>
                                                         </item>

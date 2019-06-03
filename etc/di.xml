@@ -24,4 +24,7 @@
     <type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
         <plugin name="wexoShipping" type="Wexo\Shipping\Plugins\Quote\Model\Cart\ShippingMethodConverterPlugin"/>
     </type>
+    <type name="Magento\Checkout\Api\ShippingInformationManagementInterface">
+        <plugin name="saveWexoShippingData" type="Wexo\Shipping\Plugins\Checkout\ShippingInformationManagementPlugin"/>
+    </type>
 </config>

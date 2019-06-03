@@ -12,5 +12,5 @@ interface MethodTypeHandlerInterface
     /**
      * @return string
      */
-    public function getCode(): string ;
+    public function getCode(): string;
 }

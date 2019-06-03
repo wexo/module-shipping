@@ -37,8 +37,7 @@ class ShippingMethodConverterPlugin
         DataObjectHelper $dataObjectHelper,
         ShippingMethodExtensionFactory $shippingMethodExtensionFactory,
         Config $shippingConfig
-    )
-    {
+    ) {
         $this->dataObjectHelper = $dataObjectHelper;
         $this->shippingMethodExtensionFactory = $shippingMethodExtensionFactory;
         $this->shippingConfig = $shippingConfig;
@@ -56,15 +55,15 @@ class ShippingMethodConverterPlugin
         Rate $rate
     ): ShippingMethodInterface {
 
-        if(!$ret->getExtensionAttributes()) {
+        if (!$ret->getExtensionAttributes()) {
             $ret->setExtensionAttributes($this->shippingMethodExtensionFactory->create());
         }
 
         $carriers = $this->shippingConfig->getAllCarriers();
-        if(isset($carriers[$rate->getCarrier()])) {
+        if (isset($carriers[$rate->getCarrier()])) {
             $carrier = $carriers[$rate->getCarrier()];
 
-            if($carrier instanceof CarrierInterface) {
+            if ($carrier instanceof CarrierInterface) {
                 $carrier->convertAdditionalRateData(
                     $ret,
                     $rate

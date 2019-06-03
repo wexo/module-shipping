@@ -1,0 +1,68 @@
+
+& when (@media-common = true) {
+    .wexo-shipping-additional {
+        background: white;
+        border: 2px solid @border-color__base;
+        border-radius: 4px;
+        padding: @indent__m @indent__m 0;
+        margin-bottom: @indent__l;
+
+        .content-top {
+            padding-bottom: @indent__s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 -@indent__m;
+
+            & > * {
+                margin: 0 @indent__m;
+            }
+
+            .fieldset {
+                margin: 0;
+                flex: 1px;
+            }
+        }
+
+        .content-bottom {
+            margin: 0 -@indent__m;
+            display: flex;
+            border-top: 2px solid @border-color__base;
+
+            .map {
+                width: 50%;
+                height: inherit;
+                flex: 1;
+            }
+
+            .parcel-shops-list {
+                width: 50%;
+                flex: 1;
+                padding: @indent__m;
+
+                .filter {
+                    margin-bottom: @indent__m
+                }
+
+                .parcel-shop {
+                    margin-bottom: @indent__s;
+
+                    label {
+                        .company {
+                            font-size: 14px;
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+
+                    .address {
+                        color: @color-gray-light5;
+                        font-size: 12px;
+                        display: block;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
