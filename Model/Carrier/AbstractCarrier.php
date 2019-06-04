@@ -4,6 +4,7 @@ namespace Wexo\Shipping\Model\Carrier;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
+use Magento\Framework\View\Asset\Repository;
 use Magento\Quote\Api\Data\ShippingMethodInterface;
 use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateRequest;
@@ -26,27 +27,32 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     /**
      * @var RateManagement
      */
-    private $rateManagement;
+    protected $rateManagement;
 
     /**
      * @var MethodFactory
      */
-    private $methodFactory;
+    protected $methodFactory;
 
     /**
      * @var ResultFactory
      */
-    private $resultFactory;
+    protected $resultFactory;
 
     /**
      * @var array
      */
-    private $methodTypesHandlers;
+    protected $methodTypesHandlers;
 
     /**
      * @var MethodInterface|null
      */
-    private $defaultMethodTypeHandler;
+    protected $defaultMethodTypeHandler;
+
+    /**
+     * @var Repository
+     */
+    protected $assetRepository;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -56,6 +62,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      * @param MethodFactory $methodFactory
      * @param ResultFactory $resultFactory
      * @param MethodTypeHandlerInterface $defaultMethodTypeHandler
+     * @param Repository $assetRepository
      * @param array $methodTypeHandlers
      * @param array $data
      */
@@ -66,6 +73,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         RateManagement $rateManagement,
         MethodFactory $methodFactory,
         ResultFactory $resultFactory,
+        Repository $assetRepository,
         MethodTypeHandlerInterface $defaultMethodTypeHandler = null,
         array $methodTypeHandlers = [],
         array $data = []
@@ -76,6 +84,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         $this->resultFactory = $resultFactory;
         $this->defaultMethodTypeHandler = $defaultMethodTypeHandler;
         $this->methodTypesHandlers = $methodTypeHandlers;
+        $this->assetRepository = $assetRepository;
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
     }
 
@@ -138,10 +147,15 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
 
         $methodTypeHandler = $this->getMethodTypeHandler($methodType);
         if ($methodTypeHandler && isset($methodTypeHandler['type']) && $methodTypeHandler['type'] instanceof MethodTypeHandlerInterface) {
+            $typeCode = ($methodTypeHandler['type'])->getCode();
+
             $shippingMethod->getExtensionAttributes()->setWexoShippingMethodTypeHandler(
-                ($methodTypeHandler['type'])->getCode()
+                $typeCode
             );
         }
+        $shippingMethod->getExtensionAttributes()->setWexoShippingMethodImage(
+            $this->getImageUrl($shippingMethod, $rate, $typeCode ?? null) ?: ''
+        );
     }
 
     /**

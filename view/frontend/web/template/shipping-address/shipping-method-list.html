@@ -1,0 +1,33 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div id="checkout-shipping-method-load">
+    <table class="table-checkout-shipping-method">
+        <thead>
+        <tr class="row">
+            <th class="col col-method" translate="'Select Method'"></th>
+            <th class="col col-price" translate="'Price'"></th>
+            <th class="col col-method" translate="'Method Title'"></th>
+            <th class="col col-carrier" translate="'Carrier Title'"></th>
+            <th class="col col-image"></th>
+        </tr>
+        </thead>
+        <tbody>
+            <!-- ko foreach: { data: rates(), as: 'method'} -->
+                <!--ko template: { name: element.shippingMethodItemTemplate} --><!-- /ko -->
+                <!-- ko if: element.isSelected() === (method.carrier_code + '_' + method.method_code) -->
+                <tr>
+                    <td colspan="5" class="shipping-method-additional">
+                        <div id="onepage-checkout-shipping-method-additional-load">
+                            <each args="$parent.getRegion('shippingAdditional')" render="" />
+                        </div>
+                    </td>
+                </tr>
+                <!-- /ko -->
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>

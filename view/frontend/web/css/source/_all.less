@@ -1,68 +1,74 @@
 
 & when (@media-common = true) {
+    .table-checkout-shipping-method {
+        tbody {
+            background: white;
+        }
+    }
     .wexo-shipping-additional {
-        background: white;
-        border: 2px solid @border-color__base;
-        border-radius: 4px;
-        padding: @indent__m @indent__m 0;
-        margin-bottom: @indent__l;
+        background: rgba(0,0,0,0.05);
+        border-top: 2px solid rgba(29, 29, 29, 0.15);
+        box-shadow: inset 0 4px 8px -4px rgba(0, 0, 0, 0.15), 0px 2px 2px rgba(0, 0, 0, 0.12);
+        padding: @indent__m @indent__m @indent__xl;
 
-        .content-top {
-            padding-bottom: @indent__s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0 -@indent__m;
 
-            & > * {
-                margin: 0 @indent__m;
-            }
-
-            .fieldset {
-                margin: 0;
-                flex: 1px;
-            }
+        .map-wrapper {
+            margin: @indent__m 0;
         }
 
-        .content-bottom {
-            margin: 0 -@indent__m;
-            display: flex;
-            border-top: 2px solid @border-color__base;
+        .shipping-method-content {
+            margin: 0 auto;
+            max-width: 90%;
 
-            .map {
-                width: 50%;
-                height: inherit;
-                flex: 1;
+            .title {
+                &:extend(.abs-checkout-title all);
+                font-size: 2.4rem;
+                border-bottom: 0;
+                text-align: center;
+                margin-bottom: @indent__m;
             }
+            .ws-search-by {
+                &:extend(.abs-checkout-title all);
+                font-size: 1em;
+                border-bottom: 0;
+                opacity: 0.8;
+                margin-bottom: 1px;
+            }
+            .ws-flex {
+                display: flex;
+                margin: 0 -@indent__xs;
 
-            .parcel-shops-list {
-                width: 50%;
-                flex: 1;
-                padding: @indent__m;
-
-                .filter {
-                    margin-bottom: @indent__m
+                & > * {
+                    margin: 0 @indent__xs;
                 }
-
-                .parcel-shop {
-                    margin-bottom: @indent__s;
-
-                    label {
-                        .company {
-                            font-size: 14px;
-                            display: block;
-                            width: 100%;
-                        }
-                    }
-
-                    .address {
-                        color: @color-gray-light5;
-                        font-size: 12px;
-                        display: block;
-                        width: 100%;
-                    }
+                input, button {
+                    height: 44px;
+                }
+                button {
+                    padding: 0 @indent__l;
+                }
+                .fieldset {
+                    flex: 1;
                 }
             }
+        }
+    }
+    .table-checkout-shipping-method tbody {
+        td.col-image {
+            width: 20%;
+            position: relative;
+
+            img {
+                position: absolute;
+                height: 90%;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+        td.shipping-method-additional {
+            padding: 0;
+            border: none;
         }
     }
 }

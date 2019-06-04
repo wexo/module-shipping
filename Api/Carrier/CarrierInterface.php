@@ -30,4 +30,12 @@ interface CarrierInterface
      * @return CarrierInterface
      */
     public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate);
+
+    /**
+     * @param ShippingMethodInterface $shippingMethod
+     * @param Rate $rate
+     * @param $typeHandler
+     * @return mixed
+     */
+    public function getImageUrl(ShippingMethodInterface $shippingMethod, Rate $rate, ?string $typeHandler);
 }
