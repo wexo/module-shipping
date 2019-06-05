@@ -2,11 +2,26 @@
 
 namespace Wexo\Shipping\Block\Adminhtml\Rate\Edit;
 
+use Magento\Backend\Block\Template\Context;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
-use Mirasvit\Rewards\Ui\General\Form\Control\GenericButton;
 
-class DeleteButton extends GenericButton implements ButtonProviderInterface
+class DeleteButton implements ButtonProviderInterface
 {
+
+    /**
+     * @var Context
+     */
+    private $context;
+
+    /**
+     * @param Context $context
+     */
+    public function __construct(
+        Context $context
+    )
+    {
+        $this->context = $context;
+    }
 
     /**
      * {@inheritdoc}
@@ -37,6 +52,6 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
      */
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', ['entity_id' => $this->getId()]);
+        return $this->context->getUrlBuilder()->getUrl('*/*/delete', ['entity_id' => $this->getId()]);
     }
 }

@@ -4,10 +4,9 @@
 namespace Wexo\Shipping\Block\Adminhtml\Rate\Edit;
 
 
-use Magento\Cms\Block\Adminhtml\Page\Edit\GenericButton;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
-class SaveButton extends GenericButton implements ButtonProviderInterface
+class SaveButton implements ButtonProviderInterface
 {
 
     /**
