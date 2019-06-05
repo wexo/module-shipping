@@ -51,7 +51,6 @@
                                                 </item>
                                             </item>
                                         </item>
-
                                     </item>
                                 </item>
                             </item>
@@ -60,5 +59,9 @@
                 </argument>
             </arguments>
         </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="wexo-shipping.parcelshop.popup"
+                   template="Wexo_Shipping::parcel-shop/popup.phtml"/>
+        </referenceContainer>
     </body>
 </page>

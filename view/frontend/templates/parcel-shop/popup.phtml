@@ -1,0 +1,21 @@
+<div class="ws-parcelshop-popup" data-bind="scope: 'wsParcelshopPopup'" data-mage-init='{ "Wexo_Shipping/js/view/parcel-shop/modal": {} }'>
+    <!-- ko if: modalComponent() -->
+        <!-- ko with: modalComponent() -->
+            <!-- ko template: modalTpl --><!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "wsParcelshopPopup": {
+                    "component": "Wexo_Shipping/js/view/parcel-shop/popup"
+                }
+            }
+        }
+    }
+}
+</script>
