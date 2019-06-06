@@ -15,14 +15,22 @@ define([
         },
 
         open: function(componentInstance, onOpen) {
-            if(modal()) {
+            if (modal()) {
                 component(componentInstance);
-                modal().element.trigger('openModal');
+                modal().openModal();
 
-                if(onOpen) {
+                if (onOpen) {
                     onOpen(modal().element);
                 }
             }
+        },
+
+        close: function() {
+            if (modal()) {
+                component() && component().onModalClose && component().onModalClose(modal());
+                component(null);
+                modal().closeModal();
+            }
         }
-    }
+    };
 });

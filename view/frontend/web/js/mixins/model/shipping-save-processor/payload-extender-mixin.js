@@ -1,6 +1,6 @@
 define([
     'mage/utils/wrapper',
-    'Wexo_Shipping/js/model/shipping-data-payload',
+    'Wexo_Shipping/js/model/shipping-data-payload'
 ], function(wrapper, shippingDataPayload) {
     'use strict';
 
@@ -11,7 +11,7 @@ define([
             payload = originalAction(payload);
 
             payload.addressInformation['extension_attributes']['wexo_shipping_data'] = JSON.stringify(
-                shippingDataPayload(),
+                shippingDataPayload()
             );
 
             return payload;

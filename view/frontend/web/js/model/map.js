@@ -11,37 +11,35 @@ define([
         mapInstance: mapInstance,
         element: mapElement,
 
-
-        changeElement: function(element) {
-            if(!mapInstance()) {
-                this._createMapBox(element)
+        changeElement: function(element, height) {
+            if (!mapInstance()) {
+                this._createMapBox(element);
             }
             element.appendChild(mapElement);
-            mapElement.style.height = '300px';
             setTimeout(function() {
                 mapInstance().resize();
-            }, 100);
-            console.log(mapInstance())
+            });
         },
 
         clearMarkers: function() {
             markers.forEach(function(marker) {
                 marker.remove();
-            })
+            });
         },
 
         _createMapBox: function() {
             mapInstance(
-                  new MapBox.Map({
-                      container: mapElement,
-                      zoom: 13,
-                      style: 'mapbox://styles/mapbox/light-v9'
-                  })
+                new MapBox.Map({
+                    container: mapElement,
+                    zoom: 13,
+                    style: 'mapbox://styles/mapbox/light-v9',
+                    interactive: false
+                })
             );
         },
 
         addMarker: function(lng, lat) {
-            if(mapInstance()) {
+            if (mapInstance()) {
                 var marker = new MapBox.Marker()
                     .setLngLat([lng, lat])
                     .addTo(mapInstance());
@@ -50,6 +48,14 @@ define([
                 return marker;
             }
             return false;
+        },
+
+        moveTo: function(lng, lat) {
+            if (mapInstance()) {
+                mapInstance().panTo([lng, lat]);
+                return true;
+            }
+            return false;
         }
-    }
+    };
 });

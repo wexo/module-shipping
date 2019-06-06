@@ -1,11 +1,19 @@
 define([
     'Magento_Checkout/js/model/quote',
-], function(quote) {
+    'uiRegistry'
+], function(quote, uiRegistry) {
     'use strict';
 
     return {
+
+        /**
+         * @returns {boolean}
+         */
         validate: function() {
-            return true;
-        },
+            var checkoutProvider = uiRegistry.get('checkoutProvider');
+            checkoutProvider.trigger('wexoShippingData.data.validate');
+
+            return !(checkoutProvider.get('params.invalid') === false);
+        }
     };
 });

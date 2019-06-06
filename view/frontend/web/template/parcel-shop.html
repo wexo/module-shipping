@@ -1,0 +1,27 @@
+<div class="ws-parcelshop">
+    <div class="ws-shipping-method-content">
+        <div class="ws-shipping-method-search" data-bind="visible: !chosenParcelShop()">
+            <div class="ws-title">
+                <span data-bind="text: label"></span>
+            </div>
+            <div class="ws-content-top">
+                <div class="ws-fieldset">
+                    <!-- ko foreach: getRegion('fields') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!-- /ko -->
+                </div>
+                <button class="action primary ws-search-button" data-bind="click: search">
+                <span>
+                    <span translate="'Search'"></span>
+                </span>
+                </button>
+            </div>
+        </div>
+        <div class="chosen-parcel-shop" data-bind="visible: chosenParcelShop(), with: chosenParcelShop()">
+            <div class="ws-map" data-bind="afterRender: $parent.showMap.bind($parent, $data)"></div>
+            <!-- ko template: $parent.getChosenItemTemplate() --><!-- /ko -->
+            <a class="cancel-parcel-shop"
+               data-bind="click: $parent.setChoosenParcelShop.bind($parent, null), i18n: 'Choose Another ParcelShop'"></a>
+        </div>
+    </div>
+</div>

@@ -7,25 +7,25 @@
 <tr class="row"
     click="element.selectShippingMethod">
     <td class="col col-method">
-        <input type="radio"
+        <input attr="'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
+                    'checked': element.rates().length == 1 || element.isSelected"
                class="radio"
                ifnot="method.error_message"
                ko-checked="element.isSelected"
                ko-value="method.carrier_code + '_' + method.method_code"
-               attr="'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
-                    'checked': element.rates().length == 1 || element.isSelected" />
+               type="radio"/>
     </td>
     <td class="col col-price">
-        <each args="element.getRegion('price')" render="" />
+        <each args="element.getRegion('price')" render=""/>
     </td>
-    <td class="col col-method"
-        attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code"
-        text="method.method_title" />
-    <td class="col col-carrier"
-        attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
-        text="method.carrier_title" />
-    <td class="col col-image"
-        attr="'id': 'label_image_' + method.method_code + '_' + method.carrier_code"
+    <td attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code"
+        class="col col-method"
+        text="method.method_title"/>
+    <td attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
+        class="col col-carrier"
+        text="method.carrier_title"/>
+    <td attr="'id': 'label_image_' + method.method_code + '_' + method.carrier_code"
+        class="col col-image"
     >
         <if args="method.extension_attributes && method.extension_attributes.wexo_shipping_method_image">
             <img data-bind="attr: { src: method.extension_attributes.wexo_shipping_method_image }">
@@ -35,12 +35,12 @@
 <tr class="row row-error"
     if="method.error_message">
     <td class="col col-error" colspan="4">
-        <div role="alert" class="message error">
+        <div class="message error" role="alert">
             <div text="method.error_message"></div>
         </div>
         <span class="no-display">
-            <input type="radio"
-                   attr="'value' : method.method_code, 'id': 's_method_' + method.method_code" />
+            <input attr="'value' : method.method_code, 'id': 's_method_' + method.method_code"
+                   type="radio"/>
         </span>
     </td>
 </tr>

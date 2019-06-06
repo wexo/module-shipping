@@ -1,5 +1,5 @@
 define([
-    'uiRegistry',
+    'uiRegistry'
 ], function(uiRegistry) {
 
     return function() {

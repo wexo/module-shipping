@@ -161,7 +161,7 @@
                     a = e.y + n * (this.x - e.x) + r * (this.y - e.y);
                 return this.x = i, this.y = a, this;
             },
-            _round: function() {return this.x = Math.round(this.x), this.y = Math.round(this.y), this;},
+            _round: function() {return this.x = Math.round(this.x), this.y = Math.round(this.y), this;}
         }, a.convert = function(t) {return t instanceof a ? t : Array.isArray(t) ? new a(t[0], t[1]) : t;};
         var u = s(.25, .1, .25, 1);
 
@@ -266,7 +266,7 @@
                 },
                 resolveURL: function(t) {return z || (z = self.document.createElement('a')), z.href = t, z.href;},
                 hardwareConcurrency: self.navigator.hardwareConcurrency || 4,
-                get devicePixelRatio() {return self.devicePixelRatio;},
+                get devicePixelRatio() {return self.devicePixelRatio;}
             }, P = {
                 API_URL: 'https://api.mapbox.com',
                 get EVENTS_URL() {
@@ -281,14 +281,14 @@
                 FEEDBACK_URL: 'https://apps.mapbox.com/feedback',
                 REQUIRE_ACCESS_TOKEN: !0,
                 ACCESS_TOKEN: null,
-                MAX_PARALLEL_IMAGE_REQUESTS: 16,
+                MAX_PARALLEL_IMAGE_REQUESTS: 16
             }, V = {
                 supported: !1, testSupport: function(t) {
                     if (F || !B) {
                         return;
                     }
                     L ? O(t) : I = t;
-                },
+                }
             }, F = !1, L = !1;
 
         function O(t) {
@@ -430,10 +430,10 @@
                 return null;
             }
             try {
-                return JSON.parse((e = r[1], decodeURIComponent(self.atob(e).
-                    split('').
-                    map(function(t) {return '%' + ('00' + t.charCodeAt(0).toString(16)).slice(-2);}).
-                    join(''))));
+                return JSON.parse((e = r[1], decodeURIComponent(self.atob(e)
+                    .split('')
+                    .map(function(t) {return '%' + ('00' + t.charCodeAt(0).toString(16)).slice(-2);})
+                    .join(''))));
             }
             catch (t) {return null;}
         }
@@ -442,8 +442,8 @@
         it.prototype.getStorageKey = function(t) {
             var e, r = nt(P.ACCESS_TOKEN), n = '';
             return r && r.u
-                ? (e = r.u, n = self.btoa(encodeURIComponent(e).
-                    replace(/%([0-9A-F]{2})/g, function(t, e) {return String.fromCharCode(Number('0x' + e));})))
+                ? (e = r.u, n = self.btoa(encodeURIComponent(e)
+                    .replace(/%([0-9A-F]{2})/g, function(t, e) {return String.fromCharCode(Number('0x' + e));})))
                 : n = P.ACCESS_TOKEN || '', t ? 'mapbox.eventData.' + t + ':' + n : 'mapbox.eventData:' + n;
         }, it.prototype.fetchEventData = function() {
             var t = k('localStorage'), e = this.getStorageKey(), r = this.getStorageKey('uuid');
@@ -476,7 +476,7 @@
                         sdkIdentifier: 'mapbox-gl-js',
                         sdkVersion: '1.0.0',
                         skuId: D,
-                        userId: this.anonId,
+                        userId: this.anonId
                     }, o = e ? c(a, e) : a,
                     s = {url: rt(i), headers: {'Content-Type': 'text/plain'}, body: JSON.stringify([o])};
                 this.pendingRequest = mt(s,
@@ -537,7 +537,7 @@
             Glyphs: 'Glyphs',
             SpriteImage: 'SpriteImage',
             SpriteJSON: 'SpriteJSON',
-            Image: 'Image',
+            Image: 'Image'
         };
         'function' == typeof Object.freeze && Object.freeze(pt);
         var ct = function(t) {
@@ -578,18 +578,16 @@
                                 credentials: t.credentials,
                                 headers: t.headers,
                                 referrer: ft(),
-                                signal: r.signal,
+                                signal: r.signal
                             });
-                            return 'json' === t.type && n.headers.set('Accept', 'application/json'), self.fetch(n).
-                                then(function(r) {
-                                    r.ok ? r[t.type || 'text']().
-                                        then(function(t) {
-                                            e(null, t, r.headers.get('Cache-Control'), r.headers.get('Expires'));
-                                        }).
-                                        catch(function(t) {return e(new Error(t.message));}) : e(
+                            return 'json' === t.type && n.headers.set('Accept', 'application/json'), self.fetch(n)
+                                .then(function(r) {
+                                    r.ok ? r[t.type || 'text']().then(function(t) {
+                                        e(null, t, r.headers.get('Cache-Control'), r.headers.get('Expires'));
+                                    }).catch(function(t) {return e(new Error(t.message));}) : e(
                                         new ct(r.statusText, r.status, t.url));
-                                }).
-                                catch(function(t) {
+                                })
+                                .catch(function(t) {
                                     20 !== t.code && e(new Error(t.message));
                                 }), {cancel: function() {return r.abort();}};
                         }(t, e);
@@ -632,7 +630,7 @@
                     requestParameters: t,
                     callback: e,
                     cancelled: !1,
-                    cancel: function() {this.cancelled = !0;},
+                    cancel: function() {this.cancelled = !0;}
                 };
                 return vt.push(r), r;
             }
@@ -727,7 +725,7 @@
                 sprite: {type: 'string'},
                 glyphs: {type: 'string'},
                 transition: {type: 'transition'},
-                layers: {required: !0, type: 'array', value: 'layer'},
+                layers: {required: !0, type: 'array', value: 'layer'}
             },
             sources: {'*': {type: 'source'}},
             source: [
@@ -746,7 +744,7 @@
                 minzoom: {type: 'number', default: 0},
                 maxzoom: {type: 'number', default: 22},
                 attribution: {type: 'string'},
-                '*': {type: '*'},
+                '*': {type: '*'}
             },
             source_raster: {
                 type: {required: !0, type: 'enum', values: {raster: {}}},
@@ -758,7 +756,7 @@
                 tileSize: {type: 'number', default: 512, units: 'pixels'},
                 scheme: {type: 'enum', values: {xyz: {}, tms: {}}, default: 'xyz'},
                 attribution: {type: 'string'},
-                '*': {type: '*'},
+                '*': {type: '*'}
             },
             source_raster_dem: {
                 type: {required: !0, type: 'enum', values: {'raster-dem': {}}},
@@ -770,7 +768,7 @@
                 tileSize: {type: 'number', default: 512, units: 'pixels'},
                 attribution: {type: 'string'},
                 encoding: {type: 'enum', values: {terrarium: {}, mapbox: {}}, default: 'mapbox'},
-                '*': {type: '*'},
+                '*': {type: '*'}
             },
             source_geojson: {
                 type: {required: !0, type: 'enum', values: {geojson: {}}},
@@ -784,7 +782,7 @@
                 clusterMaxZoom: {type: 'number'},
                 clusterProperties: {type: '*'},
                 lineMetrics: {type: 'boolean', default: !1},
-                generateId: {type: 'boolean', default: !1},
+                generateId: {type: 'boolean', default: !1}
             },
             source_video: {
                 type: {required: !0, type: 'enum', values: {video: {}}},
@@ -793,8 +791,8 @@
                     required: !0,
                     type: 'array',
                     length: 4,
-                    value: {type: 'array', length: 2, value: 'number'},
-                },
+                    value: {type: 'array', length: 2, value: 'number'}
+                }
             },
             source_image: {
                 type: {required: !0, type: 'enum', values: {image: {}}},
@@ -803,8 +801,8 @@
                     required: !0,
                     type: 'array',
                     length: 4,
-                    value: {type: 'array', length: 2, value: 'number'},
-                },
+                    value: {type: 'array', length: 2, value: 'number'}
+                }
             },
             layer: {
                 id: {type: 'string', required: !0},
@@ -819,9 +817,9 @@
                         'fill-extrusion': {},
                         raster: {},
                         hillshade: {},
-                        background: {},
+                        background: {}
                     },
-                    required: !0,
+                    required: !0
                 },
                 metadata: {type: '*'},
                 source: {type: 'string'},
@@ -830,7 +828,7 @@
                 maxzoom: {type: 'number', minimum: 0, maximum: 24},
                 filter: {type: 'filter'},
                 layout: {type: 'layout'},
-                paint: {type: 'paint'},
+                paint: {type: 'paint'}
             },
             layout: [
                 'layout_fill',
@@ -847,40 +845,40 @@
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             layout_fill: {
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             layout_circle: {
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             layout_heatmap: {
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             'layout_fill-extrusion': {
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             layout_line: {
                 'line-cap': {
@@ -888,35 +886,35 @@
                     values: {butt: {}, round: {}, square: {}},
                     default: 'butt',
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'line-join': {
                     type: 'enum',
                     values: {bevel: {}, round: {}, miter: {}},
                     default: 'miter',
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'line-miter-limit': {
                     type: 'number',
                     default: 2,
                     requires: [{'line-join': 'miter'}],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'line-round-limit': {
                     type: 'number',
                     default: 1.05,
                     requires: [{'line-join': 'round'}],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             layout_symbol: {
                 'symbol-placement': {
@@ -924,7 +922,7 @@
                     values: {point: {}, line: {}, 'line-center': {}},
                     default: 'point',
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'symbol-spacing': {
                     type: 'number',
@@ -933,46 +931,46 @@
                     units: 'pixels',
                     requires: [{'symbol-placement': 'line'}],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'symbol-avoid-edges': {
                     type: 'boolean',
                     default: !1,
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'symbol-sort-key': {
                     type: 'number',
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'symbol-z-order': {
                     type: 'enum',
                     values: {auto: {}, 'viewport-y': {}, source: {}},
                     default: 'auto',
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-allow-overlap': {
                     type: 'boolean',
                     default: !1,
                     requires: ['icon-image'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-ignore-placement': {
                     type: 'boolean',
                     default: !1,
                     requires: ['icon-image'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-optional': {
                     type: 'boolean',
                     default: !1,
                     requires: ['icon-image', 'text-field'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-rotation-alignment': {
                     type: 'enum',
@@ -980,7 +978,7 @@
                     default: 'auto',
                     requires: ['icon-image'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-size': {
                     type: 'number',
@@ -989,7 +987,7 @@
                     units: 'factor of the original icon size',
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-text-fit': {
                     type: 'enum',
@@ -997,7 +995,7 @@
                     default: 'none',
                     requires: ['icon-image', 'text-field'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-text-fit-padding': {
                     type: 'array',
@@ -1007,13 +1005,13 @@
                     units: 'pixels',
                     requires: ['icon-image', 'text-field', {'icon-text-fit': ['both', 'width', 'height']}],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-image': {
                     type: 'string',
                     tokens: !0,
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-rotate': {
                     type: 'number',
@@ -1022,7 +1020,7 @@
                     units: 'degrees',
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-padding': {
                     type: 'number',
@@ -1031,7 +1029,7 @@
                     units: 'pixels',
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-keep-upright': {
                     type: 'boolean',
@@ -1041,7 +1039,7 @@
                         {'icon-rotation-alignment': 'map'},
                         {'symbol-placement': ['line', 'line-center']}],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-offset': {
                     type: 'array',
@@ -1050,7 +1048,7 @@
                     default: [0, 0],
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-anchor': {
                     type: 'enum',
@@ -1063,12 +1061,12 @@
                         'top-left': {},
                         'top-right': {},
                         'bottom-left': {},
-                        'bottom-right': {},
+                        'bottom-right': {}
                     },
                     default: 'center',
                     requires: ['icon-image'],
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-pitch-alignment': {
                     type: 'enum',
@@ -1076,7 +1074,7 @@
                     default: 'auto',
                     requires: ['icon-image'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-pitch-alignment': {
                     type: 'enum',
@@ -1084,7 +1082,7 @@
                     default: 'auto',
                     requires: ['text-field'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-rotation-alignment': {
                     type: 'enum',
@@ -1092,14 +1090,14 @@
                     default: 'auto',
                     requires: ['text-field'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-field': {
                     type: 'formatted',
                     default: '',
                     tokens: !0,
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-font': {
                     type: 'array',
@@ -1107,7 +1105,7 @@
                     default: ['Open Sans Regular', 'Arial Unicode MS Regular'],
                     requires: ['text-field'],
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-size': {
                     type: 'number',
@@ -1116,7 +1114,7 @@
                     units: 'pixels',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-max-width': {
                     type: 'number',
@@ -1125,7 +1123,7 @@
                     units: 'ems',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-line-height': {
                     type: 'number',
@@ -1133,7 +1131,7 @@
                     units: 'ems',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-letter-spacing': {
                     type: 'number',
@@ -1141,7 +1139,7 @@
                     units: 'ems',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-justify': {
                     type: 'enum',
@@ -1149,7 +1147,7 @@
                     default: 'center',
                     requires: ['text-field'],
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-radial-offset': {
                     type: 'number',
@@ -1157,7 +1155,7 @@
                     default: 0,
                     requires: [{'!': 'text-offset'}],
                     'property-type': 'data-driven',
-                    expression: {interpolated: !0, parameters: ['zoom', 'feature']},
+                    expression: {interpolated: !0, parameters: ['zoom', 'feature']}
                 },
                 'text-variable-anchor': {
                     type: 'array',
@@ -1171,11 +1169,11 @@
                         'top-left': {},
                         'top-right': {},
                         'bottom-left': {},
-                        'bottom-right': {},
+                        'bottom-right': {}
                     },
                     requires: [{'!': 'text-anchor'}, {'!': 'text-offset'}, {'symbol-placement': ['point']}],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-anchor': {
                     type: 'enum',
@@ -1189,11 +1187,11 @@
                         'top-left': {},
                         'top-right': {},
                         'bottom-left': {},
-                        'bottom-right': {},
+                        'bottom-right': {}
                     },
                     default: 'center',
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-max-angle': {
                     type: 'number',
@@ -1201,7 +1199,7 @@
                     units: 'degrees',
                     requires: ['text-field', {'symbol-placement': ['line', 'line-center']}],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-rotate': {
                     type: 'number',
@@ -1210,7 +1208,7 @@
                     units: 'degrees',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-padding': {
                     type: 'number',
@@ -1219,7 +1217,7 @@
                     units: 'pixels',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-keep-upright': {
                     type: 'boolean',
@@ -1229,7 +1227,7 @@
                         {'text-rotation-alignment': 'map'},
                         {'symbol-placement': ['line', 'line-center']}],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-transform': {
                     type: 'enum',
@@ -1237,7 +1235,7 @@
                     default: 'none',
                     requires: ['text-field'],
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-offset': {
                     type: 'array',
@@ -1247,51 +1245,51 @@
                     default: [0, 0],
                     requires: ['text-field', {'!': 'text-radial-offset'}],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-allow-overlap': {
                     type: 'boolean',
                     default: !1,
                     requires: ['text-field'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-ignore-placement': {
                     type: 'boolean',
                     default: !1,
                     requires: ['text-field'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-optional': {
                     type: 'boolean',
                     default: !1,
                     requires: ['text-field', 'icon-image'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             layout_raster: {
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             layout_hillshade: {
                 visibility: {
                     type: 'enum',
                     values: {visible: {}, none: {}},
                     default: 'visible',
-                    'property-type': 'constant',
-                },
+                    'property-type': 'constant'
+                }
             },
             filter: {type: 'array', value: '*'},
             filter_operator: {
@@ -1309,8 +1307,8 @@
                     any: {},
                     none: {},
                     has: {},
-                    '!has': {},
-                },
+                    '!has': {}
+                }
             },
             geometry_type: {type: 'enum', values: {Point: {}, LineString: {}, Polygon: {}}},
             function: {
@@ -1321,10 +1319,10 @@
                 type: {
                     type: 'enum',
                     values: {identity: {}, exponential: {}, interval: {}, categorical: {}},
-                    default: 'exponential',
+                    default: 'exponential'
                 },
                 colorSpace: {type: 'enum', values: {rgb: {}, lab: {}, hcl: {}}, default: 'rgb'},
-                default: {type: '*', required: !1},
+                default: {type: '*', required: !1}
             },
             function_stop: {type: 'array', minimum: 0, maximum: 22, value: ['number', 'color'], length: 2},
             expression: {type: 'array', value: '*', minimum: 1},
@@ -1406,8 +1404,8 @@
                     upcase: {group: 'String'},
                     downcase: {group: 'String'},
                     concat: {group: 'String'},
-                    'resolved-locale': {group: 'String'},
-                },
+                    'resolved-locale': {group: 'String'}
+                }
             },
             light: {
                 anchor: {
@@ -1416,7 +1414,7 @@
                     values: {map: {}, viewport: {}},
                     'property-type': 'data-constant',
                     transition: !1,
-                    expression: {interpolated: !1, parameters: ['zoom']},
+                    expression: {interpolated: !1, parameters: ['zoom']}
                 },
                 position: {
                     type: 'array',
@@ -1425,14 +1423,14 @@
                     value: 'number',
                     'property-type': 'data-constant',
                     transition: !0,
-                    expression: {interpolated: !0, parameters: ['zoom']},
+                    expression: {interpolated: !0, parameters: ['zoom']}
                 },
                 color: {
                     type: 'color',
                     'property-type': 'data-constant',
                     default: '#ffffff',
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    transition: !0,
+                    transition: !0
                 },
                 intensity: {
                     type: 'number',
@@ -1441,8 +1439,8 @@
                     minimum: 0,
                     maximum: 1,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    transition: !0,
-                },
+                    transition: !0
+                }
             },
             paint: [
                 'paint_fill',
@@ -1459,7 +1457,7 @@
                     type: 'boolean',
                     default: !0,
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'fill-opacity': {
                     type: 'number',
@@ -1468,7 +1466,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'fill-color': {
                     type: 'color',
@@ -1476,14 +1474,14 @@
                     transition: !0,
                     requires: [{'!': 'fill-pattern'}],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'fill-outline-color': {
                     type: 'color',
                     transition: !0,
                     requires: [{'!': 'fill-pattern'}, {'fill-antialias': !0}],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'fill-translate': {
                     type: 'array',
@@ -1493,7 +1491,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'fill-translate-anchor': {
                     type: 'enum',
@@ -1501,14 +1499,14 @@
                     default: 'map',
                     requires: ['fill-translate'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'fill-pattern': {
                     type: 'string',
                     transition: !0,
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'cross-faded-data-driven',
-                },
+                    'property-type': 'cross-faded-data-driven'
+                }
             },
             'paint_fill-extrusion': {
                 'fill-extrusion-opacity': {
@@ -1518,7 +1516,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'fill-extrusion-color': {
                     type: 'color',
@@ -1526,7 +1524,7 @@
                     transition: !0,
                     requires: [{'!': 'fill-extrusion-pattern'}],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'fill-extrusion-translate': {
                     type: 'array',
@@ -1536,7 +1534,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'fill-extrusion-translate-anchor': {
                     type: 'enum',
@@ -1544,13 +1542,13 @@
                     default: 'map',
                     requires: ['fill-extrusion-translate'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'fill-extrusion-pattern': {
                     type: 'string',
                     transition: !0,
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'cross-faded-data-driven',
+                    'property-type': 'cross-faded-data-driven'
                 },
                 'fill-extrusion-height': {
                     type: 'number',
@@ -1559,7 +1557,7 @@
                     units: 'meters',
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'fill-extrusion-base': {
                     type: 'number',
@@ -1569,15 +1567,15 @@
                     transition: !0,
                     requires: ['fill-extrusion-height'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'fill-extrusion-vertical-gradient': {
                     type: 'boolean',
                     default: !0,
                     transition: !1,
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
-                },
+                    'property-type': 'data-constant'
+                }
             },
             paint_line: {
                 'line-opacity': {
@@ -1587,7 +1585,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'line-color': {
                     type: 'color',
@@ -1595,7 +1593,7 @@
                     transition: !0,
                     requires: [{'!': 'line-pattern'}],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'line-translate': {
                     type: 'array',
@@ -1605,7 +1603,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'line-translate-anchor': {
                     type: 'enum',
@@ -1613,7 +1611,7 @@
                     default: 'map',
                     requires: ['line-translate'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'line-width': {
                     type: 'number',
@@ -1622,7 +1620,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'line-gap-width': {
                     type: 'number',
@@ -1631,7 +1629,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'line-offset': {
                     type: 'number',
@@ -1639,7 +1637,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'line-blur': {
                     type: 'number',
@@ -1648,7 +1646,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'line-dasharray': {
                     type: 'array',
@@ -1658,13 +1656,13 @@
                     units: 'line widths',
                     requires: [{'!': 'line-pattern'}],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'cross-faded',
+                    'property-type': 'cross-faded'
                 },
                 'line-pattern': {
                     type: 'string',
                     transition: !0,
                     expression: {interpolated: !1, parameters: ['zoom', 'feature']},
-                    'property-type': 'cross-faded-data-driven',
+                    'property-type': 'cross-faded-data-driven'
                 },
                 'line-gradient': {
                     type: 'color',
@@ -1674,8 +1672,8 @@
                         {'!': 'line-pattern'},
                         {source: 'geojson', has: {lineMetrics: !0}}],
                     expression: {interpolated: !0, parameters: ['line-progress']},
-                    'property-type': 'color-ramp',
-                },
+                    'property-type': 'color-ramp'
+                }
             },
             paint_circle: {
                 'circle-radius': {
@@ -1685,21 +1683,21 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'circle-color': {
                     type: 'color',
                     default: '#000000',
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'circle-blur': {
                     type: 'number',
                     default: 0,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'circle-opacity': {
                     type: 'number',
@@ -1708,7 +1706,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'circle-translate': {
                     type: 'array',
@@ -1718,7 +1716,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'circle-translate-anchor': {
                     type: 'enum',
@@ -1726,21 +1724,21 @@
                     default: 'map',
                     requires: ['circle-translate'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'circle-pitch-scale': {
                     type: 'enum',
                     values: {map: {}, viewport: {}},
                     default: 'map',
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'circle-pitch-alignment': {
                     type: 'enum',
                     values: {map: {}, viewport: {}},
                     default: 'viewport',
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'circle-stroke-width': {
                     type: 'number',
@@ -1749,14 +1747,14 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'circle-stroke-color': {
                     type: 'color',
                     default: '#000000',
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'circle-stroke-opacity': {
                     type: 'number',
@@ -1765,8 +1763,8 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
-                },
+                    'property-type': 'data-driven'
+                }
             },
             paint_heatmap: {
                 'heatmap-radius': {
@@ -1776,7 +1774,7 @@
                     transition: !0,
                     units: 'pixels',
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'heatmap-weight': {
                     type: 'number',
@@ -1784,7 +1782,7 @@
                     minimum: 0,
                     transition: !1,
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'heatmap-intensity': {
                     type: 'number',
@@ -1792,7 +1790,7 @@
                     minimum: 0,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'heatmap-color': {
                     type: 'color',
@@ -1814,7 +1812,7 @@
                         'red'],
                     transition: !1,
                     expression: {interpolated: !0, parameters: ['heatmap-density']},
-                    'property-type': 'color-ramp',
+                    'property-type': 'color-ramp'
                 },
                 'heatmap-opacity': {
                     type: 'number',
@@ -1823,8 +1821,8 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
-                },
+                    'property-type': 'data-constant'
+                }
             },
             paint_symbol: {
                 'icon-opacity': {
@@ -1835,7 +1833,7 @@
                     transition: !0,
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-color': {
                     type: 'color',
@@ -1843,7 +1841,7 @@
                     transition: !0,
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-halo-color': {
                     type: 'color',
@@ -1851,7 +1849,7 @@
                     transition: !0,
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-halo-width': {
                     type: 'number',
@@ -1861,7 +1859,7 @@
                     units: 'pixels',
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-halo-blur': {
                     type: 'number',
@@ -1871,7 +1869,7 @@
                     units: 'pixels',
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'icon-translate': {
                     type: 'array',
@@ -1882,7 +1880,7 @@
                     units: 'pixels',
                     requires: ['icon-image'],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'icon-translate-anchor': {
                     type: 'enum',
@@ -1890,7 +1888,7 @@
                     default: 'map',
                     requires: ['icon-image', 'icon-translate'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-opacity': {
                     type: 'number',
@@ -1900,7 +1898,7 @@
                     transition: !0,
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-color': {
                     type: 'color',
@@ -1908,7 +1906,7 @@
                     transition: !0,
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-halo-color': {
                     type: 'color',
@@ -1916,7 +1914,7 @@
                     transition: !0,
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-halo-width': {
                     type: 'number',
@@ -1926,7 +1924,7 @@
                     units: 'pixels',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-halo-blur': {
                     type: 'number',
@@ -1936,7 +1934,7 @@
                     units: 'pixels',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom', 'feature', 'feature-state']},
-                    'property-type': 'data-driven',
+                    'property-type': 'data-driven'
                 },
                 'text-translate': {
                     type: 'array',
@@ -1947,7 +1945,7 @@
                     units: 'pixels',
                     requires: ['text-field'],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'text-translate-anchor': {
                     type: 'enum',
@@ -1955,8 +1953,8 @@
                     default: 'map',
                     requires: ['text-field', 'text-translate'],
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
-                },
+                    'property-type': 'data-constant'
+                }
             },
             paint_raster: {
                 'raster-opacity': {
@@ -1966,7 +1964,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'raster-hue-rotate': {
                     type: 'number',
@@ -1975,7 +1973,7 @@
                     transition: !0,
                     units: 'degrees',
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'raster-brightness-min': {
                     type: 'number',
@@ -1984,7 +1982,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'raster-brightness-max': {
                     type: 'number',
@@ -1993,7 +1991,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'raster-saturation': {
                     type: 'number',
@@ -2002,7 +2000,7 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'raster-contrast': {
                     type: 'number',
@@ -2011,14 +2009,14 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'raster-resampling': {
                     type: 'enum',
                     values: {linear: {}, nearest: {}},
                     default: 'linear',
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'raster-fade-duration': {
                     type: 'number',
@@ -2027,8 +2025,8 @@
                     transition: !1,
                     units: 'milliseconds',
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
-                },
+                    'property-type': 'data-constant'
+                }
             },
             paint_hillshade: {
                 'hillshade-illumination-direction': {
@@ -2038,14 +2036,14 @@
                     maximum: 359,
                     transition: !1,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'hillshade-illumination-anchor': {
                     type: 'enum',
                     values: {map: {}, viewport: {}},
                     default: 'viewport',
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'hillshade-exaggeration': {
                     type: 'number',
@@ -2054,29 +2052,29 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'hillshade-shadow-color': {
                     type: 'color',
                     default: '#000000',
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'hillshade-highlight-color': {
                     type: 'color',
                     default: '#FFFFFF',
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'hillshade-accent-color': {
                     type: 'color',
                     default: '#000000',
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
-                },
+                    'property-type': 'data-constant'
+                }
             },
             paint_background: {
                 'background-color': {
@@ -2085,13 +2083,13 @@
                     transition: !0,
                     requires: [{'!': 'background-pattern'}],
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
+                    'property-type': 'data-constant'
                 },
                 'background-pattern': {
                     type: 'string',
                     transition: !0,
                     expression: {interpolated: !1, parameters: ['zoom']},
-                    'property-type': 'cross-faded',
+                    'property-type': 'cross-faded'
                 },
                 'background-opacity': {
                     type: 'number',
@@ -2100,12 +2098,12 @@
                     maximum: 1,
                     transition: !0,
                     expression: {interpolated: !0, parameters: ['zoom']},
-                    'property-type': 'data-constant',
-                },
+                    'property-type': 'data-constant'
+                }
             },
             transition: {
                 duration: {type: 'number', default: 300, minimum: 0, units: 'milliseconds'},
-                delay: {type: 'number', default: 0, minimum: 0, units: 'milliseconds'},
+                delay: {type: 'number', default: 0, minimum: 0, units: 'milliseconds'}
             },
             'property-type': {
                 'data-driven': {type: 'property-type'},
@@ -2113,8 +2111,8 @@
                 'cross-faded-data-driven': {type: 'property-type'},
                 'color-ramp': {type: 'property-type'},
                 'data-constant': {type: 'property-type'},
-                constant: {type: 'property-type'},
-            },
+                constant: {type: 'property-type'}
+            }
         }, zt = function(t, e, r, n) {
             this.message = (t ? t + ': ' : '') + r, n && (this.identifier = n), null != e && e.__line__ &&
             (this.line = e.__line__);
@@ -2358,7 +2356,7 @@
                     white: [255, 255, 255, 1],
                     whitesmoke: [245, 245, 245, 1],
                     yellow: [255, 255, 0, 1],
-                    yellowgreen: [154, 205, 50, 1],
+                    yellowgreen: [154, 205, 50, 1]
                 };
 
                 function n(t) {return (t = Math.round(t)) < 0 ? 0 : t > 255 ? 255 : t;}
@@ -2524,8 +2522,7 @@
         Yt.fromString = function(t) {
             return new Yt([new Ht(t, null, null)]);
         }, Yt.prototype.toString = function() {
-            return this.sections.map(function(t) {return t.text;}).
-                join('');
+            return this.sections.map(function(t) {return t.text;}).join('');
         }, Yt.prototype.serialize = function() {
             for (var t = ['format'], e = 0, r = this.sections; e < r.length; e += 1) {
                 var n = r[e];
@@ -2963,8 +2960,8 @@
         };
         var de = function(t, e, r, n, i) {
             void 0 === e && (e = []), void 0 === n && (n = new Tt), void 0 === i &&
-            (i = []), this.registry = t, this.path = e, this.key = e.map(function(t) {return '[' + t + ']';}).
-                join(''), this.scope = n, this.errors = i, this.expectedType = r;
+            (i = []), this.registry = t, this.path = e, this.key = e.map(function(t) {return '[' + t + ']';})
+                .join(''), this.scope = n, this.errors = i, this.expectedType = r;
         };
 
         function me(t, e) {
@@ -2986,8 +2983,7 @@
         }
 
         de.prototype.parse = function(t, e, r, n, i) {
-            return void 0 === i && (i = {}), e ? this.concat(e, r, n).
-                _parse(t, i) : this._parse(t, i);
+            return void 0 === i && (i = {}), e ? this.concat(e, r, n)._parse(t, i) : this._parse(t, i);
         }, de.prototype._parse = function(t, e) {
             function r(t, e, r) {return 'assert' === r ? new ne(e, [t]) : 'coerce' === r ? new oe(e, [t]) : t;}
 
@@ -3142,7 +3138,7 @@
                 color: function(t, e, r) {
                     return new Zt(ge(t.r, e.r, r), ge(t.g, e.g, r), ge(t.b, e.b, r), ge(t.a, e.a, r));
                 },
-                array: function(t, e, r) {return t.map(function(t, n) {return ge(t, e[n], r);});},
+                array: function(t, e, r) {return t.map(function(t, n) {return ge(t, e[n], r);});}
             }), be = .95047, _e = 1, we = 1.08883, Ae = 4 / 29, Se = 6 / 29, ke = 3 * Se * Se, ze = Se * Se * Se,
             Ie = Math.PI / 180, Be = 180 / Math.PI;
 
@@ -3161,7 +3157,7 @@
                 l: 116 * a - 16,
                 a: 500 * (i - a),
                 b: 200 * (a - Me((.0193339 * e + .119192 * r + .9503041 * n) / we)),
-                alpha: t.a,
+                alpha: t.a
             };
         }
 
@@ -3185,9 +3181,9 @@
                     l: ge(t.l, e.l, r),
                     a: ge(t.a, e.a, r),
                     b: ge(t.b, e.b, r),
-                    alpha: ge(t.alpha, e.alpha, r),
+                    alpha: ge(t.alpha, e.alpha, r)
                 };
-            },
+            }
         }, Oe = {
             forward: function(t) {
                 var e = Pe(t), r = e.l, n = e.a, i = e.b, a = Math.atan2(i, n) * Be;
@@ -3202,9 +3198,9 @@
                     h: Fe(t.h, e.h, r),
                     c: ge(t.c, e.c, r),
                     l: ge(t.l, e.l, r),
-                    alpha: ge(t.alpha, e.alpha, r),
+                    alpha: ge(t.alpha, e.alpha, r)
                 };
-            },
+            }
         }, De = Object.freeze({lab: Le, hcl: Oe}), Re = function(t, e, r, n, i) {
             this.type = t, this.operator = e, this.interpolation = r, this.input = n, this.labels = [], this.outputs = [];
             for (var a = 0, o = i; a < o.length; a += 1) {
@@ -3492,8 +3488,8 @@
             t(this.input), this.outputs.forEach(t), t(this.otherwise);
         }, Ke.prototype.possibleOutputs = function() {
             var t;
-            return (t = []).concat.apply(t, this.outputs.map(function(t) {return t.possibleOutputs();})).
-                concat(this.otherwise.possibleOutputs());
+            return (t = []).concat.apply(t, this.outputs.map(function(t) {return t.possibleOutputs();}))
+                .concat(this.otherwise.possibleOutputs());
         }, Ke.prototype.serialize = function() {
             for (var t = this, e = [
                 'match',
@@ -3539,16 +3535,16 @@
                         return null;
                     }
                     if (!Xe(r, a.type)) {
-                        return e.concat(1).
-                            error('"' + r + '" comparisons are not supported for type \'' + Nt(a.type) + '\'.');
+                        return e.concat(1)
+                            .error('"' + r + '" comparisons are not supported for type \'' + Nt(a.type) + '\'.');
                     }
                     var o = e.parse(t[2], 2, Rt);
                     if (!o) {
                         return null;
                     }
                     if (!Xe(r, o.type)) {
-                        return e.concat(2).
-                            error('"' + r + '" comparisons are not supported for type \'' + Nt(o.type) + '\'.');
+                        return e.concat(2)
+                            .error('"' + r + '" comparisons are not supported for type \'' + Nt(o.type) + '\'.');
                     }
                     if (a.type.kind !== o.type.kind && 'value' !== a.type.kind && 'value' !==
                         o.type.kind) {
@@ -3686,7 +3682,7 @@
                 style: this.currency ? 'currency' : 'decimal',
                 currency: this.currency ? this.currency.evaluate(t) : void 0,
                 minimumFractionDigits: this.minFractionDigits ? this.minFractionDigits.evaluate(t) : void 0,
-                maximumFractionDigits: this.maxFractionDigits ? this.maxFractionDigits.evaluate(t) : void 0,
+                maximumFractionDigits: this.maxFractionDigits ? this.maxFractionDigits.evaluate(t) : void 0
             }).format(this.number.evaluate(t));
         }, er.prototype.eachChild = function(t) {
             t(this.number), this.locale && t(this.locale), this.currency && t(this.currency), this.minFractionDigits &&
@@ -3754,7 +3750,7 @@
             'to-color': oe,
             'to-number': oe,
             'to-string': oe,
-            var: ye,
+            var: ye
         };
 
         function ir(t, e) {
@@ -3853,7 +3849,7 @@
                         if (void 0 !== r && void 0 !== n) {
                             return l(r, n, o);
                         }
-                    },
+                    }
                 }
                 : l(s, u, o);
         }
@@ -3891,7 +3887,7 @@
                         [Ft, Dt], function(t, e) {
                         var r = e[0], n = e[1];
                         return ar(r.evaluate(t), n.evaluate(t));
-                    }]],
+                    }]]
             },
             get: {
                 type: Rt,
@@ -3901,7 +3897,7 @@
                         [Ft, Dt], function(t, e) {
                         var r = e[0], n = e[1];
                         return or(r.evaluate(t), n.evaluate(t));
-                    }]],
+                    }]]
             },
             'feature-state': [Rt, [Ft], function(t, e) {return or(e[0].evaluate(t), t.featureState || {});}],
             properties: [Dt, [], function(t) {return t.properties();}],
@@ -3934,7 +3930,7 @@
                         [Vt, Vt], function(t, e) {
                         var r = e[0], n = e[1];
                         return r.evaluate(t) - n.evaluate(t);
-                    }], [[Vt], function(t, e) {return -e[0].evaluate(t);}]],
+                    }], [[Vt], function(t, e) {return -e[0].evaluate(t);}]]
             },
             '/': [
                 Vt, [Vt, Vt], function(t, e) {
@@ -4130,7 +4126,7 @@
                                 }
                             }
                             return !0;
-                        }]],
+                        }]]
             },
             any: {
                 type: Lt, overloads: [
@@ -4148,7 +4144,7 @@
                                 }
                             }
                             return !1;
-                        }]],
+                        }]]
             },
             '!': [Lt, [Lt], function(t, e) {return !e[0].evaluate(t);}],
             'is-supported-script': [
@@ -4161,7 +4157,7 @@
             upcase: [Ft, [Ft], function(t, e) {return e[0].evaluate(t).toUpperCase();}],
             downcase: [Ft, [Ft], function(t, e) {return e[0].evaluate(t).toLowerCase();}],
             concat: [Ft, sr(Rt), function(t, e) {return e.map(function(e) {return Qt(e.evaluate(t));}).join('');}],
-            'resolved-locale': [Ft, [Ut], function(t, e) {return e[0].evaluate(t).resolvedLocale();}],
+            'resolved-locale': [Ft, [Ut], function(t, e) {return e[0].evaluate(t).resolvedLocale();}]
         });
         var wr = function(t, e) {
             var r;
@@ -4330,7 +4326,7 @@
                         evaluate: function(t, n) {
                             var i = t.zoom;
                             return xr({stops: x, base: e.base}, r, i).evaluate(i, n);
-                        },
+                        }
                     };
                 }
                 return l ? {
@@ -4341,13 +4337,13 @@
                     evaluate: function(t) {
                         var o = t.zoom;
                         return n(e, r, o, i, a);
-                    },
+                    }
                 } : {
                     kind: 'source',
                     evaluate: function(t, o) {
                         var s = o && o.properties ? o.properties[e.property] : void 0;
                         return void 0 === s ? mr(e.default, r.default) : n(e, r, s, i, a);
-                    },
+                    }
                 };
             }(this._parameters, this._specification));
         };
@@ -4367,7 +4363,7 @@
             var n = t;
             return 'string' == typeof t && 'color' === e.type && (n = Zt.parse(t)), {
                 kind: 'constant',
-                evaluate: function() {return n;},
+                evaluate: function() {return n;}
             };
         }
 
@@ -4402,7 +4398,7 @@
                     style: a,
                     styleSpec: o,
                     object: r,
-                    objectKey: l,
+                    objectKey: l
                 }, r));
             }
             for (var f in n) {
@@ -4437,7 +4433,7 @@
                     valueSpec: s,
                     style: n,
                     styleSpec: i,
-                    key: a + '[' + l + ']',
+                    key: a + '[' + l + ']'
                 }));
             }
             return u;
@@ -4474,15 +4470,15 @@
                                 valueSpec: t.valueSpec,
                                 style: t.style,
                                 styleSpec: t.styleSpec,
-                                arrayElementValidator: c,
+                                arrayElementValidator: c
                             })), 'array' === fr(r) && 0 === r.length &&
                             e.push(new zt(t.key, r, 'array must have at least one stop'));
                             return e;
                         },
                         default: function(t) {
                             return tn({key: t.key, value: t.value, valueSpec: i, style: t.style, styleSpec: t.styleSpec});
-                        },
-                    },
+                        }
+                    }
                 });
             return 'identity' === a && s &&
             p.push(new zt(t.key, t.value, 'missing required property "property"')), 'identity' === a || t.value.stops ||
@@ -4522,7 +4518,7 @@
                         valueSpec: {zoom: {}},
                         style: t.style,
                         styleSpec: t.styleSpec,
-                        objectElementValidators: {zoom: Tr, value: h},
+                        objectElementValidators: {zoom: Tr, value: h}
                     }));
                 }
                 else {
@@ -4654,7 +4650,7 @@
             default: !1,
             transition: !1,
             'property-type': 'data-driven',
-            expression: {interpolated: !1, parameters: ['zoom', 'feature']},
+            expression: {interpolated: !1, parameters: ['zoom', 'feature']}
         };
 
         function Dr(t) {
@@ -4747,7 +4743,7 @@
                         value: r[0],
                         valueSpec: i.filter_operator,
                         style: e.style,
-                        styleSpec: e.styleSpec,
+                        styleSpec: e.styleSpec
                     }));
                     switch (Mt(r[0])) {
                         case'<':
@@ -4770,7 +4766,7 @@
                                     value: r[s],
                                     valueSpec: i.geometry_type,
                                     style: e.style,
-                                    styleSpec: e.styleSpec,
+                                    styleSpec: e.styleSpec
                                 })) : 'string' !== a && 'number' !== a && 'boolean' !== a && o.push(
                                     new zt(n + '[' + s + ']', r[s],
                                         'string, number, or boolean expected, ' + a + ' found'));
@@ -4826,7 +4822,7 @@
                 styleSpec: i,
                 expressionContext: 'property',
                 propertyType: e,
-                propertyKey: o,
+                propertyKey: o
             }));
         }
 
@@ -4891,7 +4887,7 @@
                             style: t.style,
                             styleSpec: t.styleSpec,
                             object: r,
-                            objectKey: 'type',
+                            objectKey: 'type'
                         });
                     },
                     filter: Gr,
@@ -4902,7 +4898,7 @@
                             value: t.value,
                             style: t.style,
                             styleSpec: t.styleSpec,
-                            objectElementValidators: {'*': function(t) {return Jr(Bt({layerType: s}, t));}},
+                            objectElementValidators: {'*': function(t) {return Jr(Bt({layerType: s}, t));}}
                         });
                     },
                     paint: function(t) {
@@ -4912,10 +4908,10 @@
                             value: t.value,
                             style: t.style,
                             styleSpec: t.styleSpec,
-                            objectElementValidators: {'*': function(t) {return Zr(Bt({layerType: s}, t));}},
+                            objectElementValidators: {'*': function(t) {return Zr(Bt({layerType: s}, t));}}
                         });
-                    },
-                },
+                    }
+                }
             }));
         }
 
@@ -4934,7 +4930,7 @@
                         value: e,
                         valueSpec: n['source_' + o.replace('-', '_')],
                         style: t.style,
-                        styleSpec: n,
+                        styleSpec: n
                     }), 'url' in e) {
                         for (var s in e) {
                             ['type', 'url', 'tileSize'].indexOf(s) < 0 && a.push(
@@ -4949,7 +4945,7 @@
                         value: e,
                         valueSpec: n.source_geojson,
                         style: i,
-                        styleSpec: n,
+                        styleSpec: n
                     }), e.cluster) {
                         for (var u in e.clusterProperties) {
                             var l = e.clusterProperties[u], p = l[0], c = l[1],
@@ -4958,7 +4954,7 @@
                                 Vr({
                                     key: r + '.' + u + '.map',
                                     value: c,
-                                    expressionContext: 'cluster-map',
+                                    expressionContext: 'cluster-map'
                                 })), a.push.apply(
                                 a, Vr({key: r + '.' + u + '.reduce', value: h, expressionContext: 'cluster-reduce'}));
                         }
@@ -4979,7 +4975,7 @@
                         value: e.type,
                         valueSpec: {values: ['vector', 'raster', 'raster-dem', 'geojson', 'video', 'image']},
                         style: i,
-                        styleSpec: n,
+                        styleSpec: n
                     });
             }
         }
@@ -5029,7 +5025,7 @@
             source: Yr,
             light: $r,
             string: Wr,
-            formatted: function(t) {return 0 === Wr(t).length ? [] : Vr(t);},
+            formatted: function(t) {return 0 === Wr(t).length ? [] : Vr(t);}
         };
 
         function tn(t) {
@@ -5055,7 +5051,7 @@
                 valueSpec: e.$root,
                 styleSpec: e,
                 style: t,
-                objectElementValidators: {glyphs: en, '*': function() {return [];}},
+                objectElementValidators: {glyphs: en, '*': function() {return [];}}
             })), t.constants && (r = r.concat(It({key: 'constants', value: t.constants, style: t, styleSpec: e}))), nn(
                 r);
         }
@@ -5323,7 +5319,7 @@
             'CJK Compatibility Forms': function(t) {return t >= 65072 && t <= 65103;},
             'Small Form Variants': function(t) {return t >= 65104 && t <= 65135;},
             'Arabic Presentation Forms-B': function(t) {return t >= 65136 && t <= 65279;},
-            'Halfwidth and Fullwidth Forms': function(t) {return t >= 65280 && t <= 65519;},
+            'Halfwidth and Fullwidth Forms': function(t) {return t >= 65280 && t <= 65519;}
         };
 
         function wn(t) {
@@ -5413,7 +5409,7 @@
             applyArabicShaping: null,
             processBidirectionalText: null,
             processStyledBidirectionalText: null,
-            isLoaded: function() {return Cn || null != Pn.applyArabicShaping;},
+            isLoaded: function() {return Cn || null != Pn.applyArabicShaping;}
         }, Vn = function(t, e) {
             this.zoom = t, e
                 ? (this.now = e.now, this.fadeDuration = e.fadeDuration, this.zoomHistory = e.zoomHistory, this.transition = e.transition)
@@ -5611,7 +5607,7 @@
             }, e.prototype._calculate = function(t, e, r, n) {
                 return n.zoom > n.zoomHistory.lastIntegerZoom ? {
                     from: t,
-                    to: e,
+                    to: e
                 } : {from: r, to: e};
             }, e.prototype.interpolate = function(t) {return t;}, e;
         }(Kn), Xn = function(t) {this.specification = t;};
@@ -5628,7 +5624,7 @@
         }, Xn.prototype._calculate = function(t, e, r, n) {
             return n.zoom > n.zoomHistory.lastIntegerZoom ? {
                 from: t,
-                to: e,
+                to: e
             } : {from: r, to: e};
         }, Xn.prototype.interpolate = function(t) {return t;};
         var Zn = function(t) {this.specification = t;};
@@ -5718,7 +5714,7 @@
                     maxzoom: this.maxzoom,
                     filter: this.filter,
                     layout: this._unevaluatedLayout && this._unevaluatedLayout.serialize(),
-                    paint: this._transitionablePaint && this._transitionablePaint.serialize(),
+                    paint: this._transitionablePaint && this._transitionablePaint.serialize()
                 };
                 return this.visibility && (t.layout = t.layout || {}, t.layout.visibility = this.visibility), x(t,
                     function(t, e) {
@@ -5732,7 +5728,7 @@
                     objectKey: r,
                     value: n,
                     styleSpec: kt,
-                    style: {glyphs: !0, sprite: !0},
+                    style: {glyphs: !0, sprite: !0}
                 }));
             }, e.prototype.is3D = function() {return !1;}, e.prototype.isTileClipped = function() {return !1;}, e.prototype.hasOffscreenPass = function() {return !1;}, e.prototype.resize = function() {}, e.prototype.isStateDependent = function() {
                 for (var t in this.paint._values) {
@@ -5752,7 +5748,7 @@
             Uint16: Uint16Array,
             Int32: Int32Array,
             Uint32: Uint32Array,
-            Float32: Float32Array,
+            Float32: Float32Array
         }, $n = function(t, e) {
             this._structArray = t, this._pos1 = e * this.size, this._pos2 = this._pos1 / 2, this._pos4 = this._pos1 /
                 4, this._pos8 = this._pos1 / 8;
@@ -5766,7 +5762,7 @@
                     var i, a = (i = t.type, Yn[i].BYTES_PER_ELEMENT), o = r = ti(r, Math.max(e, a)),
                         s = t.components || 1;
                     return n = Math.max(n, a), r += a * s, {name: t.name, type: t.type, components: s, offset: o};
-                }), size: ti(r, Math.max(n, e)), alignment: e,
+                }), size: ti(r, Math.max(n, e)), alignment: e
             };
         }
 
@@ -5775,7 +5771,7 @@
         Wn.serialize = function(t, e) {
             return t._trim(), e && (t.isTransferred = !0, e.push(t.arrayBuffer)), {
                 length: t.length,
-                arrayBuffer: t.arrayBuffer,
+                arrayBuffer: t.arrayBuffer
             };
         }, Wn.deserialize = function(t) {
             var e = Object.create(this.prototype);
@@ -6154,7 +6150,7 @@
                 bucketIndex: {configurable: !0},
                 radius: {configurable: !0},
                 signedDistanceFromAnchor: {configurable: !0},
-                anchorPoint: {configurable: !0},
+                anchorPoint: {configurable: !0}
             };
             return r.anchorPointX.get = function() {
                 return this._structArray.int16[this._pos2 + 0];
@@ -6233,7 +6229,7 @@
                 lineOffsetY: {configurable: !0},
                 writingMode: {configurable: !0},
                 hidden: {configurable: !0},
-                crossTileID: {configurable: !0},
+                crossTileID: {configurable: !0}
             };
             return r.anchorX.get = function() {
                 return this._structArray.int16[this._pos2 + 0];
@@ -6329,7 +6325,7 @@
                 numIconVertices: {configurable: !0},
                 crossTileID: {configurable: !0},
                 textBoxScale: {configurable: !0},
-                radialTextOffset: {configurable: !0},
+                radialTextOffset: {configurable: !0}
             };
             return r.anchorX.get = function() {
                 return this._structArray.int16[this._pos2 + 0];
@@ -6475,7 +6471,7 @@
             var r = {
                 featureIndex: {configurable: !0},
                 sourceLayerIndex: {configurable: !0},
-                bucketIndex: {configurable: !0},
+                bucketIndex: {configurable: !0}
             };
             return r.featureIndex.get = function() {
                 return this._structArray.uint32[this._pos4 + 0];
@@ -6674,7 +6670,7 @@
                         name: 'a_' + t,
                         type: 'Float32',
                         components: 'color' === r ? 2 : 1,
-                        offset: 0,
+                        offset: 0
                     };
                 }), this.paintVertexArray = new n;
         };
@@ -6728,7 +6724,7 @@
                     name: 'a_' + t,
                     type: 'Float32',
                     components: 'color' === r ? 4 : 2,
-                    offset: 0,
+                    offset: 0
                 };
             }), this.paintVertexArray = new o;
         };
@@ -6788,7 +6784,7 @@
                     name: 'a_' + t,
                     type: 'Uint16',
                     components: 4,
-                    offset: 0,
+                    offset: 0
                 };
             }), this.zoomInPaintVertexArray = new a, this.zoomOutPaintVertexArray = new a;
         };
@@ -6971,7 +6967,7 @@
                 'line-gap-width': ['gapwidth'],
                 'line-pattern': ['pattern_to', 'pattern_from'],
                 'fill-pattern': ['pattern_to', 'pattern_from'],
-                'fill-extrusion-pattern': ['pattern_to', 'pattern_from'],
+                'fill-extrusion-pattern': ['pattern_to', 'pattern_from']
             }[t] || [t.replace(e + '-', '').replace(/-/g, '_')];
         }
 
@@ -6980,7 +6976,7 @@
                 return {
                     'line-pattern': {source: ai, composite: ai},
                     'fill-pattern': {source: ai, composite: ai},
-                    'fill-extrusion-pattern': {source: ai, composite: ai},
+                    'fill-extrusion-pattern': {source: ai, composite: ai}
                 }[t];
             }(t);
             return i && i[r] || n[e][r];
@@ -7234,8 +7230,8 @@
                 'circle-pitch-alignment': new Nn(kt.paint_circle['circle-pitch-alignment']),
                 'circle-stroke-width': new Kn(kt.paint_circle['circle-stroke-width']),
                 'circle-stroke-color': new Kn(kt.paint_circle['circle-stroke-color']),
-                'circle-stroke-opacity': new Kn(kt.paint_circle['circle-stroke-opacity']),
-            }),
+                'circle-stroke-opacity': new Kn(kt.paint_circle['circle-stroke-opacity'])
+            })
         }, ka = 1e-6, za = 'undefined' != typeof Float32Array ? Float32Array : Array;
         Math.PI;
 
@@ -7401,8 +7397,8 @@
                 'heatmap-weight': new Kn(kt.paint_heatmap['heatmap-weight']),
                 'heatmap-intensity': new Nn(kt.paint_heatmap['heatmap-intensity']),
                 'heatmap-color': new Zn(kt.paint_heatmap['heatmap-color']),
-                'heatmap-opacity': new Nn(kt.paint_heatmap['heatmap-opacity']),
-            }),
+                'heatmap-opacity': new Nn(kt.paint_heatmap['heatmap-opacity'])
+            })
         };
 
         function Wa(t, e) {
@@ -7438,8 +7434,8 @@
                 'hillshade-exaggeration': new Nn(kt.paint_hillshade['hillshade-exaggeration']),
                 'hillshade-shadow-color': new Nn(kt.paint_hillshade['hillshade-shadow-color']),
                 'hillshade-highlight-color': new Nn(kt.paint_hillshade['hillshade-highlight-color']),
-                'hillshade-accent-color': new Nn(kt.paint_hillshade['hillshade-accent-color']),
-            }),
+                'hillshade-accent-color': new Nn(kt.paint_hillshade['hillshade-accent-color'])
+            })
         }, eo = function(t) {
             function e(e) {t.call(this, e, to);}
 
@@ -7843,7 +7839,7 @@
             for (var e = t[0][0].length, r = {
                 vertices: [],
                 holes: [],
-                dimensions: e,
+                dimensions: e
             }, n = 0, i = 0; i < t.length; i++) {
                 for (var a = 0; a < t[i].length; a++) {
                     for (var o = 0; o < e; o++) {
@@ -7872,7 +7868,7 @@
                         geometry: u,
                         properties: a.properties,
                         type: a.type,
-                        patterns: {},
+                        patterns: {}
                     };
                     void 0 !== a.id && (l.id = a.id), this.hasPattern ? this.features.push(
                         Fo('fill', this.layers, l, this.zoom, e)) : this.addFeature(l, u, o, {}), e.featureIndex.insert(
@@ -7933,8 +7929,8 @@
                 'fill-outline-color': new Kn(kt.paint_fill['fill-outline-color']),
                 'fill-translate': new Nn(kt.paint_fill['fill-translate']),
                 'fill-translate-anchor': new Nn(kt.paint_fill['fill-translate-anchor']),
-                'fill-pattern': new Gn(kt.paint_fill['fill-pattern']),
-            }),
+                'fill-pattern': new Gn(kt.paint_fill['fill-pattern'])
+            })
         }, Do = function(t) {
             function e(e) {t.call(this, e, Oo);}
 
@@ -8114,7 +8110,7 @@
         var Jo = {
             VectorTile: function(t, e) {this.layers = t.readFields(Zo, {}, e);},
             VectorTileFeature: Uo,
-            VectorTileLayer: Ko,
+            VectorTileLayer: Ko
         }, Ho = Jo.VectorTileFeature.types, Yo = Math.pow(2, 13);
 
         function $o(t, e, r, n, i, a, o, s) {
@@ -8146,7 +8142,7 @@
                         geometry: u,
                         properties: a.properties,
                         type: a.type,
-                        patterns: {},
+                        patterns: {}
                     };
                     void 0 !== a.id && (l.id = a.id), this.hasPattern ? this.features.push(
                         Fo('fill-extrusion', this.layers, l, this.zoom, e)) : this.addFeature(l, u, o,
@@ -8234,8 +8230,8 @@
                 'fill-extrusion-height': new Kn(kt['paint_fill-extrusion']['fill-extrusion-height']),
                 'fill-extrusion-base': new Kn(kt['paint_fill-extrusion']['fill-extrusion-base']),
                 'fill-extrusion-vertical-gradient': new Nn(
-                    kt['paint_fill-extrusion']['fill-extrusion-vertical-gradient']),
-            }),
+                    kt['paint_fill-extrusion']['fill-extrusion-vertical-gradient'])
+            })
         }, rs = function(t) {
             function e(e) {t.call(this, e, es);}
 
@@ -8331,7 +8327,7 @@
                         geometry: u,
                         properties: a.properties,
                         type: a.type,
-                        patterns: {},
+                        patterns: {}
                     };
                     void 0 !== a.id && (l.id = a.id), this.hasPattern ? this.features.push(
                         Fo('line', this.layers, l, this.zoom, e)) : this.addFeature(l, u, o, {}), e.featureIndex.insert(
@@ -8358,8 +8354,8 @@
             this.layoutVertexBuffer &&
             (this.layoutVertexBuffer.destroy(), this.indexBuffer.destroy(), this.programConfigurations.destroy(), this.segments.destroy());
         }, hs.prototype.addFeature = function(t, e, r, n) {
-            for (var i = this.layers[0].layout, a = i.get('line-join').
-                evaluate(t, {}), o = i.get('line-cap'), s = i.get('line-miter-limit'), u = i.get(
+            for (var i = this.layers[0].layout, a = i.get('line-join').evaluate(t, {}), o = i.get(
+                'line-cap'), s = i.get('line-miter-limit'), u = i.get(
                 'line-round-limit'), l = 0, p = e; l < p.length; l += 1) {
                 var c = p[l];
                 this.addLine(c, t, a, o, s, u, r, n);
@@ -8412,8 +8408,7 @@
                         }
                         else if ('flipbevel' === P) {
                             if (B > 100) {
-                                z = S.clone().
-                                    mult(-1);
+                                z = S.clone().mult(-1);
                             }
                             else {
                                 var V = A.x * S.y - A.y * S.x > 0 ? -1 : 1, F = B * A.add(S).mag() / A.sub(S).mag();
@@ -8434,9 +8429,8 @@
                                 }
                                 this.addPieSliceVertex(d, this.distance, z, L, y, u);
                                 for (var j = D - 1; j >= 0; j--) {
-                                    R = A.mult((j + 1) / (D + 1)).
-                                        _add(S).
-                                        _unit(), this.addPieSliceVertex(d, this.distance, R, L, y, u);
+                                    R = A.mult((j + 1) / (D + 1))._add(S)._unit(), this.addPieSliceVertex(d,
+                                        this.distance, R, L, y, u);
                                 }
                             }
                             w && this.addCurrentVertex(d, this.distance, S, -m, -v, !1, y, u);
@@ -8484,7 +8478,7 @@
             'line-cap': new Nn(kt.layout_line['line-cap']),
             'line-join': new Kn(kt.layout_line['line-join']),
             'line-miter-limit': new Nn(kt.layout_line['line-miter-limit']),
-            'line-round-limit': new Nn(kt.layout_line['line-round-limit']),
+            'line-round-limit': new Nn(kt.layout_line['line-round-limit'])
         }), ds = {
             paint: new Jn({
                 'line-opacity': new Kn(kt.paint_line['line-opacity']),
@@ -8497,8 +8491,8 @@
                 'line-blur': new Kn(kt.paint_line['line-blur']),
                 'line-dasharray': new Xn(kt.paint_line['line-dasharray']),
                 'line-pattern': new Gn(kt.paint_line['line-pattern']),
-                'line-gradient': new Zn(kt.paint_line['line-gradient']),
-            }), layout: ys,
+                'line-gradient': new Zn(kt.paint_line['line-gradient'])
+            }), layout: ys
         }, ms = new (function(t) {
             function e() {t.apply(this, arguments);}
 
@@ -8509,7 +8503,7 @@
                     now: r.now,
                     fadeDuration: r.fadeDuration,
                     zoomHistory: r.zoomHistory,
-                    transition: r.transition,
+                    transition: r.transition
                 }), t.prototype.possiblyEvaluate.call(this, e, r);
             }, e.prototype.evaluate = function(e, r, n, i) {
                 return r = c({}, r, {zoom: Math.floor(r.zoom)}), t.prototype.evaluate.call(this, e, r, n, i);
@@ -8725,7 +8719,7 @@
             '｠': '︶',
             '｡': '︒',
             '｢': '﹁',
-            '｣': '﹂',
+            '｣': '﹂'
         };
         var zs = function(t) {
             function e(e, r, n, i) {
@@ -8763,7 +8757,7 @@
                     layoutSize: r.evaluate(new Vn(t + 1)),
                     zoomRange: o,
                     sizeRange: {min: r.evaluate(new Vn(o.min)), max: r.evaluate(new Vn(o.max))},
-                    propertyValue: e.value,
+                    propertyValue: e.value
                 };
         }
 
@@ -8878,7 +8872,7 @@
                                 geometry: sa(m),
                                 properties: m.properties,
                                 type: Ts[m.type],
-                                sortKey: w,
+                                sortKey: w
                             };
                             if (void 0 !== m.id && (A.id = m.id), this.features.push(A), _ &&
                             (p[_] = !0), x) {
@@ -8955,14 +8949,14 @@
                     a[o] = {
                         x: e[o].x,
                         y: e[o].y,
-                        tileUnitDistanceFromAnchor: n,
+                        tileUnitDistanceFromAnchor: n
                     }, o < e.length - 1 && (n += e[o + 1].dist(e[o]));
                 }
                 for (var s = t.segment || 0; s >= 0; s--) {
                     a[s] = {
                         x: e[s].x,
                         y: e[s].y,
-                        tileUnitDistanceFromAnchor: i,
+                        tileUnitDistanceFromAnchor: i
                     }, s > 0 && (i += e[s - 1].dist(e[s]));
                 }
                 for (var u = 0; u < e.length; u++) {
@@ -9025,7 +9019,7 @@
                         x2: s.x2,
                         y2: s.y2,
                         anchorPointX: s.anchorPointX,
-                        anchorPointY: s.anchorPointY,
+                        anchorPointY: s.anchorPointY
                     }, a.textFeatureIndex = s.featureIndex;
                     break;
                 }
@@ -9041,7 +9035,7 @@
                         x2: l.x2,
                         y2: l.y2,
                         anchorPointX: l.anchorPointX,
-                        anchorPointY: l.anchorPointY,
+                        anchorPointY: l.anchorPointY
                     }, a.iconFeatureIndex = l.featureIndex;
                     break;
                 }
@@ -9109,7 +9103,7 @@
                 'layers',
                 'collisionBoxArray',
                 'features',
-                'compareText'],
+                'compareText']
         }), Ds.MAX_GLYPHS = 65535, Ds.addDynamicAttributes = Fs;
         var Rs = new Jn({
             'symbol-placement': new Nn(kt.layout_symbol['symbol-placement']),
@@ -9151,7 +9145,7 @@
             'text-offset': new Kn(kt.layout_symbol['text-offset']),
             'text-allow-overlap': new Nn(kt.layout_symbol['text-allow-overlap']),
             'text-ignore-placement': new Nn(kt.layout_symbol['text-ignore-placement']),
-            'text-optional': new Nn(kt.layout_symbol['text-optional']),
+            'text-optional': new Nn(kt.layout_symbol['text-optional'])
         }), Us = {
             paint: new Jn({
                 'icon-opacity': new Kn(kt.paint_symbol['icon-opacity']),
@@ -9167,8 +9161,8 @@
                 'text-halo-width': new Kn(kt.paint_symbol['text-halo-width']),
                 'text-halo-blur': new Kn(kt.paint_symbol['text-halo-blur']),
                 'text-translate': new Nn(kt.paint_symbol['text-translate']),
-                'text-translate-anchor': new Nn(kt.paint_symbol['text-translate-anchor']),
-            }), layout: Rs,
+                'text-translate-anchor': new Nn(kt.paint_symbol['text-translate-anchor'])
+            }), layout: Rs
         }, js = function(t) {
             function e(e) {t.call(this, e, Us);}
 
@@ -9196,8 +9190,8 @@
             paint: new Jn({
                 'background-color': new Nn(kt.paint_background['background-color']),
                 'background-pattern': new Xn(kt.paint_background['background-pattern']),
-                'background-opacity': new Nn(kt.paint_background['background-opacity']),
-            }),
+                'background-opacity': new Nn(kt.paint_background['background-opacity'])
+            })
         }, Ns = function(t) {
             function e(e) {t.call(this, e, qs);}
 
@@ -9212,8 +9206,8 @@
                 'raster-saturation': new Nn(kt.paint_raster['raster-saturation']),
                 'raster-contrast': new Nn(kt.paint_raster['raster-contrast']),
                 'raster-resampling': new Nn(kt.paint_raster['raster-resampling']),
-                'raster-fade-duration': new Nn(kt.paint_raster['raster-fade-duration']),
-            }),
+                'raster-fade-duration': new Nn(kt.paint_raster['raster-fade-duration'])
+            })
         }, Gs = function(t) {
             function e(e) {t.call(this, e, Ks);}
 
@@ -9240,7 +9234,7 @@
             line: vs,
             symbol: js,
             background: Ns,
-            raster: Gs,
+            raster: Gs
         };
 
         function Js(t) {
@@ -9254,7 +9248,7 @@
                     x: 0,
                     y: 0,
                     w: Math.max(Math.ceil(Math.sqrt(e / .95)), r),
-                    h: 1 / 0,
+                    h: 1 / 0
                 }], s = 0, u = 0, l = 0, p = t; l < p.length; l += 1) {
                 for (var c = p[l], h = o.length - 1; h >=
                 0; h--) {
@@ -9283,7 +9277,7 @@
             tl: {configurable: !0},
             br: {configurable: !0},
             tlbr: {configurable: !0},
-            displaySize: {configurable: !0},
+            displaySize: {configurable: !0}
         };
         Ys.tl.get = function() {
             return [
@@ -9789,7 +9783,7 @@
             writeStringField: function(t, e) {this.writeTag(t, ou.Bytes), this.writeString(e);},
             writeFloatField: function(t, e) {this.writeTag(t, ou.Fixed32), this.writeFloat(e);},
             writeDoubleField: function(t, e) {this.writeTag(t, ou.Fixed64), this.writeDouble(e);},
-            writeBooleanField: function(t, e) {this.writeVarintField(t, Boolean(e));},
+            writeBooleanField: function(t, e) {this.writeVarintField(t, Boolean(e));}
         };
         var wu = 3;
 
@@ -9802,7 +9796,7 @@
                 e.push({
                     id: i,
                     bitmap: new Ha({width: o + 2 * wu, height: s + 2 * wu}, a),
-                    metrics: {width: o, height: s, left: u, top: l, advance: p},
+                    metrics: {width: o, height: s, left: u, top: l, advance: p}
                 });
             }
         }
@@ -9835,7 +9829,7 @@
                     cancel: function() {
                         return i.target.postMessage(
                             {targetMapId: n, sourceMapId: i.mapId, type: '<cancel>', id: String(a)});
-                    },
+                    }
                 };
             }
         }, Iu.prototype.receive = function(t) {
@@ -9849,7 +9843,7 @@
                         type: '<response>',
                         id: String(i),
                         error: t ? gn(t) : null,
-                        data: gn(e, n),
+                        data: gn(e, n)
                     }, n);
                 };
                 if ('<response>' === n.type || '<cancel>' ===
@@ -9872,8 +9866,8 @@
             }
         }, Iu.prototype.remove = function() {this.target.removeEventListener('message', this.receive, !1);};
         var Mu = function(t, e) {
-            t && (e ? this.setSouthWest(t).setNorthEast(e) : 4 === t.length ? this.setSouthWest([t[0], t[1]]).
-                setNorthEast([t[2], t[3]]) : this.setSouthWest(t[0]).setNorthEast(t[1]));
+            t && (e ? this.setSouthWest(t).setNorthEast(e) : 4 === t.length ? this.setSouthWest([t[0], t[1]])
+                .setNorthEast([t[2], t[3]]) : this.setSouthWest(t[0]).setNorthEast(t[1]));
         };
         Mu.prototype.setNorthEast = function(t) {
             return this._ne = t instanceof Eu ? new Eu(t.lng, t.lat) : Eu.convert(t), this;
@@ -9988,12 +9982,12 @@
                     return i;
                 }(this.z, this.x, this.y);
             return t[(this.x + this.y) % t.length].replace('{prefix}',
-                (this.x % 16).toString(16) + (this.y % 16).toString(16)).
-                replace('{z}', String(this.z)).
-                replace('{x}', String(this.x)).
-                replace('{y}', String('tms' === e ? Math.pow(2, this.z) - this.y - 1 : this.y)).
-                replace('{quadkey}', u).
-                replace('{bbox-epsg-3857}', s);
+                (this.x % 16).toString(16) + (this.y % 16).toString(16))
+                .replace('{z}', String(this.z))
+                .replace('{x}', String(this.x))
+                .replace('{y}', String('tms' === e ? Math.pow(2, this.z) - this.y - 1 : this.y))
+                .replace('{quadkey}', u)
+                .replace('{bbox-epsg-3857}', s);
         }, Ou.prototype.getTilePoint = function(t) {
             var e = Math.pow(2, this.z);
             return new i((t.x * e - this.x) * ia, (t.y * e - this.y) * ia);
@@ -10465,7 +10459,7 @@
                 pixelPosMatrix: u,
                 transform: o,
                 params: a,
-                queryPadding: this.queryPadding * s,
+                queryPadding: this.queryPadding * s
             }, t, e) : {};
         }, Yu.prototype.querySourceFeatures = function(t, e) {
             if (this.latestFeatureIndex && this.latestFeatureIndex.rawTileData) {
@@ -10475,7 +10469,7 @@
                     for (var a = Dr(e && e.filter), o = this.tileID.canonical, s = o.z, u = o.x, l = o.y, p = {
                         z: s,
                         x: u,
-                        y: l,
+                        y: l
                     }, c = 0; c < i.length; c++) {
                         var h = i.feature(c);
                         if (a(new Vn(this.tileID.overscaledZ), h)) {
@@ -10615,7 +10609,7 @@
                 left: u[0],
                 right: u[0],
                 writingMode: l,
-                lineCount: p.length,
+                lineCount: p.length
             };
             return function(
                 t, e, r, n, i, a, o, s) {
@@ -10637,7 +10631,7 @@
                                 y: l + _,
                                 vertical: !1,
                                 scale: x.scale,
-                                fontStack: x.fontStack,
+                                fontStack: x.fontStack
                             }), u += A.metrics.advance * x.scale + s));
                         }
                         if (c.length !== v) {
@@ -11170,7 +11164,7 @@
                                         br: l,
                                         tex: c.paddedRect,
                                         writingMode: void 0,
-                                        glyphOffset: [0, 0],
+                                        glyphOffset: [0, 0]
                                     }];
                             }(0, a, o, 0, Pl(n.horizontal), x), R = o.layout.get('icon-rotate').evaluate(x, {});
                             S = new ml(s, r, e, u, l, p, a, d, m, !1, t.overscaling, R), z = 4 * D.length;
@@ -11274,8 +11268,8 @@
                                 S = new i(b, _), k = new i(w, _), z = new i(b, A), I = new i(w, A);
                             if (a && h.vertical) {
                                 var B = new i(-v, v), M = -Math.PI / 2, E = new i(5, 0);
-                                S._rotateAround(M, B)._add(E), k._rotateAround(M, B)._add(E), z._rotateAround(M, B).
-                                    _add(E), I._rotateAround(M, B)._add(E);
+                                S._rotateAround(M, B)._add(E), k._rotateAround(M, B)._add(E), z._rotateAround(M, B)
+                                    ._add(E), I._rotateAround(M, B)._add(E);
                             }
                             if (u) {
                                 var C = Math.sin(u), T = Math.cos(u), P = [T, -C, C, T];
@@ -11518,7 +11512,7 @@
             return r += 90, r *= Math.PI / 180, n *= Math.PI / 180, {
                 x: e * Math.cos(r) * Math.sin(n),
                 y: e * Math.sin(r) * Math.sin(n),
-                z: e * Math.cos(n),
+                z: e * Math.cos(n)
             };
         },t.styleSpec = kt,t.symbolSize = Cs,t.transformMat3 = function(t, e, r) {
             var n = e[0], i = e[1], a = e[2];
@@ -11618,7 +11612,7 @@
                             x: 0,
                             y: 0,
                             w: l.bitmap.width + 2,
-                            h: l.bitmap.height + 2,
+                            h: l.bitmap.height + 2
                         };
                         o.push(u), a[s] = {rect: u, metrics: l.metrics};
                     }
@@ -11679,7 +11673,7 @@
                                         overscaling: this.overscaling,
                                         collisionBoxArray: this.collisionBoxArray,
                                         sourceLayerIndex: x,
-                                        sourceID: this.source,
+                                        sourceID: this.source
                                     })).populate(w, g), u.bucketLayerIDs.push(_.map(function(e) {return e.id;}));
                                 }
                             }
@@ -11716,7 +11710,7 @@
                         imageAtlas: r,
                         glyphMap: this.returnDependencies ? c : null,
                         iconMap: this.returnDependencies ? p : null,
-                        glyphPositions: this.returnDependencies ? t.positions : null,
+                        glyphPositions: this.returnDependencies ? t.positions : null
                     });
                 }
             }
@@ -11738,12 +11732,12 @@
             },
             clearMeasures: function(e) {
                 return !!(s && performance && performance.clearMeasures) && performance.clearMeasures(e);
-            },
+            }
         }, u = function(e) {
             this._marks = {
                 start: [e.url, 'start'].join('#'),
                 end: [e.url, 'end'].join('#'),
-                measure: e.url.toString(),
+                measure: e.url.toString()
             }, l.mark(this._marks.start);
         };
 
@@ -11867,7 +11861,7 @@
                         }
                         return o;
                 }
-            }, ring: g,
+            }, ring: g
         }, y = function e(t, r) {
             switch (t && t.type || null) {
                 case'FeatureCollection':
@@ -12143,7 +12137,7 @@
             nodeSize: 64,
             log: !1,
             reduce: null,
-            map: function(e) {return e;},
+            map: function(e) {return e;}
         }, U = function(e) {this.options = re(Object.create(q), e), this.trees = new Array(this.options.maxZoom + 1);};
 
         function $(e, t, r, o, n) {return {x: e, y: t, zoom: 1 / 0, id: r, parentId: -1, numPoints: o, properties: n};}
@@ -12162,8 +12156,8 @@
                     type: 'Point',
                     coordinates: [
                         (o = e.x, 360 * (o - .5)),
-                        (t = e.y, r = (180 - 360 * t) * Math.PI / 180, 360 * Math.atan(Math.exp(r)) / Math.PI - 90)],
-                },
+                        (t = e.y, r = (180 - 360 * t) * Math.PI / 180, 360 * Math.atan(Math.exp(r)) / Math.PI - 90)]
+                }
             };
             var t, r, o;
         }
@@ -12211,7 +12205,7 @@
                 minX: 1 / 0,
                 minY: 1 / 0,
                 maxX: -1 / 0,
-                maxY: -1 / 0,
+                maxY: -1 / 0
             };
             return function(e) {
                 var t = e.geometry, r = e.type;
@@ -12506,7 +12500,7 @@
                 minX: 2,
                 minY: 1,
                 maxX: -1,
-                maxY: 0,
+                maxY: 0
             }, s = 0; s < e.length; s++) {
                 a.numFeatures++, Ie(a, e[s], i, n);
                 var l = e[s].minX, u = e[s].minY, h = e[s].maxX, c = e[s].maxY;
@@ -12555,7 +12549,7 @@
                     type: 'Polygon' === i || 'MultiPolygon' === i ? 3 : 'LineString' === i || 'MultiLineString' === i
                         ? 2
                         : 1,
-                    tags: h,
+                    tags: h
                 };
                 null !== t.id && (p.id = t.id), e.features.push(p);
             }
@@ -12728,7 +12722,7 @@
                         [
                             Math.round(this.options.extent * (l.x * n - r)),
                             Math.round(this.options.extent * (l.y * n - o))]],
-                    tags: l.numPoints ? Q(l) : this.points[l.index].properties,
+                    tags: l.numPoints ? Q(l) : this.points[l.index].properties
                 }, h = l.numPoints ? l.id : this.points[l.index].id;
                 void 0 !== h && (u.id = h), i.features.push(u);
             }
@@ -12771,7 +12765,7 @@
             lineMetrics: !1,
             promoteId: null,
             generateId: !1,
-            debug: 0,
+            debug: 0
         }, Le.prototype.splitTile = function(e, t, r, o, n, i, a) {
             for (var s = [e, t, r, o], l = this.options, u = l.debug; s.length;) {
                 o = s.pop(), r = s.pop(), t = s.pop(), e = s.pop();
@@ -12859,7 +12853,7 @@
                                 }
                                 for (var n = {}, i = {}, a = {
                                     accumulated: null,
-                                    zoom: 0,
+                                    zoom: 0
                                 }, s = {properties: null}, l = Object.keys(o), u = 0, h = l; u < h.length; u += 1) {
                                     var c = h[u], p = o[c], f = p[0], d = p[1], g = e.createExpression(d),
                                         m = e.createExpression(
@@ -12924,7 +12918,7 @@
             var r = this;
             this.self = t, this.actor = new e.Actor(t, this), this.layerIndexes = {}, this.workerSourceTypes = {
                 vector: c,
-                geojson: ze,
+                geojson: ze
             }, this.workerSources = {}, this.demWorkerSources = {}, this.self.registerWorkerSource = function(
                 e, t) {
                 if (r.workerSourceTypes[e]) {
@@ -12942,26 +12936,19 @@
             e, t, r) {
             this.getLayerIndex(e).replace(t), r();
         }, Oe.prototype.updateLayers = function(e, t, r) {
-            this.getLayerIndex(e).
-                update(t.layers, t.removedIds), r();
+            this.getLayerIndex(e).update(t.layers, t.removedIds), r();
         }, Oe.prototype.loadTile = function(e, t, r) {
-            this.getWorkerSource(e, t.type, t.source).
-                loadTile(t, r);
+            this.getWorkerSource(e, t.type, t.source).loadTile(t, r);
         }, Oe.prototype.loadDEMTile = function(e, t, r) {
-            this.getDEMWorkerSource(e, t.source).
-                loadTile(t, r);
+            this.getDEMWorkerSource(e, t.source).loadTile(t, r);
         }, Oe.prototype.reloadTile = function(e, t, r) {
-            this.getWorkerSource(e, t.type, t.source).
-                reloadTile(t, r);
+            this.getWorkerSource(e, t.type, t.source).reloadTile(t, r);
         }, Oe.prototype.abortTile = function(e, t, r) {
-            this.getWorkerSource(e, t.type, t.source).
-                abortTile(t, r);
+            this.getWorkerSource(e, t.type, t.source).abortTile(t, r);
         }, Oe.prototype.removeTile = function(e, t, r) {
-            this.getWorkerSource(e, t.type, t.source).
-                removeTile(t, r);
+            this.getWorkerSource(e, t.type, t.source).removeTile(t, r);
         }, Oe.prototype.removeDEMTile = function(e, t) {
-            this.getDEMWorkerSource(e, t.source).
-                removeTile(t);
+            this.getDEMWorkerSource(e, t.source).removeTile(t);
         }, Oe.prototype.removeSource = function(e, t, r) {
             if (this.workerSources[e] && this.workerSources[e][t.type] && this.workerSources[e][t.type][t.source]) {
                 var o = this.workerSources[e][t.type][t.source];
@@ -12987,7 +12974,7 @@
                     send: function(
                         t, r, n) {
                         o.actor.send(t, r, n, e);
-                    },
+                    }
                 };
                 this.workerSources[e][t][r] = new this.workerSourceTypes[t](n, this.getLayerIndex(e));
             }
@@ -13042,7 +13029,7 @@
             create: function(e, i, o) {
                 var r = t.window.document.createElement(e);
                 return i && (r.className = i), o && o.appendChild(r), r;
-            }, createNS: function(e, i) {return t.window.document.createElementNS(e, i);},
+            }, createNS: function(e, i) {return t.window.document.createElementNS(e, i);}
         }, o = t.window.document ? t.window.document.documentElement.style : null;
 
         function r(t) {
@@ -13152,7 +13139,7 @@
                         pixelRatio: s.pixelRatio,
                         sdf: s.sdf,
                         version: s.version,
-                        hasRenderCallback: Boolean(s.userImage && s.userImage.render),
+                        hasRenderCallback: Boolean(s.userImage && s.userImage.render)
                     } : t.warnOnce('Image "' + n +
                         '" could not be loaded. Please make sure you have added the image with map.addImage() or a "sprite" property in your style. You can provide missing images by listening for the "styleimagemissing" map event.');
                 }
@@ -13176,7 +13163,7 @@
                         w: o.data.width + 2,
                         h: o.data.height + 2,
                         x: 0,
-                        y: 0,
+                        y: 0
                     }, a = new t.ImagePosition(r, o);
                     this.patterns[e] = {bin: r, position: a};
                 }
@@ -13345,7 +13332,7 @@
                 return {
                     id: o,
                     bitmap: new t.AlphaImage({width: 30, height: 30}, a.draw(String.fromCharCode(o))),
-                    metrics: {width: 24, height: 24, left: 0, top: -8, advance: 24},
+                    metrics: {width: 24, height: 24, left: 0, top: -8, advance: 24}
                 };
             }
         }, v.loadGlyphRange = function(e, i, o, r, a) {
@@ -13372,14 +13359,14 @@
             return {
                 x: t.number(e.x, i.x, o),
                 y: t.number(e.y, i.y, o),
-                z: t.number(e.z, i.z, o),
+                z: t.number(e.z, i.z, o)
             };
         };
         var x = new t.Properties({
             anchor: new t.DataConstantProperty(t.styleSpec.light.anchor),
             position: new y,
             color: new t.DataConstantProperty(t.styleSpec.light.color),
-            intensity: new t.DataConstantProperty(t.styleSpec.light.intensity),
+            intensity: new t.DataConstantProperty(t.styleSpec.light.intensity)
         }), b = function(e) {
             function i(i) {
                 e.call(this), this._transitionable = new t.Transitionable(x), this.setLight(
@@ -13547,7 +13534,7 @@
                     type: this.type,
                     source: this.id,
                     pixelRatio: t.browser.devicePixelRatio,
-                    showCollisionBoxes: this.map.showCollisionBoxes,
+                    showCollisionBoxes: this.map.showCollisionBoxes
                 };
 
                 function a(t, o) {
@@ -13635,7 +13622,7 @@
                     tileSize: this.tileSize,
                     tiles: this.tiles,
                     bounds: this.bounds,
-                    encoding: this.encoding,
+                    encoding: this.encoding
                 };
             }, i.prototype.loadTile = function(e, i) {
                 var o = this.map._requestManager.normalizeTileURL(e.tileID.canonical.url(this.tiles, this.scheme),
@@ -13657,7 +13644,7 @@
                                 coord: e.tileID,
                                 source: this.id,
                                 rawImageData: a,
-                                encoding: this.encoding,
+                                encoding: this.encoding
                             };
                             e.workerID && 'expired' !== e.state || (e.workerID = this.dispatcher.send('loadDEMTile', n,
                                 function(t, o) {
@@ -13703,14 +13690,14 @@
                         extent: t.EXTENT,
                         maxZoom: this.maxzoom,
                         lineMetrics: o.lineMetrics || !1,
-                        generateId: o.generateId || !1,
+                        generateId: o.generateId || !1
                     },
                     superclusterOptions: {
                         maxZoom: void 0 !== o.clusterMaxZoom
                             ? Math.min(o.clusterMaxZoom, this.maxzoom - 1)
-                            : this.maxzoom - 1, extent: t.EXTENT, radius: (o.clusterRadius || 50) * n, log: !1,
+                            : this.maxzoom - 1, extent: t.EXTENT, radius: (o.clusterRadius || 50) * n, log: !1
                     },
-                    clusterProperties: o.clusterProperties,
+                    clusterProperties: o.clusterProperties
                 }, o.workerOptions);
             }
 
@@ -13724,7 +13711,7 @@
                     else {
                         var o = {
                             dataType: 'source',
-                            sourceDataType: 'metadata',
+                            sourceDataType: 'metadata'
                         };
                         e._collectResourceTiming && e._resourceTiming && e._resourceTiming.length > 0 &&
                         (o.resourceTiming = e._resourceTiming, e._resourceTiming = []), e.fire(new t.Event('data', o));
@@ -13740,7 +13727,7 @@
                     else {
                         var o = {
                             dataType: 'source',
-                            sourceDataType: 'content',
+                            sourceDataType: 'content'
                         };
                         i._collectResourceTiming && i._resourceTiming && i._resourceTiming.length > 0 &&
                         (o.resourceTiming = i._resourceTiming, i._resourceTiming = []), i.fire(new t.Event('data', o));
@@ -13777,7 +13764,7 @@
                     tileSize: this.tileSize,
                     source: this.id,
                     pixelRatio: t.browser.devicePixelRatio,
-                    showCollisionBoxes: this.map.showCollisionBoxes,
+                    showCollisionBoxes: this.map.showCollisionBoxes
                 };
                 e.workerID = this.dispatcher.send(r, a, function(t, a) {
                     return e.unloadVectorData(), e.aborted ? i(null) : t ? i(t) : (e.loadVectorData(a, o.map.painter,
@@ -13853,7 +13840,7 @@
                 return {
                     type: 'image',
                     url: this.options.url,
-                    coordinates: this.coordinates,
+                    coordinates: this.coordinates
                 };
             }, i.prototype.hasTransition = function() {return !1;}, i;
         }(t.Evented);
@@ -13897,7 +13884,7 @@
                     return {
                         type: 'video',
                         urls: this.urls,
-                        coordinates: this.coordinates,
+                        coordinates: this.coordinates
                     };
                 }, i.prototype.hasTransition = function() {return this.video && !this.video.paused;}, i;
             }(L), M = function(e) {
@@ -13950,7 +13937,7 @@
                 }, i.prototype.serialize = function() {
                     return {
                         type: 'canvas',
-                        coordinates: this.coordinates,
+                        coordinates: this.coordinates
                     };
                 }, i.prototype.hasTransition = function() {return this._playing;}, i.prototype._hasInvalidDimensions = function() {
                     for (var t = 0, e = [
@@ -14004,7 +13991,7 @@
                 l.push({
                     wrappedTileID: h.tileID.wrapped().key,
                     queryResults: h.tile.queryRenderedFeatures(e, t._state, h.queryGeometry, h.cameraQueryGeometry,
-                        h.scale, o, r, n, k(t.transform, h.tileID)),
+                        h.scale, o, r, n, k(t.transform, h.tileID))
                 });
             }
             var p = function(t) {
@@ -14107,7 +14094,7 @@
             Uint16: 'UNSIGNED_SHORT',
             Int32: 'INT',
             Uint32: 'UNSIGNED_INT',
-            Float32: 'FLOAT',
+            Float32: 'FLOAT'
         }, Z = function(t, e, i, o) {
             this.length = e.length, this.attributes = i, this.itemSize = e.bytesPerElement, this.dynamicDraw = o, this.context = t;
             var r = t.gl;
@@ -14199,7 +14186,7 @@
                 return {
                     func: this.gl.ALWAYS,
                     ref: 0,
-                    mask: 255,
+                    mask: 255
                 };
             }, e.prototype.set = function(t) {
                 var e = this.current;
@@ -14597,9 +14584,7 @@
                     i.upload(t), i.prepare(this.map.style.imageManager);
                 }
             }, i.prototype.getIds = function() {
-                return Object.keys(this._tiles).
-                    map(Number).
-                    sort(Lt);
+                return Object.keys(this._tiles).map(Number).sort(Lt);
             }, i.prototype.getRenderableIds = function(e) {
                 var i = this, o = [];
                 for (var r in this._tiles) {
@@ -14723,17 +14708,16 @@
                     this.updateCacheSize(e), this.handleWrapJump(
                         this.transform.center.lng), this._coveredTiles = {}, this.used
                         ? this._source.tileID
-                            ? r = e.getVisibleUnwrappedCoordinates(this._source.tileID).
-                                map(function(e) {
-                                    return new t.OverscaledTileID(e.canonical.z, e.wrap, e.canonical.z, e.canonical.x,
-                                        e.canonical.y);
-                                })
+                            ? r = e.getVisibleUnwrappedCoordinates(this._source.tileID).map(function(e) {
+                                return new t.OverscaledTileID(e.canonical.z, e.wrap, e.canonical.z, e.canonical.x,
+                                    e.canonical.y);
+                            })
                             : (r = e.coveringTiles({
                                 tileSize: this._source.tileSize,
                                 minzoom: this._source.minzoom,
                                 maxzoom: this._source.maxzoom,
                                 roundZoom: this._source.roundZoom,
-                                reparseOverscaled: this._source.reparseOverscaled,
+                                reparseOverscaled: this._source.reparseOverscaled
                             }), this._source.hasTile && (r = r.filter(function(t) {return o._source.hasTile(t);})))
                         : r = [];
                     var a = (this._source.roundZoom ? Math.round : Math.floor)(this.getZoom(e)),
@@ -14864,8 +14848,8 @@
                 }
                 return a;
             }, i.prototype.getVisibleCoordinates = function(t) {
-                for (var e = this, i = this.getRenderableIds(t).
-                    map(function(t) {return e._tiles[t].tileID;}), o = 0, r = i; o < r.length; o += 1) {
+                for (var e = this, i = this.getRenderableIds(t)
+                    .map(function(t) {return e._tiles[t].tileID;}), o = 0, r = i; o < r.length; o += 1) {
                     var a = r[o];
                     a.posMatrix = this.transform.calculatePosMatrix(a.toUnwrapped());
                 }
@@ -14952,7 +14936,7 @@
             setSprite: 'setSprite',
             setGlyphs: 'setGlyphs',
             setTransition: 'setTransition',
-            setLight: 'setLight',
+            setLight: 'setLight'
         };
 
         function Ut(t, e, i) {i.push({command: Ft.addSource, args: [t, e[t]]});}
@@ -15117,7 +15101,7 @@
                         x1: this.bboxes[4 * s],
                         y1: this.bboxes[4 * s + 1],
                         x2: this.bboxes[4 * s + 2],
-                        y2: this.bboxes[4 * s + 3],
+                        y2: this.bboxes[4 * s + 3]
                     });
                 }
                 for (var l = 0; l < this.circleKeys.length; l++) {
@@ -15394,8 +15378,8 @@
                 angle: m + Math.atan2(y.y - x.y, y.x - x.x),
                 tileDistance: d ? {
                     prevTileDistance: g - f === v ? 0 : u.gettileUnitDistanceFromAnchor(g - f),
-                    lastSegmentViewportDistance: E - b,
-                } : null,
+                    lastSegmentViewportDistance: E - b
+                } : null
             };
         }
 
@@ -15483,8 +15467,8 @@
                 var c = l[s], u = new t.Point(c.x + 100, c.y + 100);
                 o = Math.min(o, u.x), r = Math.min(r, u.y), a = Math.max(a, u.x), n = Math.max(n, u.y), i.push(u);
             }
-            for (var h = {}, p = {}, d = 0, _ = this.grid.query(o, r, a, n).
-                concat(this.ignoredGrid.query(o, r, a, n)); d < _.length; d += 1) {
+            for (var h = {}, p = {}, d = 0, _ = this.grid.query(o, r, a, n)
+                .concat(this.ignoredGrid.query(o, r, a, n)); d < _.length; d += 1) {
                 var f = _[d], m = f.key;
                 if (void 0 === h[m.bucketInstanceId] &&
                 (h[m.bucketInstanceId] = {}), !h[m.bucketInstanceId][m.featureIndex]) {
@@ -15503,7 +15487,7 @@
             var a = {
                 bucketInstanceId: i,
                 featureIndex: o,
-                collisionGroupID: r,
+                collisionGroupID: r
             };
             (e ? this.ignoredGrid : this.grid).insert(a, t[0], t[1], t[2], t[3]);
         }, le.prototype.insertCollisionCircles = function(t, e, i, o, r) {
@@ -15517,7 +15501,7 @@
             var o = [e, i, 0, 1];
             return se(o, o, t), {
                 perspectiveRatio: .5 + this.transform.cameraToCenterDistance / o[3] * .5,
-                cameraDistance: o[3],
+                cameraDistance: o[3]
             };
         }, le.prototype.projectPoint = function(e, i, o) {
             var r = [i, o, 0, 1];
@@ -15528,7 +15512,7 @@
             return se(r, r, e), {
                 point: new t.Point((r[0] / r[3] + 1) / 2 * this.transform.width + 100,
                     (-r[1] / r[3] + 1) / 2 * this.transform.height + 100),
-                perspectiveRatio: .5 + this.transform.cameraToCenterDistance / r[3] * .5,
+                perspectiveRatio: .5 + this.transform.cameraToCenterDistance / r[3] * .5
             };
         }, le.prototype.isOffscreen = function(t, e, i, o) {
             return i < 100 || t >= this.screenRightBoundary || o < 100 || e > this.screenBottomBoundary;
@@ -15600,7 +15584,7 @@
                     x2: l + d.x,
                     y2: u + d.y,
                     anchorPointX: h,
-                    anchorPointY: p,
+                    anchorPointY: p
                 };
             }(i, m.x, m.y, s, l, this.transform.angle), p, c, u, h.predicate);
             if (g.box.length > 0) {
@@ -15612,7 +15596,7 @@
                     height: r,
                     anchor: e,
                     textBoxScale: n,
-                    prevAnchor: f,
+                    prevAnchor: f
                 }, this.markUsedJustification(_, e, d), g;
             }
         }, ge.prototype.placeLayerBucket = function(e, i, o, r, a, n, s, l, c, u) {
@@ -15689,7 +15673,7 @@
             var r = {
                 left: o.leftJustifiedTextSymbolIndex,
                 center: o.centerJustifiedTextSymbolIndex,
-                right: o.rightJustifiedTextSymbolIndex,
+                right: o.rightJustifiedTextSymbolIndex
             }, a = r[t.getAnchorJustification(i)];
             for (var n in r) {
                 var s = r[n];
@@ -15863,7 +15847,7 @@
             var o = i.canonical.z - this.tileID.canonical.z, r = Pe / Math.pow(2, o);
             return {
                 x: Math.floor((i.canonical.x * t.EXTENT + e.anchorX) * r),
-                y: Math.floor((i.canonical.y * t.EXTENT + e.anchorY) * r),
+                y: Math.floor((i.canonical.y * t.EXTENT + e.anchorY) * r)
             };
         }, Le.prototype.findMatches = function(t, e, i) {
             for (var o = this.tileID.canonical.z < e.canonical.z
@@ -16214,7 +16198,7 @@
                             return {
                                 isSourceLoaded: r.loaded(),
                                 source: a.serialize(),
-                                sourceId: e,
+                                sourceId: e
                             };
                         }), a.onAdd(this.map), this._changed = !0;
                     }
@@ -16236,8 +16220,7 @@
                         null), o.clearTiles(), o.onRemove && o.onRemove(this.map), this._changed = !0;
                 }, i.prototype.setGeoJSONSourceData = function(
                     t, e) {
-                    this._checkLoaded(), this.sourceCaches[t].getSource().
-                        setData(e), this._changed = !0;
+                    this._checkLoaded(), this.sourceCaches[t].getSource().setData(e), this._changed = !0;
                 }, i.prototype.getSource = function(t) {
                     return this.sourceCaches[t] && this.sourceCaches[t].getSource();
                 }, i.prototype.addLayer = function(e, i, o) {
@@ -16365,8 +16348,7 @@
                         new t.ErrorEvent(new Error(
                             'The layer \'' + e + '\' does not exist in the map\'s style and cannot be styled.')));
                 }, i.prototype.getPaintProperty = function(t, e) {
-                    return this.getLayer(t).
-                        getPaintProperty(e);
+                    return this.getLayer(t).getPaintProperty(e);
                 }, i.prototype.setFeatureState = function(e, i) {
                     this._checkLoaded();
                     var o = e.source, r = e.sourceLayer, a = this.sourceCaches[o], n = parseInt(e.id, 10);
@@ -16442,7 +16424,7 @@
                         glyphs: this.stylesheet.glyphs,
                         transition: this.stylesheet.transition,
                         sources: t.mapObject(this.sourceCaches, function(t) {return t.serialize();}),
-                        layers: this._serializeLayers(this._order),
+                        layers: this._serializeLayers(this._order)
                     }, function(t) {return void 0 !== t;});
                 }, i.prototype._updateLayer = function(t) {
                     this._updatedLayers[t.id] = !0, t.source && !this._updatedSources[t.source] &&
@@ -16513,8 +16495,8 @@
                         c.push(B(this.sourceCaches[u], this._layers, e, i, o));
                     }
                     return this.placement && c.push(function(t, e, i, o, r, a) {
-                        for (var n = {}, s = r.queryRenderedSymbols(i), l = [], c = 0, u = Object.keys(s).
-                            map(Number); c < u.length; c += 1) {
+                        for (var n = {}, s = r.queryRenderedSymbols(i), l = [], c = 0, u = Object.keys(s)
+                            .map(Number); c < u.length; c += 1) {
                             var h = u[c];
                             l.push(a[h]);
                         }
@@ -16558,8 +16540,8 @@
                     i && i.filter && this._validate(t.validateStyle.filter, 'querySourceFeatures.filter', i.filter);
                     var o = this.sourceCaches[e];
                     return o ? function(t, e) {
-                        for (var i = t.getRenderableIds().
-                            map(function(e) {return t.getTileByID(e);}), o = [], r = {}, a = 0; a < i.length; a++) {
+                        for (var i = t.getRenderableIds()
+                            .map(function(e) {return t.getTileByID(e);}), o = [], r = {}, a = 0; a < i.length; a++) {
                             var n = i[a], s = n.tileID.canonical.key;
                             r[s] || (r[s] = !0, n.querySourceFeatures(o, e));
                         }
@@ -16583,7 +16565,7 @@
                     if (r) {
                         var n = {
                             now: t.browser.now(),
-                            transition: t.extend({duration: 300, delay: 0}, this.stylesheet.transition),
+                            transition: t.extend({duration: 300, delay: 0}, this.stylesheet.transition)
                         };
                         this.light.setLight(e, i), this.light.updateTransitions(n);
                     }
@@ -16612,9 +16594,9 @@
                         if ('symbol' === h.type) {
                             if (!s[h.source]) {
                                 var p = this.sourceCaches[h.source];
-                                s[h.source] = p.getRenderableIds(!0).
-                                    map(function(t) {return p.getTileByID(t);}).
-                                    sort(function(t, e) {
+                                s[h.source] = p.getRenderableIds(!0)
+                                    .map(function(t) {return p.getTileByID(t);})
+                                    .sort(function(t, e) {
                                         return e.tileID.overscaledZ - t.tileID.overscaledZ ||
                                             (t.tileID.isLessThan(e.tileID) ? -1 : 1);
                                     });
@@ -16755,7 +16737,7 @@
                             : '\n#ifndef HAS_UNIFORM_u_' + a + '\n    ' + i + ' ' + r + ' ' + a + ' = unpack_mix_' + s +
                             '(a_' + a + ', a_' + a + '_t);\n#else\n    ' + i + ' ' + r + ' ' + a + ' = u_' + a +
                             ';\n#endif\n';
-                }),
+                })
             };
         }
 
@@ -16784,7 +16766,7 @@
                 lineSDF: ni,
                 raster: si,
                 symbolIcon: li,
-                symbolSDF: ci,
+                symbolSDF: ci
             }),
             pi = function() {this.boundProgram = null, this.boundLayoutVertexBuffer = null, this.boundPaintVertexBuffers = [], this.boundIndexBuffer = null, this.boundVertexOffset = null, this.boundDynamicVertexBuffer = null, this.vao = null;};
         pi.prototype.bind = function(t, e, i, o, r, a, n, s) {
@@ -16860,7 +16842,7 @@
                 u_scale: [t.browser.devicePixelRatio, r, e.fromScale, e.toScale],
                 u_fade: e.t,
                 u_pixel_coord_upper: [s >> 16, l >> 16],
-                u_pixel_coord_lower: [65535 & s, 65535 & l],
+                u_pixel_coord_lower: [65535 & s, 65535 & l]
             };
         }
 
@@ -16889,7 +16871,7 @@
                     u_lightintensity: a.properties.get('intensity'),
                     u_lightcolor: [c.r, c.g, c.b],
                     u_vertical_gradient: +o,
-                    u_opacity: r,
+                    u_opacity: r
                 };
             }, mi = function(e, i, o, r, a, n, s) {
                 return t.extend(fi(e, i, o, r), _i(n, i, s),
@@ -16911,7 +16893,7 @@
                     u_matrix: t.translatePosMatrix(e.posMatrix, i, o.paint.get('circle-translate'),
                         o.paint.get('circle-translate-anchor')),
                     u_pitch_with_map: +r,
-                    u_extrude_scale: a,
+                    u_extrude_scale: a
                 };
             }, wi = function(e, i) {
                 return {
@@ -16919,7 +16901,7 @@
                     u_camera_to_center_distance: new t.Uniform1f(e, i.u_camera_to_center_distance),
                     u_pixels_to_tile_units: new t.Uniform1f(e, i.u_pixels_to_tile_units),
                     u_extrude_scale: new t.Uniform2f(e, i.u_extrude_scale),
-                    u_overscale_factor: new t.Uniform1f(e, i.u_overscale_factor),
+                    u_overscale_factor: new t.Uniform1f(e, i.u_overscale_factor)
                 };
             }, Ei = function(t, e, i) {
                 var o = ue(i, 1, e.zoom), r = Math.pow(2, e.zoom - i.tileID.overscaledZ), a = i.tileID.overscaleFactor();
@@ -16928,7 +16910,7 @@
                     u_camera_to_center_distance: e.cameraToCenterDistance,
                     u_pixels_to_tile_units: o,
                     u_extrude_scale: [e.pixelsToGLUnits[0] / (o * r), e.pixelsToGLUnits[1] / (o * r)],
-                    u_overscale_factor: a,
+                    u_overscale_factor: a
                 };
             }, Ti = function(t, e) {return {u_matrix: t, u_color: e};}, Ii = function(t) {return {u_matrix: t};},
             Ci = function(t, e, i, o) {return {u_matrix: t, u_extrude_scale: ue(e, 1, i), u_intensity: o};},
@@ -16941,7 +16923,7 @@
                     u_world: [n.drawingBufferWidth, n.drawingBufferHeight],
                     u_image: o,
                     u_color_ramp: r,
-                    u_opacity: i.paint.get('heatmap-opacity'),
+                    u_opacity: i.paint.get('heatmap-opacity')
                 };
             }, zi = function(t, e, i) {
                 var o = i.paint.get('hillshade-shadow-color'), r = i.paint.get('hillshade-highlight-color'),
@@ -16956,7 +16938,7 @@
                     u_light: [i.paint.get('hillshade-exaggeration'), n],
                     u_shadow: o,
                     u_highlight: r,
-                    u_accent: a,
+                    u_accent: a
                 };
             }, Pi = function(e, i) {
                 var o = e.dem.stride, r = t.create();
@@ -16965,7 +16947,7 @@
                     u_image: 1,
                     u_dimension: [o, o],
                     u_zoom: e.tileID.overscaledZ,
-                    u_maxzoom: i,
+                    u_maxzoom: i
                 };
             };
 
@@ -16981,7 +16963,7 @@
             return {
                 u_matrix: Bi(t, e, i),
                 u_ratio: 1 / ue(e, 1, o.zoom),
-                u_gl_units_to_pixels: [1 / o.pixelsToGLUnits[0], 1 / o.pixelsToGLUnits[1]],
+                u_gl_units_to_pixels: [1 / o.pixelsToGLUnits[0], 1 / o.pixelsToGLUnits[1]]
             };
         }, Mi = function(e, i, o) {return t.extend(Di(e, i, o), {u_image: 0});}, Ri = function(e, i, o, r) {
             var a = e.transform, n = ki(i, a);
@@ -16992,7 +16974,7 @@
                 u_image: 0,
                 u_scale: [t.browser.devicePixelRatio, n, r.fromScale, r.toScale],
                 u_fade: r.t,
-                u_gl_units_to_pixels: [1 / a.pixelsToGLUnits[0], 1 / a.pixelsToGLUnits[1]],
+                u_gl_units_to_pixels: [1 / a.pixelsToGLUnits[0], 1 / a.pixelsToGLUnits[1]]
             };
         }, Ai = function(e, i, o, r, a) {
             var n = e.transform, s = e.lineAtlas, l = ki(i, n), c = 'round' === o.layout.get('line-cap'),
@@ -17004,7 +16986,7 @@
                 u_image: 0,
                 u_tex_y_a: u.y,
                 u_tex_y_b: h.y,
-                u_mix: a.t,
+                u_mix: a.t
             });
         };
 
@@ -17029,7 +17011,7 @@
                 u_brightness_high: r.paint.get('raster-brightness-max'),
                 u_saturation_factor: (n = r.paint.get('raster-saturation'), n > 0 ? 1 - 1 / (1.001 - n) : -n),
                 u_contrast_factor: (a = r.paint.get('raster-contrast'), a > 0 ? 1 / (1 - a) : 1 + a),
-                u_spin_weights: Fi(r.paint.get('raster-hue-rotate')),
+                u_spin_weights: Fi(r.paint.get('raster-hue-rotate'))
             };
             var a, n;
         };
@@ -17058,7 +17040,7 @@
                 u_is_text: +l,
                 u_pitch_with_map: +o,
                 u_texsize: c,
-                u_texture: 0,
+                u_texture: 0
             };
         }, Ni = function(e, i, o, r, a, n, s, l, c, u, h) {
             var p = a.transform;
@@ -17084,7 +17066,7 @@
                     u_scale_b: e.toScale,
                     u_tile_units_to_pixels: 1 / ue(o, 1, i.transform.tileZoom),
                     u_pixel_coord_upper: [h >> 16, p >> 16],
-                    u_pixel_coord_lower: [65535 & h, 65535 & p],
+                    u_pixel_coord_lower: [65535 & h, 65535 & p]
                 };
             }(r, n, o, a), {u_matrix: e, u_opacity: i});
         }, qi = {
@@ -17095,7 +17077,7 @@
                     u_lightintensity: new t.Uniform1f(e, i.u_lightintensity),
                     u_lightcolor: new t.Uniform3f(e, i.u_lightcolor),
                     u_vertical_gradient: new t.Uniform1f(e, i.u_vertical_gradient),
-                    u_opacity: new t.Uniform1f(e, i.u_opacity),
+                    u_opacity: new t.Uniform1f(e, i.u_opacity)
                 };
             },
             fillExtrusionPattern: function(e, i) {
@@ -17112,7 +17094,7 @@
                     u_pixel_coord_lower: new t.Uniform2f(e, i.u_pixel_coord_lower),
                     u_scale: new t.Uniform4f(e, i.u_scale),
                     u_fade: new t.Uniform1f(e, i.u_fade),
-                    u_opacity: new t.Uniform1f(e, i.u_opacity),
+                    u_opacity: new t.Uniform1f(e, i.u_opacity)
                 };
             },
             fill: function(e, i) {return {u_matrix: new t.UniformMatrix4f(e, i.u_matrix)};},
@@ -17124,13 +17106,13 @@
                     u_pixel_coord_upper: new t.Uniform2f(e, i.u_pixel_coord_upper),
                     u_pixel_coord_lower: new t.Uniform2f(e, i.u_pixel_coord_lower),
                     u_scale: new t.Uniform4f(e, i.u_scale),
-                    u_fade: new t.Uniform1f(e, i.u_fade),
+                    u_fade: new t.Uniform1f(e, i.u_fade)
                 };
             },
             fillOutline: function(e, i) {
                 return {
                     u_matrix: new t.UniformMatrix4f(e, i.u_matrix),
-                    u_world: new t.Uniform2f(e, i.u_world),
+                    u_world: new t.Uniform2f(e, i.u_world)
                 };
             },
             fillOutlinePattern: function(e, i) {
@@ -17142,7 +17124,7 @@
                     u_pixel_coord_upper: new t.Uniform2f(e, i.u_pixel_coord_upper),
                     u_pixel_coord_lower: new t.Uniform2f(e, i.u_pixel_coord_lower),
                     u_scale: new t.Uniform4f(e, i.u_scale),
-                    u_fade: new t.Uniform1f(e, i.u_fade),
+                    u_fade: new t.Uniform1f(e, i.u_fade)
                 };
             },
             circle: function(e, i) {
@@ -17151,7 +17133,7 @@
                     u_scale_with_map: new t.Uniform1i(e, i.u_scale_with_map),
                     u_pitch_with_map: new t.Uniform1i(e, i.u_pitch_with_map),
                     u_extrude_scale: new t.Uniform2f(e, i.u_extrude_scale),
-                    u_matrix: new t.UniformMatrix4f(e, i.u_matrix),
+                    u_matrix: new t.UniformMatrix4f(e, i.u_matrix)
                 };
             },
             collisionBox: wi,
@@ -17159,7 +17141,7 @@
             debug: function(e, i) {
                 return {
                     u_color: new t.UniformColor(e, i.u_color),
-                    u_matrix: new t.UniformMatrix4f(e, i.u_matrix),
+                    u_matrix: new t.UniformMatrix4f(e, i.u_matrix)
                 };
             },
             clippingMask: function(e, i) {return {u_matrix: new t.UniformMatrix4f(e, i.u_matrix)};},
@@ -17167,7 +17149,7 @@
                 return {
                     u_extrude_scale: new t.Uniform1f(e, i.u_extrude_scale),
                     u_intensity: new t.Uniform1f(e, i.u_intensity),
-                    u_matrix: new t.UniformMatrix4f(e, i.u_matrix),
+                    u_matrix: new t.UniformMatrix4f(e, i.u_matrix)
                 };
             },
             heatmapTexture: function(e, i) {
@@ -17176,7 +17158,7 @@
                     u_world: new t.Uniform2f(e, i.u_world),
                     u_image: new t.Uniform1i(e, i.u_image),
                     u_color_ramp: new t.Uniform1i(e, i.u_color_ramp),
-                    u_opacity: new t.Uniform1f(e, i.u_opacity),
+                    u_opacity: new t.Uniform1f(e, i.u_opacity)
                 };
             },
             hillshade: function(e, i) {
@@ -17187,7 +17169,7 @@
                     u_light: new t.Uniform2f(e, i.u_light),
                     u_shadow: new t.UniformColor(e, i.u_shadow),
                     u_highlight: new t.UniformColor(e, i.u_highlight),
-                    u_accent: new t.UniformColor(e, i.u_accent),
+                    u_accent: new t.UniformColor(e, i.u_accent)
                 };
             },
             hillshadePrepare: function(e, i) {
@@ -17196,14 +17178,14 @@
                     u_image: new t.Uniform1i(e, i.u_image),
                     u_dimension: new t.Uniform2f(e, i.u_dimension),
                     u_zoom: new t.Uniform1f(e, i.u_zoom),
-                    u_maxzoom: new t.Uniform1f(e, i.u_maxzoom),
+                    u_maxzoom: new t.Uniform1f(e, i.u_maxzoom)
                 };
             },
             line: function(e, i) {
                 return {
                     u_matrix: new t.UniformMatrix4f(e, i.u_matrix),
                     u_ratio: new t.Uniform1f(e, i.u_ratio),
-                    u_gl_units_to_pixels: new t.Uniform2f(e, i.u_gl_units_to_pixels),
+                    u_gl_units_to_pixels: new t.Uniform2f(e, i.u_gl_units_to_pixels)
                 };
             },
             lineGradient: function(e, i) {
@@ -17211,7 +17193,7 @@
                     u_matrix: new t.UniformMatrix4f(e, i.u_matrix),
                     u_ratio: new t.Uniform1f(e, i.u_ratio),
                     u_gl_units_to_pixels: new t.Uniform2f(e, i.u_gl_units_to_pixels),
-                    u_image: new t.Uniform1i(e, i.u_image),
+                    u_image: new t.Uniform1i(e, i.u_image)
                 };
             },
             linePattern: function(e, i) {
@@ -17222,7 +17204,7 @@
                     u_image: new t.Uniform1i(e, i.u_image),
                     u_gl_units_to_pixels: new t.Uniform2f(e, i.u_gl_units_to_pixels),
                     u_scale: new t.Uniform4f(e, i.u_scale),
-                    u_fade: new t.Uniform1f(e, i.u_fade),
+                    u_fade: new t.Uniform1f(e, i.u_fade)
                 };
             },
             lineSDF: function(e, i) {
@@ -17236,7 +17218,7 @@
                     u_image: new t.Uniform1i(e, i.u_image),
                     u_tex_y_a: new t.Uniform1f(e, i.u_tex_y_a),
                     u_tex_y_b: new t.Uniform1f(e, i.u_tex_y_b),
-                    u_mix: new t.Uniform1f(e, i.u_mix),
+                    u_mix: new t.Uniform1f(e, i.u_mix)
                 };
             },
             raster: function(e, i) {
@@ -17253,7 +17235,7 @@
                     u_brightness_high: new t.Uniform1f(e, i.u_brightness_high),
                     u_saturation_factor: new t.Uniform1f(e, i.u_saturation_factor),
                     u_contrast_factor: new t.Uniform1f(e, i.u_contrast_factor),
-                    u_spin_weights: new t.Uniform3f(e, i.u_spin_weights),
+                    u_spin_weights: new t.Uniform3f(e, i.u_spin_weights)
                 };
             },
             symbolIcon: function(e, i) {
@@ -17273,7 +17255,7 @@
                     u_is_text: new t.Uniform1f(e, i.u_is_text),
                     u_pitch_with_map: new t.Uniform1i(e, i.u_pitch_with_map),
                     u_texsize: new t.Uniform2f(e, i.u_texsize),
-                    u_texture: new t.Uniform1i(e, i.u_texture),
+                    u_texture: new t.Uniform1i(e, i.u_texture)
                 };
             },
             symbolSDF: function(e, i) {
@@ -17295,14 +17277,14 @@
                     u_texsize: new t.Uniform2f(e, i.u_texsize),
                     u_texture: new t.Uniform1i(e, i.u_texture),
                     u_gamma_scale: new t.Uniform1f(e, i.u_gamma_scale),
-                    u_is_halo: new t.Uniform1f(e, i.u_is_halo),
+                    u_is_halo: new t.Uniform1f(e, i.u_is_halo)
                 };
             },
             background: function(e, i) {
                 return {
                     u_matrix: new t.UniformMatrix4f(e, i.u_matrix),
                     u_opacity: new t.Uniform1f(e, i.u_opacity),
-                    u_color: new t.UniformColor(e, i.u_color),
+                    u_color: new t.UniformColor(e, i.u_color)
                 };
             },
             backgroundPattern: function(e, i) {
@@ -17322,9 +17304,9 @@
                     u_scale_b: new t.Uniform1f(e, i.u_scale_b),
                     u_pixel_coord_upper: new t.Uniform2f(e, i.u_pixel_coord_upper),
                     u_pixel_coord_lower: new t.Uniform2f(e, i.u_pixel_coord_lower),
-                    u_tile_units_to_pixels: new t.Uniform1f(e, i.u_tile_units_to_pixels),
+                    u_tile_units_to_pixels: new t.Uniform1f(e, i.u_tile_units_to_pixels)
                 };
-            },
+            }
         };
 
         function Vi(e, i) {
@@ -17448,7 +17430,7 @@
                                 atlasTexture: O,
                                 atlasInterpolation: F,
                                 isSDF: A,
-                                hasHalo: H,
+                                hasHalo: H
                             };
                         if (E) {
                             for (var Y = 0, J = M.segments.get(); Y < J.length; Y += 1) {
@@ -17576,8 +17558,8 @@
                     f.bind(c.LINEAR, c.CLAMP_TO_EDGE), (_ = i.fbo = l.createFramebuffer(u, u)).colorAttachment.set(
                         f.texture);
                 }
-                l.bindFramebuffer.set(_.framebuffer), l.viewport.set([0, 0, u, u]), e.useProgram('hillshadePrepare').
-                    draw(l, c.TRIANGLES, a, n, s, St.disabled, Pi(i, r), o.id, e.rasterBoundsBuffer,
+                l.bindFramebuffer.set(_.framebuffer), l.viewport.set([0, 0, u, u]), e.useProgram('hillshadePrepare')
+                    .draw(l, c.TRIANGLES, a, n, s, St.disabled, Pi(i, r), o.id, e.rasterBoundsBuffer,
                         e.quadTriangleIndexBuffer, e.rasterBoundsSegments), i.needsHillshadePrepare = !1;
             }
         }
@@ -17591,7 +17573,7 @@
                     d = p && e.refreshedUponExpiration ? 1 : t.clamp(p ? l : 1 - c, 0, 1);
                 return e.refreshedUponExpiration && l >= 1 && (e.refreshedUponExpiration = !1), i ? {
                     opacity: 1,
-                    mix: 1 - d,
+                    mix: 1 - d
                 } : {opacity: d, mix: 0};
             }
             return {opacity: 1, mix: 0};
@@ -17613,7 +17595,7 @@
                                 ? h = null
                                 : (c = e + l[1][n] * o, u = i - l[1][n + 1] * o, h && p.push(h.x, h.y, c, u), h = {
                                     x: c,
-                                    y: u,
+                                    y: u
                                 });
                         }
                         e += l[0] * o;
@@ -19282,7 +19264,7 @@
                     21,
                     10,
                     21,
-                    12]],
+                    12]]
         };
         var no = {
             symbol: function(t, e, i, o, r) {
@@ -19309,8 +19291,8 @@
                             var d = o[p], _ = e.getTile(d), f = _.getBucket(i);
                             if (f) {
                                 var m = f.programConfigurations.get(i.id);
-                                t.useProgram('circle', m).
-                                    draw(s, l.TRIANGLES, c, u, h, St.disabled, bi(t, d, _, i), i.id,
+                                t.useProgram('circle', m)
+                                    .draw(s, l.TRIANGLES, c, u, h, St.disabled, bi(t, d, _, i), i.id,
                                         f.layoutVertexBuffer,
                                         f.indexBuffer, f.segments, i.paint, t.transform.zoom, m);
                             }
@@ -19373,8 +19355,8 @@
                                     a.colorAttachment.get()), o.activeTexture.set(r.TEXTURE1);
                                 var n = i.colorRampTexture;
                                 n || (n = i.colorRampTexture = new t.Texture(o, i.colorRamp, r.RGBA)), n.bind(r.LINEAR,
-                                    r.CLAMP_TO_EDGE), e.useProgram('heatmapTexture').
-                                    draw(o, r.TRIANGLES, Tt.disabled, It.disabled, e.colorModeForRenderPass(),
+                                    r.CLAMP_TO_EDGE), e.useProgram('heatmapTexture')
+                                    .draw(o, r.TRIANGLES, Tt.disabled, It.disabled, e.colorModeForRenderPass(),
                                         St.disabled,
                                         Si(e, i, 0, 1), i.id, e.viewportBuffer, e.quadTriangleIndexBuffer,
                                         e.viewportSegments, i.paint, e.transform.zoom);
@@ -19543,7 +19525,7 @@
                     o.setDepthMode(n), r.render(o.gl,
                         t.transform.customLayerMatrix()), o.setDirty(), t.setBaseState(), o.bindFramebuffer.set(null);
                 }
-            },
+            }
         }, so = function(e, i) {
             this.context = new zt(
                 e), this.transform = i, this._tileTextures = {}, this.setup(), this.numSublayers = Pt.maxUnderzooming +
@@ -19621,8 +19603,8 @@
             this.nextStencilID = 1, this.currentStencilSource = void 0;
             var o = t.create();
             t.ortho(o, 0, this.width, this.height, 0, 0, 1), t.scale(o, o,
-                [i.drawingBufferWidth, i.drawingBufferHeight, 0]), this.useProgram('clippingMask').
-                draw(e, i.TRIANGLES, Tt.disabled, this.stencilClearMode, Ct.disabled, St.disabled, Ii(o), '$clipping',
+                [i.drawingBufferWidth, i.drawingBufferHeight, 0]), this.useProgram('clippingMask')
+                .draw(e, i.TRIANGLES, Tt.disabled, this.stencilClearMode, Ct.disabled, St.disabled, Ii(o), '$clipping',
                     this.viewportBuffer, this.quadTriangleIndexBuffer, this.viewportSegments);
         }, so.prototype._renderTileClippingMasks = function(t, e) {
             if (this.currentStencilSource !== t.source && t.isTileClipped() && e && e.length) {
@@ -19673,8 +19655,8 @@
             var s = {}, l = {}, c = {};
             for (var u in r) {
                 var h = r[u];
-                s[u] = h.getVisibleCoordinates(), l[u] = s[u].slice().reverse(), c[u] = h.getVisibleCoordinates(!0).
-                    reverse();
+                s[u] = h.getVisibleCoordinates(), l[u] = s[u].slice().reverse(), c[u] = h.getVisibleCoordinates(!0)
+                    .reverse();
             }
             for (var p in r) {
                 var d = r[p], _ = d.getSource();
@@ -19704,7 +19686,7 @@
             }
             for (this.context.bindFramebuffer.set(null), this.context.clear({
                 color: i.showOverdrawInspector ? t.Color.black : t.Color.transparent,
-                depth: 1,
+                depth: 1
             }), this.clearStencil(), this._showOverdrawInspector = i.showOverdrawInspector, this.depthRangeFor3D = [
                 0,
                 1 - (e._order.length + 2) * this.numSublayers *
@@ -19785,7 +19767,7 @@
             zoom: {configurable: !0},
             center: {configurable: !0},
             unmodified: {configurable: !0},
-            point: {configurable: !0},
+            point: {configurable: !0}
         };
         ho.prototype.clone = function() {
             var t = new ho(this._minZoom, this._maxZoom, this._renderWorldCopies);
@@ -19859,8 +19841,8 @@
                 }
 
                 var l = i.map(function(e) {return new t.Point(e.x, e.y)._mult(a);});
-                return uo(l[0], l[1], l[2], 0, a, s), uo(l[2], l[3], l[0], 0, a, s), Object.keys(n).
-                    map(function(t) {return n[t];});
+                return uo(l[0], l[1], l[2], 0, a, s), uo(l[2], l[3], l[0], 0, a, s), Object.keys(n)
+                    .map(function(t) {return n[t];});
             }(i, [
                     this.pointCoordinate(new t.Point(0, 0)),
                     this.pointCoordinate(new t.Point(this.width, 0)),
@@ -19905,10 +19887,10 @@
             var i = [e.x * this.worldSize, e.y * this.worldSize, 0, 1];
             return t.transformMat4(i, i, this.pixelMatrix), new t.Point(i[0] / i[3], i[1] / i[3]);
         }, ho.prototype.getBounds = function() {
-            return (new t.LngLatBounds).extend(this.pointLocation(new t.Point(0, 0))).
-                extend(this.pointLocation(new t.Point(this.width, 0))).
-                extend(this.pointLocation(new t.Point(this.width, this.height))).
-                extend(this.pointLocation(new t.Point(0, this.height)));
+            return (new t.LngLatBounds).extend(this.pointLocation(new t.Point(0, 0)))
+                .extend(this.pointLocation(new t.Point(this.width, 0)))
+                .extend(this.pointLocation(new t.Point(this.width, this.height)))
+                .extend(this.pointLocation(new t.Point(0, this.height)));
         }, ho.prototype.getMaxBounds = function() {
             return this.latRange && 2 === this.latRange.length && this.lngRange && 2 === this.lngRange.length
                 ? new t.LngLatBounds([this.lngRange[0], this.latRange[0]], [this.lngRange[1], this.latRange[1]])
@@ -20174,8 +20156,8 @@
                 var o = this._startPos, r = i.mousePos(this._el, e);
                 this._finish(), i.suppressClick(), o.x === r.x && o.y === r.y
                     ? this._fireEvent('boxzoomcancel', e)
-                    : this._map.fitScreenCoordinates(o, r, this._map.getBearing(), {linear: !0}).
-                        fire(new t.Event('boxzoomend', {originalEvent: e}));
+                    : this._map.fitScreenCoordinates(o, r, this._map.getBearing(), {linear: !0})
+                        .fire(new t.Event('boxzoomend', {originalEvent: e}));
             }
         }, yo.prototype._onKeyDown = function(t) {
             27 === t.keyCode && (this._finish(), this._fireEvent('boxzoomcancel', t));
@@ -20474,7 +20456,7 @@
                     bearing: n.getBearing() + 15 * i,
                     pitch: n.getPitch() + 10 * o,
                     offset: [100 * -r, 100 * -a],
-                    center: n.getCenter(),
+                    center: n.getCenter()
                 };
                 n.easeTo(l, {originalEvent: t});
             }
@@ -20518,7 +20500,7 @@
                 vec: r,
                 center: e.add(o).div(2),
                 scale: r.mag() / this._startVec.mag(),
-                bearing: this._rotationDisabled ? 0 : 180 * r.angleWith(this._startVec) / Math.PI,
+                bearing: this._rotationDisabled ? 0 : 180 * r.angleWith(this._startVec) / Math.PI
             };
         }, zo.prototype._onMove = function(e) {
             if (2 === e.touches.length) {
@@ -20570,7 +20552,7 @@
                             duration: f,
                             easing: So,
                             around: this._aroundCenter ? n.getCenter() : n.unproject(d),
-                            noMoveStart: !0,
+                            noMoveStart: !0
                         }, {originalEvent: e});
                     }
                     else {
@@ -20590,7 +20572,7 @@
             dragPan: Eo,
             keyboard: To,
             doubleClickZoom: Co,
-            touchZoomRotate: zo,
+            touchZoomRotate: zo
         };
         var Lo = function(e) {
             function i(i, o) {
@@ -20678,13 +20660,13 @@
                 (o.center = t.LngLat.convert(e.center)), 'bearing' in e && o.bearing !== +e.bearing &&
                 (a = !0, o.bearing = +e.bearing), 'pitch' in e && o.pitch !== +e.pitch &&
                 (n = !0, o.pitch = +e.pitch), this.fire(new t.Event('movestart', i)).fire(new t.Event('move', i)), r &&
-                this.fire(new t.Event('zoomstart', i)).
-                    fire(new t.Event('zoom', i)).
-                    fire(new t.Event('zoomend', i)), a && this.fire(new t.Event('rotatestart', i)).
-                    fire(new t.Event('rotate', i)).
-                    fire(new t.Event('rotateend', i)), n && this.fire(new t.Event('pitchstart', i)).
-                    fire(new t.Event('pitch', i)).
-                    fire(new t.Event('pitchend', i)), this.fire(new t.Event('moveend', i));
+                this.fire(new t.Event('zoomstart', i))
+                    .fire(new t.Event('zoom', i))
+                    .fire(new t.Event('zoomend', i)), a && this.fire(new t.Event('rotatestart', i))
+                    .fire(new t.Event('rotate', i))
+                    .fire(new t.Event('rotateend', i)), n && this.fire(new t.Event('pitchstart', i))
+                    .fire(new t.Event('pitch', i))
+                    .fire(new t.Event('pitchend', i)), this.fire(new t.Event('moveend', i));
             }, i.prototype.easeTo = function(e, i) {
                 var o = this;
                 this.stop(), !1 === (e = t.extend({offset: [0, 0], duration: 500, easing: t.ease}, e)).animate &&
@@ -20964,7 +20946,7 @@
             localIdeographFontFamily: 'sans-serif',
             transformRequest: null,
             fadeDuration: 300,
-            crossSourceCollisions: !0,
+            crossSourceCollisions: !0
         }, Oo = function(o) {
             function r(e) {
                 var r = this;
@@ -21071,7 +21053,7 @@
                 showCollisionBoxes: {configurable: !0},
                 showOverdrawInspector: {configurable: !0},
                 repaint: {configurable: !0},
-                vertices: {configurable: !0},
+                vertices: {configurable: !0}
             };
             return r.prototype._getMapId = function() {return this._mapId;}, r.prototype.addControl = function(
                 e, i) {
@@ -21094,10 +21076,10 @@
             }, r.prototype.resize = function(e) {
                 var i = this._containerDimensions(), o = i[0], r = i[1];
                 return this._resizeCanvas(o, r), this.transform.resize(o, r), this.painter.resize(o, r), this.fire(
-                    new t.Event('movestart', e)).
-                    fire(new t.Event('move', e)).
-                    fire(new t.Event('resize', e)).
-                    fire(new t.Event('moveend', e)), this;
+                    new t.Event('movestart', e))
+                    .fire(new t.Event('move', e))
+                    .fire(new t.Event('resize', e))
+                    .fire(new t.Event('moveend', e)), this;
             }, r.prototype.getBounds = function() {return this.transform.getBounds();}, r.prototype.getMaxBounds = function() {return this.transform.getMaxBounds();}, r.prototype.setMaxBounds = function(e) {
                 return this.transform.setMaxBounds(t.LngLatBounds.convert(e)), this._update();
             }, r.prototype.setMinZoom = function(t) {
@@ -21143,8 +21125,8 @@
                                     n.length
                                         ? a || (a = !0, i.call(r, new fo(t, r, o.originalEvent, {features: n})))
                                         : a = !1;
-                                }, mouseout: function() {a = !1;},
-                            },
+                                }, mouseout: function() {a = !1;}
+                            }
                         };
                     }
                     if ('mouseleave' === t || 'mouseout' === t) {
@@ -21157,8 +21139,8 @@
                                     (r.getLayer(e) ? r.queryRenderedFeatures(o.point, {layers: [e]}) : []).length
                                         ? n = !0
                                         : n && (n = !1, i.call(r, new fo(t, r, o.originalEvent)));
-                                }, mouseout: function(e) {n && (n = !1, i.call(r, new fo(t, r, e.originalEvent)));},
-                            },
+                                }, mouseout: function(e) {n && (n = !1, i.call(r, new fo(t, r, e.originalEvent)));}
+                            }
                         };
                     }
                     return {
@@ -21167,7 +21149,7 @@
                         delegates: (o = {}, o[t] = function(t) {
                             var o = r.getLayer(e) ? r.queryRenderedFeatures(t.point, {layers: [e]}) : [];
                             o.length && (t.features = o, i.call(r, t), delete t.features);
-                        }, o),
+                        }, o)
                     };
                 }();
                 for (var n in this._delegatedListeners = this._delegatedListeners ||
@@ -21293,7 +21275,7 @@
                         pixelRatio: r,
                         sdf: a,
                         version: 0,
-                        userImage: d,
+                        userImage: d
                     }), d.onAdd && d.onAdd(this, e);
                 }
             }, r.prototype.updateImage = function(e, i) {
@@ -21382,7 +21364,7 @@
                 var i = t.extend({}, e.webGLContextAttributes, {
                     failIfMajorPerformanceCaveat: this._failIfMajorPerformanceCaveat,
                     preserveDrawingBuffer: this._preserveDrawingBuffer,
-                    antialias: this._antialias || !1,
+                    antialias: this._antialias || !1
                 }), o = this._canvas.getContext('webgl', i) || this._canvas.getContext('experimental-webgl', i);
                 o ? (this.painter = new so(o, this.transform), t.webpSupported.testSupport(o)) : this.fire(
                     new t.ErrorEvent(new Error('Failed to initialize WebGL')));
@@ -21412,7 +21394,7 @@
                         now: o,
                         fadeDuration: this._fadeDuration,
                         zoomHistory: this.style.zoomHistory,
-                        transition: this.style.getTransition(),
+                        transition: this.style.getTransition()
                     }), a = r.crossFadingFactor();
                     1 === a && a === this._crossFadingFactor ||
                     (e = !0, this._crossFadingFactor = a), this.style.update(r);
@@ -21426,7 +21408,7 @@
                     rotating: this.isRotating(),
                     zooming: this.isZooming(),
                     moving: this.isMoving(),
-                    fadeDuration: this._fadeDuration,
+                    fadeDuration: this._fadeDuration
                 }), this.fire(new t.Event('render')), this.loaded() && !this._loaded &&
                 (this._loaded = !0, this.fire(new t.Event('load'))), this.style && (this.style.hasTransitions() || e) &&
                 (this._styleDirty = !0), this.style && !this._placementDirty &&
@@ -21530,7 +21512,7 @@
             'bottom-left': 'translate(0,-100%)',
             'bottom-right': 'translate(-100%,-100%)',
             left: 'translate(0,-50%)',
-            right: 'translate(-100%,-50%)',
+            right: 'translate(-100%,-50%)'
         };
 
         function qo(t, e, i) {
@@ -21613,8 +21595,8 @@
 
             return e && (o.__proto__ = e), o.prototype = Object.create(e &&
                 e.prototype), o.prototype.constructor = o, o.prototype.addTo = function(t) {
-                return this.remove(), this._map = t, t.getCanvasContainer().
-                    appendChild(this._element), t.on('move', this._update), t.on('moveend',
+                return this.remove(), this._map = t, t.getCanvasContainer().appendChild(this._element), t.on('move',
+                    this._update), t.on('moveend',
                     this._update), this.setDraggable(this._draggable), this._update(), this._map.on('click',
                     this._onMapClick), this;
             }, o.prototype.remove = function() {
@@ -21638,7 +21620,7 @@
                             'bottom-left': [e, -1 * (24.6 + e)],
                             'bottom-right': [-e, -1 * (24.6 + e)],
                             left: [13.5, -24.6],
-                            right: [-13.5, -24.6],
+                            right: [-13.5, -24.6]
                         } : this._offset;
                     }
                     this._popup = t, this._lngLat && this._popup.setLngLat(this._lngLat);
@@ -21669,8 +21651,8 @@
                 this.fire(new t.Event('dragend')), this._state = 'inactive';
             }, o.prototype._addDragHandler = function(t) {
                 this._element.contains(t.originalEvent.target) &&
-                (t.preventDefault(), this._positionDelta = t.point.sub(this._pos).
-                    add(this._offset), this._state = 'pending', this._map.on('mousemove', this._onMove), this._map.on(
+                (t.preventDefault(), this._positionDelta = t.point.sub(this._pos)
+                    .add(this._offset), this._state = 'pending', this._map.on('mousemove', this._onMove), this._map.on(
                     'touchmove', this._onMove), this._map.once('mouseup', this._onUp), this._map.once('touchend',
                     this._onUp));
             }, o.prototype.setDraggable = function(t) {
@@ -21684,7 +21666,7 @@
             positionOptions: {enableHighAccuracy: !1, maximumAge: 0, timeout: 6e3},
             fitBoundsOptions: {maxZoom: 15},
             trackUserLocation: !1,
-            showUserLocation: !0,
+            showUserLocation: !0
         };
         var Xo = function(e) {
                 function o(i) {
@@ -21697,8 +21679,8 @@
                     var o;
                     return this._map = e, this._container = i.create('div',
                         'mapboxgl-ctrl mapboxgl-ctrl-group'), o = this._setupUI, void 0 !== Vo ? o(Vo) : void 0 !==
-                    t.window.navigator.permissions ? t.window.navigator.permissions.query({name: 'geolocation'}).
-                        then(function(t) {Vo = 'denied' !== t.state, o(Vo);}) : (Vo = !!t.window.navigator.geolocation, o(
+                    t.window.navigator.permissions ? t.window.navigator.permissions.query({name: 'geolocation'})
+                        .then(function(t) {Vo = 'denied' !== t.state, o(Vo);}) : (Vo = !!t.window.navigator.geolocation, o(
                         Vo)), this._container;
                 }, o.prototype.onRemove = function() {
                     void 0 !== this._geolocationWatchID && (t.window.navigator.geolocation.clearWatch(
@@ -22003,8 +21985,8 @@
                     this._container || (this._container = i.create('div', 'mapboxgl-popup',
                         this._map.getContainer()), this._tip = i.create('div', 'mapboxgl-popup-tip',
                         this._container), this._container.appendChild(this._content), this.options.className &&
-                    this.options.className.split(' ').
-                        forEach(function(t) {return e._container.classList.add(t);})), this.options.maxWidth &&
+                    this.options.className.split(' ')
+                        .forEach(function(t) {return e._container.classList.add(t);})), this.options.maxWidth &&
                     this._container.style.maxWidth !== this.options.maxWidth &&
                     (this._container.style.maxWidth = this.options.maxWidth), this._map.transform.renderWorldCopies &&
                     (this._lngLat = Zo(this._lngLat, this._pos, this._map.transform));
@@ -22021,7 +22003,7 @@
                                     'bottom-left': new t.Point(o, -o),
                                     'bottom-right': new t.Point(-o, -o),
                                     left: new t.Point(i, 0),
-                                    right: new t.Point(-i, 0),
+                                    right: new t.Point(-i, 0)
                                 };
                             }
                             if (i instanceof t.Point || Array.isArray(i)) {
@@ -22035,7 +22017,7 @@
                                     'bottom-left': r,
                                     'bottom-right': r,
                                     left: r,
-                                    right: r,
+                                    right: r
                                 };
                             }
                             return {
@@ -22047,7 +22029,7 @@
                                 'bottom-left': t.Point.convert(i['bottom-left'] || [0, 0]),
                                 'bottom-right': t.Point.convert(i['bottom-right'] || [0, 0]),
                                 left: t.Point.convert(i.left || [0, 0]),
-                                right: t.Point.convert(i.right || [0, 0]),
+                                right: t.Point.convert(i.right || [0, 0])
                             };
                         }
                         return e(new t.Point(0, 0));
@@ -22092,7 +22074,7 @@
             set workerCount(t) {Rt.workerCount = t;},
             get maxParallelImageRequests() {return t.config.MAX_PARALLEL_IMAGE_REQUESTS;},
             set maxParallelImageRequests(e) {t.config.MAX_PARALLEL_IMAGE_REQUESTS = e;},
-            workerUrl: '',
+            workerUrl: ''
         };
         return er;
     });

@@ -16,18 +16,18 @@
         </tr>
         </thead>
         <tbody>
-            <!-- ko foreach: { data: rates(), as: 'method'} -->
-                <!--ko template: { name: element.shippingMethodItemTemplate} --><!-- /ko -->
-                <!-- ko if: element.isSelected() === (method.carrier_code + '_' + method.method_code) -->
-                <tr>
-                    <td colspan="5" class="shipping-method-additional">
-                        <div id="onepage-checkout-shipping-method-additional-load">
-                            <each args="$parent.getRegion('shippingAdditional')" render="" />
-                        </div>
-                    </td>
-                </tr>
-                <!-- /ko -->
-            <!-- /ko -->
+        <!-- ko foreach: { data: rates(), as: 'method'} -->
+        <!--ko template: { name: element.shippingMethodItemTemplate} --><!-- /ko -->
+        <!-- ko if: element.isSelected() === (method.carrier_code + '_' + method.method_code) -->
+        <tr>
+            <td class="shipping-method-additional" colspan="5">
+                <div id="onepage-checkout-shipping-method-additional-load">
+                    <each args="$parent.getRegion('shippingAdditional')" render=""/>
+                </div>
+            </td>
+        </tr>
+        <!-- /ko -->
+        <!-- /ko -->
         </tbody>
     </table>
 </div>

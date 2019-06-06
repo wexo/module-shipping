@@ -1,0 +1,29 @@
+<div class="ws-parcel-shop-results">
+    <div class="count">
+        <div data-bind="html: getPopupText()"></div>
+        <button class="action secondary change-location"
+                data-bind="click: setChoosenParcelShop.bind($data, chosenParcelShop())">
+            <span data-bind="i18n: 'Change Location'"></span>
+        </button>
+    </div>
+    <div class="ws-parcel-shop-list" data-bind="foreach: parcelShops()">
+        <div class="ws-parcel-shop-entry"
+             data-bind="click: $parent.activeParcelShop.bind($parent, $data), css: { active: $parent.activeParcelShop() === $data}">
+            <!-- ko template: $parent.getModalItemTemplate() --><!-- /ko -->
+        </div>
+    </div>
+</div>
+<div class="ws-parcel-shop-content" data-bind="with: activeParcelShop()">
+    <div class="ws-map-wrapper" data-bind="afterRender: $parent.setMapElement.bind($parent) "></div>
+    <div class="ws-parcel-shop-info">
+        <div class="parcel-shop-info-parcelshop">
+            <!-- ko template: $parent.getModalItemTemplate() --><!-- /ko -->
+        </div>
+        <div class="parcel-shop-info-opening-hours" data-bind="html: $parent.formatOpeningHours($data)"></div>
+        <div class="choose-parcel-shop">
+            <button class="action primary" data-bind="click: $parent.setChoosenParcelShop.bind($parent, $data)">
+                <span data-bind="i18n: 'Choose ParcelShop'"></span>
+            </button>
+        </div>
+    </div>
+</div>

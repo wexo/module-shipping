@@ -5,28 +5,67 @@
             background: white;
         }
     }
+
+    .modal-popup.ws-parcelshop-popup .ws-title.modal-title,
+    .ws-title {
+        &:extend(.abs-checkout-title all);
+        font-size: 2.4rem;
+        border-bottom: 0;
+        text-align: center;
+        margin-bottom: @indent__m;
+    }
+
     .wexo-shipping-additional {
-        background: rgba(0,0,0,0.05);
-        border-top: 2px solid rgba(29, 29, 29, 0.15);
-        box-shadow: inset 0 4px 8px -4px rgba(0, 0, 0, 0.15), 0px 2px 2px rgba(0, 0, 0, 0.12);
-        padding: @indent__m @indent__m @indent__xl;
+        background: @sidebar__background-color;
+        padding: @indent__m;
+        border-top: 2px solid @border-color__base;
+        .lib-css(box-shadow, @ws-shipping__box-shadow);
 
+        .chosen-parcel-shop {
+            text-align: center;
 
-        .map-wrapper {
-            margin: @indent__m 0;
+            .mapboxgl-map {
+                height: inherit;
+            }
+
+            .company {
+                font-size: 1.2em;
+                font-weight: 500;
+            }
+
+            .cancel-parcel-shop {
+                cursor: pointer;
+                display: block;
+                margin-top: @indent__s;
+                color: @primary__color;
+            }
+
+            .ws-title {
+                &::before {
+                    display: block;
+                    content: "\2713";
+                    color: green;
+                    margin-top: -@indent__m;
+                    font-size: 36px;
+                }
+            }
+            .ws-map {
+                height: 125px;
+                position: relative;
+                margin: (-@indent__m - 2px) -@indent__m @indent__m;
+                border-bottom: 2px solid @border-color__base;
+                box-sizing: content-box;
+
+                .mapboxgl-canvas {
+                    left: 0;
+                    right: 0;
+                }
+            }
         }
 
-        .shipping-method-content {
+        .ws-shipping-method-content {
             margin: 0 auto;
-            max-width: 90%;
 
-            .title {
-                &:extend(.abs-checkout-title all);
-                font-size: 2.4rem;
-                border-bottom: 0;
-                text-align: center;
-                margin-bottom: @indent__m;
-            }
             .ws-search-by {
                 &:extend(.abs-checkout-title all);
                 font-size: 1em;
@@ -34,25 +73,27 @@
                 opacity: 0.8;
                 margin-bottom: 1px;
             }
-            .ws-flex {
-                display: flex;
-                margin: 0 -@indent__xs;
 
-                & > * {
-                    margin: 0 @indent__xs;
+            .ws-search-button,
+            .field input {
+                height: @input-text__height
+            }
+
+            .field {
+                label {
+                    margin-bottom: @indent__xs;
+                    display: block;
                 }
-                input, button {
-                    height: 44px;
-                }
-                button {
-                    padding: 0 @indent__l;
-                }
-                .fieldset {
-                    flex: 1;
-                }
+            }
+
+            .ws-search-button {
+                margin: @indent__m auto 0;
+                display: block;
+                width: 50%;
             }
         }
     }
+
     .table-checkout-shipping-method tbody {
         td.col-image {
             width: 20%;
@@ -66,9 +107,148 @@
                 transform: translateY(-50%);
             }
         }
+
         td.shipping-method-additional {
             padding: 0;
             border: none;
         }
+    }
+
+    .modal-popup.ws-parcelshop-popup {
+        .mapboxgl-map {
+            height: 30vh
+        }
+        &._show {
+            z-index: 910;
+        }
+
+        .modal-header {
+            height: @ws-shipping-modal-header__height;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid @border-color__base;
+
+            .action-close {
+                height: @ws-shipping-modal-header__height;
+                width: @ws-shipping-modal-header__height;
+                padding: 0;
+
+                &::before {
+                    color: @primary__color;
+                }
+            }
+
+            .ws-title.modal-title {
+                text-align: left;
+                border-bottom: none;
+                padding: 0;
+                margin: 0 0 0 @indent__s;
+                font-size: 2.2rem;
+            }
+        }
+
+        .modal-content {
+            padding: 0;
+
+            .ws-parcel-shop-info {
+                padding: @modal-popup__padding;
+            }
+
+            .ws-parcel-shop-results {
+                .count {
+                    padding: @indent__s 0;
+                    text-align: center;
+                    font-weight: 500;
+                    font-size: 1.1em;
+
+                    .change-location {
+                        margin-top: @indent__s;
+                        .lib-button-s();
+                    }
+                }
+            }
+
+            .ws-parcel-shop-list {
+                margin-top: @indent__s;
+                max-height: 60vh;
+                overflow-y: auto;
+                box-shadow: @ws-shipping__box-shadow;
+
+                .ws-parcel-shop-entry {
+                    padding: @indent__s @indent__m;
+                    border-top: 1px solid @border-color__base;
+                    cursor: pointer;
+
+                    .company {
+                        .lib-typography-headings();
+                        font-size: 1em;
+                    }
+
+                    .address {
+                        .lib-typography-blockquote();
+                        opacity: 0.8;
+                        font-size: 1em;
+                    }
+
+                    &:hover, &.active {
+                        background: @sidebar__background-color;
+                    }
+                }
+            }
+
+            .ws-parcelshop-popup {
+                display: flex;
+
+                & > div {
+                    flex: 1;
+                }
+            }
+
+            .ws-parcel-shop-content {
+                border-left: 1px solid @border-color__base;
+                display: flex;
+                flex-direction: column;
+
+                .ws-parcel-shop-info {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+
+                    .choose-parcel-shop {
+                        margin-top: auto;
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .parcel-shop-info-opening-hours {
+                        padding: @indent__m 0;
+                        font-size: 0.9em;
+
+                        .day {
+                            font-weight: 500;
+                        }
+                    }
+                }
+
+                .parcel-shop-info-parcelshop {
+
+                    .address {
+
+                    }
+
+                    .company {
+                        font-size: 1.2em;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    body .modal-popup.ws-parcelshop-popup .modal-content .ws-parcelshop-popup {
+        display: block;
     }
 }

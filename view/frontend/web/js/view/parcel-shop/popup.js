@@ -7,5 +7,5 @@ define([
         defaults: {
             modalComponent: parcelShopPopup.component
         }
-    })
+    });
 });
