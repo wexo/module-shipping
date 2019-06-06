@@ -2,6 +2,9 @@
 
 namespace Wexo\Shipping\Api\Carrier;
 
+use Magento\Quote\Api\Data\CartInterface;
+use Magento\Sales\Api\Data\OrderInterface;
+
 interface MethodTypeHandlerInterface
 {
     /**
@@ -13,4 +16,11 @@ interface MethodTypeHandlerInterface
      * @return string
      */
     public function getCode(): string;
+
+    /**
+     * @param CartInterface $quote
+     * @param OrderInterface $order
+     * @return voidd
+     */
+    public function saveOrderInformation(CartInterface $quote, OrderInterface $order);
 }
