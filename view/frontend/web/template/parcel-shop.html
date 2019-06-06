@@ -11,10 +11,11 @@
                     <!-- /ko -->
                 </div>
                 <button class="action primary ws-search-button" data-bind="click: search">
-                <span>
-                    <span translate="'Search'"></span>
-                </span>
+                    <span>
+                        <span translate="'Search'"></span>
+                    </span>
                 </button>
+                <div class="field-error" data-bind="text: errorMessage"></div>
             </div>
         </div>
         <div class="chosen-parcel-shop" data-bind="visible: chosenParcelShop(), with: chosenParcelShop()">

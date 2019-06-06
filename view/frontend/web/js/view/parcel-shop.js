@@ -31,24 +31,23 @@ define([
                 shippingPostcode: '${ $.provider }:shippingAddress.postcode'
             },
 
-            listen: {
-                '${ $.provider }:shippingAddress.data.validate': 'validateAddress',
-                '${ $.provider }:wexoShippingData.data.validate': 'validate'
-            },
-
             shippingMethod: quote.shippingMethod,
             parcelShops: [],
             parcelShopSearcher: null,
 
-            activeParcelShop: null
+            activeParcelShop: null,
+            errorMessage: ''
         },
 
         initialize: function() {
             this._super();
+            this.source.on('shippingAddress.data.validate', this.validateAddress.bind(this));
+            this.source.on('wexoShippingData.data.validate', this.validate.bind(this));
 
             this.chosenParcelShop.subscribe(function(value, oldValue) {
                 oldValue && this._saveParcelShop();
                 this.activeParcelShop(value);
+                this.errorMessage('');
             }, this);
 
             this.shippingCountryId.subscribe(this.chosenParcelShop.bind(this, null));
@@ -64,7 +63,7 @@ define([
         initObservable: function() {
             return this._super()
                 .observe('parcelShops label chosenParcelShop postcode shippingPostcode shippingCountryId')
-                .observe('wexoShippingData activeParcelShop');
+                .observe('wexoShippingData activeParcelShop errorMessage');
         },
 
         /**
@@ -82,6 +81,7 @@ define([
 
             if (!isValid) {
                 this.source.set('params.invalid', true);
+                this.errorMessage($t('You must choose a Service Point!'))
             }
 
             return {

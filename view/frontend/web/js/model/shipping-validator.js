@@ -12,8 +12,7 @@ define([
         validate: function() {
             var checkoutProvider = uiRegistry.get('checkoutProvider');
             checkoutProvider.trigger('wexoShippingData.data.validate');
-
-            return !(checkoutProvider.get('params.invalid') === false);
+            return checkoutProvider.get('params.invalid') === false;
         }
     };
 });
