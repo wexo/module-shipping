@@ -21,12 +21,13 @@
         border-top: 2px solid @border-color__base;
         .lib-css(box-shadow, @ws-shipping__box-shadow);
 
+        .leaflet-container,
+        .mapboxgl-map {
+            height: inherit;
+        }
+
         .chosen-parcel-shop {
             text-align: center;
-
-            .mapboxgl-map {
-                height: inherit;
-            }
 
             .company {
                 font-size: 1.2em;
@@ -117,8 +118,12 @@
     }
 
     .modal-popup.ws-parcelshop-popup {
+        .leaflet-container,
         .mapboxgl-map {
-            height: 30vh
+            height: inherit;
+        }
+        .ws-map-wrapper {
+            height: 30vh;
         }
         &._show {
             z-index: 910;

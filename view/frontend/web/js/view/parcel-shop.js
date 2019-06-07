@@ -114,9 +114,10 @@ define([
             this.parcelShopSearcher(this.source.get('wexoShippingData'), this.shippingCountryId(), this)
                 .done(function(result) {
                     this.parcelShops(result);
-                    parcelShopPopup.open(this, this._onPopupShow.bind(this));
 
                     if (result && result.length) {
+                        parcelShopPopup.open(this, this._onPopupShow.bind(this));
+
                         if (this.chosenParcelShop()) {
                             var foundParcelShop = _.findWhere(result, {
                                 number: this.chosenParcelShop().number
@@ -128,6 +129,9 @@ define([
                         }
 
                         this.activeParcelShop(result[0]);
+                        this.errorMessage('');
+                    } else {
+                        this.errorMessage($t("Sorry, we couldn't find any service points in your area"));
                     }
                 }.bind(this));
         },

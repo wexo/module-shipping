@@ -1,61 +1,58 @@
 define([
-    'mapbox',
-    'ko'
-], function(MapBox, ko) {
+    'ko',
+    './map-providers/map-providers',
+    'underscore'
+], function(ko, mapProviders, _) {
 
     var mapElement = document.createElement('div');
-    var mapInstance = ko.observable(null);
-    var markers = [];
+    var currentMapProvider = ko.observable(null);
+    var mapProviders = _.mapObject(mapProviders, function(Provider, key) {
+        return new Provider({
+            element: mapElement,
+            key: key
+        });
+    });
+
+    /**
+     * @returns {*}
+     * @private
+     */
+    function getMapProvider() {
+        return mapProviders[currentMapProvider()];
+    }
 
     return {
-        mapInstance: mapInstance,
-        element: mapElement,
+        currentMapProvider: currentMapProvider,
+        mapProviders: mapProviders,
 
-        changeElement: function(element, height) {
-            if (!mapInstance()) {
-                this._createMapBox(element);
+        changeElement: function(element) {
+            if (!currentMapProvider()) {
+                var mapProvider = _.find(mapProviders, function(mapProvider) {
+                    return mapProvider.isAllowed();
+                });
+                currentMapProvider(
+                    mapProvider ? mapProvider.key : null
+                );
+                getMapProvider().create();
             }
+
             element.appendChild(mapElement);
+
             setTimeout(function() {
-                mapInstance().resize();
-            });
+                getMapProvider().triggerResize();
+            }.bind(this));
         },
 
         clearMarkers: function() {
-            markers.forEach(function(marker) {
-                marker.remove();
-            });
-        },
-
-        _createMapBox: function() {
-            mapInstance(
-                new MapBox.Map({
-                    container: mapElement,
-                    zoom: 13,
-                    style: 'mapbox://styles/mapbox/light-v9',
-                    interactive: false
-                })
-            );
+            getMapProvider() && getMapProvider().cleanMarkers();
         },
 
         addMarker: function(lng, lat) {
-            if (mapInstance()) {
-                var marker = new MapBox.Marker()
-                    .setLngLat([lng, lat])
-                    .addTo(mapInstance());
-                markers.push(marker);
-
-                return marker;
-            }
-            return false;
+            getMapProvider() && getMapProvider().addMarker(lng, lat);
         },
 
         moveTo: function(lng, lat) {
-            if (mapInstance()) {
-                mapInstance().panTo([lng, lat]);
-                return true;
-            }
-            return false;
+            getMapProvider() && getMapProvider().moveTo(lng, lat);
         }
     };
 });
