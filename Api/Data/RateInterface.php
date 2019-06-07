@@ -2,6 +2,8 @@
 
 namespace Wexo\Shipping\Api\Data;
 
+use Magento\Rule\Model\Condition\AbstractCondition;
+
 interface RateInterface
 {
     CONST STATUS_ENABLED = 1;
@@ -54,4 +56,15 @@ interface RateInterface
     public function getStoreId(): ?string;
 
     public function setStoreId(?string $storeIds): RateInterface;
+
+    /**
+     * @return AbstractCondition
+     */
+    public function getConditions();
+
+    /**
+     * @param AbstractCondition $condition
+     * @return RateInterface
+     */
+    public function setConditions(AbstractCondition $condition);
 }

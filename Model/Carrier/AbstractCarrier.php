@@ -6,6 +6,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Quote\Api\Data\ShippingMethodInterface;
+use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
@@ -100,19 +101,29 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
 
         $result = $this->resultFactory->create();
         $rates = $this->rateManagement->getRates($this, true);
+        $items = $request->getAllItems();
+        if(empty($items))
+            return $result;
+
+        /** @var Quote $quote */
+        $quote = reset($items)->getQuote();
 
         /** @var RateInterface $rate */
         foreach ($rates as $rate) {
-            /** @var Method $method */
-            $method = $this->methodFactory->create();
-            $method->setData('carrier', $this->_code);
-            $method->setData('carrier_title', $this->getTitle());
-            $method->setData('method', $this->makeMethodCode($rate));
-            $method->setData('method_title', $rate->getTitle());
-            $method->setPrice(
-                $request->getFreeShipping() && $rate->getAllowFree() ? 0 : $rate->getPrice()
-            );
-            $result->append($method);
+
+            if($rate->getConditions() && $rate->getConditions()->validate($quote->getShippingAddress())) {
+
+                /** @var Method $method */
+                $method = $this->methodFactory->create();
+                $method->setData('carrier', $this->_code);
+                $method->setData('carrier_title', $this->getTitle());
+                $method->setData('method', $this->makeMethodCode($rate));
+                $method->setData('method_title', $rate->getTitle());
+                $method->setPrice(
+                    $request->getFreeShipping() && $rate->getAllowFree() ? 0 : $rate->getPrice()
+                );
+                $result->append($method);
+            }
         }
 
         return $result;
