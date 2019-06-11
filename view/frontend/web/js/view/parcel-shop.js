@@ -34,9 +34,10 @@ define([
             shippingMethod: quote.shippingMethod,
             parcelShops: [],
             parcelShopSearcher: null,
-
             activeParcelShop: null,
-            errorMessage: ''
+            errorMessage: '',
+
+            oldShippingMethodType: null
         },
 
         initialize: function() {
@@ -53,8 +54,12 @@ define([
             this.shippingCountryId.subscribe(this.chosenParcelShop.bind(this, null));
             this.activeParcelShop.subscribe(this._onActiveParcelShop.bind(this));
 
-            this.shippingMethod.subscribe(function(newVal, oldVal) {
-                oldVal && this.chosenParcelShop(null);
+            quote.shippingMethod.subscribe(function(newVal) {
+                const key = (newVal.carrier_code + newVal.method_code).toLowerCase();
+                if(key !== this.oldShippingMethodType) {
+                    this.chosenParcelShop(null);
+                }
+                this.oldShippingMethodType = key;
             }, this);
 
             return this;
