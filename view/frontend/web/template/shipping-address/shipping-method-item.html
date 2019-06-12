@@ -25,8 +25,8 @@
     <td attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
         class="col col-carrier"
         colspan="2"
-        data-bind="visible: !(method.extension_attributes || !method.extension_attributes.wexo_shipping_method_image)"
         text="method.carrier_title"
+        data-bind="visible: !(method.extension_attributes && method.extension_attributes.wexo_shipping_method_image)"
     />
 
     <if args="method.extension_attributes && method.extension_attributes.wexo_shipping_method_image">
