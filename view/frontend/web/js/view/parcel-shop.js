@@ -56,7 +56,7 @@ define([
 
             quote.shippingMethod.subscribe(function(newVal) {
                 const key = (newVal.carrier_code + newVal.method_code).toLowerCase();
-                if(key !== this.oldShippingMethodType) {
+                if (key !== this.oldShippingMethodType) {
                     this.chosenParcelShop(null);
                 }
                 this.oldShippingMethodType = key;
@@ -86,7 +86,7 @@ define([
 
             if (!isValid) {
                 this.source.set('params.invalid', true);
-                this.errorMessage($t('You must choose a Service Point!'))
+                this.errorMessage($t('You must choose a Service Point!'));
             }
 
             return {
@@ -112,6 +112,7 @@ define([
         },
 
         search: function() {
+            this.errorMessage('');
             if (!this.parcelShopSearcher) {
                 throw 'parcelShopSearcher is null in Wexo_Shipping/js/view/parcel-shop';
             }
@@ -135,8 +136,9 @@ define([
 
                         this.activeParcelShop(result[0]);
                         this.errorMessage('');
-                    } else {
-                        this.errorMessage($t("Sorry, we couldn't find any service points in your area"));
+                    }
+                    else {
+                        this.errorMessage($t('Sorry, we couldn\'t find any service points in your area'));
                     }
                 }.bind(this));
         },
@@ -189,7 +191,7 @@ define([
                     );
                 });
 
-                if(window.matchMedia('(max-width: ' + this.mobileWidth + ')').matches) {
+                if (window.matchMedia('(max-width: ' + this.mobileWidth + ')').matches) {
                     var $modalInnerWrapper = $('.ws-parcelshop-popup.modal-popup.modal-slide .modal-inner-wrap');
                     $modalInnerWrapper.animate({
                         scrollTop: $modalInnerWrapper.height()
@@ -228,7 +230,7 @@ define([
                     parcelShop.longitude,
                     parcelShop.latitude
                 );
-            })
+            });
         }
     });
 });

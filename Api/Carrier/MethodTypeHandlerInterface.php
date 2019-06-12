@@ -20,7 +20,7 @@ interface MethodTypeHandlerInterface
     /**
      * @param CartInterface $quote
      * @param OrderInterface $order
-     * @return voidd
+     * @return void
      */
     public function saveOrderInformation(CartInterface $quote, OrderInterface $order);
 }

@@ -24,9 +24,9 @@ define([
         moveTo: function(lng, lat) {
             // Not Implemented
         },
-        
+
         create: function() {
-           // Not Implemented
+            // Not Implemented
         },
 
         /**

@@ -23,8 +23,7 @@ class QuoteSubmitBefore implements ObserverInterface
      */
     public function __construct(
         ComponentManagement $componentManagement
-    )
-    {
+    ) {
         $this->componentManagement = $componentManagement;
     }
 
@@ -48,14 +47,14 @@ class QuoteSubmitBefore implements ObserverInterface
             /** @var AbstractCarrier $component */
             $component = $this->componentManagement->getComponent($shippingMethod->getData('carrier_code'));
 
-            if($component) {
+            if ($component) {
                 $methodTypeHandler = $component->getMethodTypeHandler(
                     $component->getMethodTypeByMethod(
                         $shippingMethod->getData('method')
                     )
                 );
 
-                if($methodTypeHandler && !isset($methodTypeHandler['type'])) {
+                if ($methodTypeHandler && !isset($methodTypeHandler['type'])) {
                     throw new LocalizedException(__("Could't find type of method type"));
                 }
                 $methodTypeHandler['type']->saveOrderInformation($quote, $order);

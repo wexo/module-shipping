@@ -6,5 +6,5 @@ define([
     return {
         mapBox: MapBox,
         leaflet: Leaflet
-    }
+    };
 });

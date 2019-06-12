@@ -22,6 +22,7 @@ define([
                 if (!quote.shippingMethod().extension_attributes) {
                     return null;
                 }
+                console.log(quote.shippingMethod().extension_attributes.wexo_shipping_method_type_handler);
                 return _.findWhere(this.elems(), {
                     index: quote.shippingMethod().carrier_code + '-' +
                         quote.shippingMethod().extension_attributes.wexo_shipping_method_type_handler

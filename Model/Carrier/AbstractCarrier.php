@@ -102,8 +102,9 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         $result = $this->resultFactory->create();
         $rates = $this->rateManagement->getRates($this, true);
         $items = $request->getAllItems();
-        if(empty($items))
+        if (empty($items)) {
             return $result;
+        }
 
         /** @var Quote $quote */
         $quote = reset($items)->getQuote();
@@ -111,7 +112,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         /** @var RateInterface $rate */
         foreach ($rates as $rate) {
 
-            if($rate->getConditions() && $rate->getConditions()->validate($quote->getShippingAddress())) {
+            if ($rate->getConditions() && $rate->getConditions()->validate($quote->getShippingAddress())) {
 
                 /** @var Method $method */
                 $method = $this->methodFactory->create();
@@ -176,7 +177,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     public function getMethodTypeByMethod(string $method)
     {
         $methodCodeParts = explode('_', $method);
-        return reset($methodCodeParts);
+        return implode('_', array_slice($methodCodeParts, 0, count($methodCodeParts) - 1, true));
     }
 
     /**
@@ -189,7 +190,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         if (isset($types[$type])) {
             return $types[$type];
         }
-        return null;
+        return $types['default'] ?? null;
     }
 
     /**
@@ -206,6 +207,12 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
                 'key' => $key
             ];
         }
+
+        $handlers['default'] = [
+            'label' => 'Default',
+            'type' => $this->defaultMethodTypeHandler,
+            'key' => 'default'
+        ];
 
         return $handlers;
     }
