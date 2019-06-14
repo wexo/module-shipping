@@ -18,6 +18,12 @@
   },
   "require-dev": {
       "wexo/custom-magento-2-coding-standard": "*"
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://repo.wexo.dk/"
+    }
+  ]
 }
 
