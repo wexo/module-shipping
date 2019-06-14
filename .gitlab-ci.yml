@@ -15,7 +15,7 @@ codesniffer:
     - composer install
     - ./vendor/bin/phpcs --config-set installed_paths ./../../magento/magento-coding-standard/,./../../wexo/custom-magento-2-coding-standard/
   script:
-    - ./vendor/bin/phpcs ./ --standard=WEXOMagento2 --warning-severity=7
+    - ./vendor/bin/phpcs ./ --standard=WEXOMagento2 --warning-severity=7 --ignore=vendor/*
   only:
     - staging
     - master
