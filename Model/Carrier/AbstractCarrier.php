@@ -21,8 +21,14 @@ use Wexo\Shipping\Api\Carrier\MethodTypeHandlerInterface;
 use Wexo\Shipping\Api\Data\RateInterface;
 use Wexo\Shipping\Model\RateManagement;
 
+/**
+ * @package Wexo\Shipping\Model\Carrier
+ */
 abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements CarrierInterface
 {
+    /**
+     * @var bool
+     */
     protected $_isFixed = true;
 
     /**
@@ -158,7 +164,9 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         $shippingMethod->getExtensionAttributes()->setWexoShippingMethodType($methodType);
 
         $methodTypeHandler = $this->getMethodTypeHandler($methodType);
-        if ($methodTypeHandler && isset($methodTypeHandler['type']) && $methodTypeHandler['type'] instanceof MethodTypeHandlerInterface) {
+        if ($methodTypeHandler && isset($methodTypeHandler['type'])
+            && $methodTypeHandler['type'] instanceof MethodTypeHandlerInterface) {
+
             $typeCode = ($methodTypeHandler['type'])->getCode();
 
             $shippingMethod->getExtensionAttributes()->setWexoShippingMethodTypeHandler(
@@ -177,7 +185,9 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     public function getMethodTypeByMethod(string $method)
     {
         $methodCodeParts = explode('_', $method);
-        return implode('_', array_slice($methodCodeParts, 0, count($methodCodeParts) - 1, true));
+        return implode('_',
+            array_slice($methodCodeParts, 0, count($methodCodeParts) - 1, true)
+        );
     }
 
     /**

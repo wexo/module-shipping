@@ -76,7 +76,7 @@ class Rate extends AbstractModel implements RateInterface
      */
     public function _construct()
     {
-        $this->_init('Wexo\Shipping\Model\ResourceModel\Rate');
+        $this->_init(ResourceModel\Rate::class);
     }
 
     /**
@@ -351,7 +351,7 @@ class Rate extends AbstractModel implements RateInterface
                 foreach ($value as $id => $data) {
                     $path = explode('--', $id);
                     $node = &$arr;
-                    for ($i = 0, $l = sizeof($path); $i < $l; $i++) {
+                    for ($i = 0, $l = count($path); $i < $l; $i++) {
                         if (!isset($node[$key][$path[$i]])) {
                             $node[$key][$path[$i]] = [];
                         }

@@ -11,6 +11,9 @@ use Magento\Sales\Api\Data\OrderAddressInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 use Wexo\PostNord\Api\Data\ParcelShopInterface;
 
+/**
+ * @package Wexo\Shipping\Model\MethodType
+ */
 abstract class AbstractParcelShop
 {
     /**

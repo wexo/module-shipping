@@ -3,6 +3,8 @@
 namespace Wexo\Shipping\Model\ResourceModel\Rate;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Wexo\Shipping\Model\Rate;
+use Wexo\Shipping\Model\ResourceModel\Rate as RateResource;
 
 class Collection extends AbstractCollection
 {
@@ -11,6 +13,6 @@ class Collection extends AbstractCollection
      */
     public function _construct()
     {
-        $this->_init('Wexo\Shipping\Model\Rate', 'Wexo\Shipping\Model\ResourceModel\Rate');
+        $this->_init(Rate::class, RateResource::class);
     }
 }
