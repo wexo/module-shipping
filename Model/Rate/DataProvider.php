@@ -2,14 +2,16 @@
 
 namespace Wexo\Shipping\Model\Rate;
 
+use Magento\Framework\Api\FilterBuilder;
+use Magento\Framework\Api\Search\ReportingInterface;
+use Magento\Framework\Api\Search\SearchCriteriaBuilder;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Ui\DataProvider\Modifier\PoolInterface;
-use Magento\Ui\DataProvider\ModifierPoolDataProvider;
+use Magento\Framework\App\RequestInterface;
 use Wexo\Shipping\Model\Rate;
 use Wexo\Shipping\Model\ResourceModel\Rate\Collection;
 use Wexo\Shipping\Model\ResourceModel\Rate\CollectionFactory;
 
-class DataProvider extends ModifierPoolDataProvider
+class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider
 {
     /**
      * @var Collection
@@ -26,41 +28,24 @@ class DataProvider extends ModifierPoolDataProvider
      */
     protected $loadedData;
 
-    /**
-     * @param string $name
-     * @param string $primaryFieldName
-     * @param string $requestFieldName
-     * @param CollectionFactory $collectionFactory
-     * @param DataPersistorInterface $dataPersistor
-     * @param array $meta
-     * @param array $data
-     * @param PoolInterface|null $pool
-     */
     public function __construct(
         $name,
         $primaryFieldName,
         $requestFieldName,
+        ReportingInterface $reporting,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        RequestInterface $request,
+        FilterBuilder $filterBuilder,
         CollectionFactory $collectionFactory,
         DataPersistorInterface $dataPersistor,
         array $meta = [],
-        array $data = [],
-        PoolInterface $pool = null
+        array $data = []
     ) {
         $this->collection = $collectionFactory->create();
         $this->dataPersistor = $dataPersistor;
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
-        $this->meta = $this->prepareMeta($this->meta);
-    }
 
-    /**
-     * Prepares Meta
-     *
-     * @param array $meta
-     * @return array
-     */
-    public function prepareMeta(array $meta)
-    {
-        return $meta;
+        parent::__construct($name, $primaryFieldName, $requestFieldName, $reporting, $searchCriteriaBuilder, $request,
+            $filterBuilder, $meta, $data);
     }
 
     /**

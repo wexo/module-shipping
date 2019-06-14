@@ -8,7 +8,7 @@ use Magento\Backend\Model\View\Result\Forward;
 use Magento\Backend\Model\View\Result\ForwardFactory;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 
-class NewAction extends Action implements HttpGetActionInterface
+class NewAction extends Action
 {
     const ADMIN_RESOURCE = 'Wexo_Shipping::edit';
 

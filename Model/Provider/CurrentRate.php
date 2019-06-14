@@ -6,12 +6,15 @@ use Wexo\Shipping\Api\Data\RateInterface;
 
 class CurrentRate
 {
+    /**
+     * @var RateInterface|null
+     */
     private $currentRate = null;
 
     /**
      * @return RateInterface|null
      */
-    public function getCurrentRate(): ?RateInterface
+    public function getCurrentRate()
     {
         return $this->currentRate;
     }

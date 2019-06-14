@@ -14,29 +14,26 @@
                ko-checked="element.isSelected"
                ko-value="method.carrier_code + '_' + method.method_code"
                type="radio"/>
+        <label text="method.method_title"></label>
     </td>
     <td class="col col-price">
         <each args="element.getRegion('price')" render=""/>
     </td>
-    <td attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code"
-        class="col col-method"
-        text="method.method_title"/>
 
     <td attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
         class="col col-carrier"
         colspan="2"
-        text="method.carrier_title"
         data-bind="visible: !(method.extension_attributes && method.extension_attributes.wexo_shipping_method_image)"
+        text="method.carrier_title"
     />
 
-    <if args="method.extension_attributes && method.extension_attributes.wexo_shipping_method_image">
-        <td attr="'id': 'label_image_' + method.method_code + '_' + method.carrier_code"
-            class="col col-image"
-            colspan="2"
-        >
-            <img data-bind="attr: { src: method.extension_attributes.wexo_shipping_method_image }">
-        </td>
-    </if>
+    <td attr="'id': 'label_image_' + method.method_code + '_' + method.carrier_code"
+        class="col col-image"
+        colspan="2"
+        data-bind="if: method.extension_attributes && method.extension_attributes.wexo_shipping_method_image"
+    >
+        <img data-bind="attr: { src: method.extension_attributes.wexo_shipping_method_image }">
+    </td>
 </tr>
 <tr class="row row-error"
     if="method.error_message">

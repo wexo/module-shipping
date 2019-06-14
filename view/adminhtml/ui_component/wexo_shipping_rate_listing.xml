@@ -135,7 +135,7 @@
             </settings>
         </column>
 
-        <actionsColumn name="actions" class="Magento\Backend\Ui\Component\Listing\Column\EditAction" sortOrder="1000">
+        <actionsColumn name="actions" class="Wexo\Shipping\Ui\Component\Listing\Column\EditAction" sortOrder="1000">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="editUrlPath" xsi:type="string">wexo_shipping/rate/edit</item>

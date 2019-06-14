@@ -184,7 +184,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      * @param string $type
      * @return array|null
      */
-    public function getMethodTypeHandler(string $type): ?array
+    public function getMethodTypeHandler(string $type)
     {
         $types = $this->getMethodTypesHandlers();
         if (isset($types[$type])) {

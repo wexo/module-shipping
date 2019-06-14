@@ -173,6 +173,7 @@
                     text-align: center;
                     font-weight: 500;
                     font-size: 1.1em;
+                    height: 75px;
 
                     .change-location {
                         margin-top: @indent__s;
@@ -186,6 +187,7 @@
                 max-height: 60vh;
                 overflow-y: auto;
                 box-shadow: @ws-shipping__box-shadow;
+                min-height: ~"calc(100% - 75px - @{indent__s})";
 
                 .ws-parcel-shop-entry {
                     padding: @indent__s @indent__m;
@@ -244,11 +246,6 @@
                 }
 
                 .parcel-shop-info-parcelshop {
-
-                    .address {
-
-                    }
-
                     .company {
                         font-size: 1.2em;
                         font-weight: bold;

@@ -19,43 +19,109 @@ interface RateInterface
     const ALLOW_FREE = 'allow_free';
     const STORE_ID = 'store_id';
 
+    /**
+     * @return string
+     */
     public function getId();
 
-    public function getCarrierType(): ?string;
+    /**
+     * @return string|null
+     */
+    public function getCarrierType();
 
+    /**
+     * @param string $carrierType
+     * @return RateInterface
+     */
     public function setCarrierType(string $carrierType): RateInterface;
 
-    public function getMethodType(): ?string;
+    /**
+     * @return string
+     */
+    public function getMethodType();
 
+    /**
+     * @param string|null $methodType
+     * @return RateInterface
+     */
     public function setMethodType(string $methodType): RateInterface;
 
-    public function getConditionsSerialized(): ?string;
+    /**
+     * @return string|null
+     */
+    public function getConditionsSerialized();
 
-    public function setConditionsSerialized(?string $conditionalsSerialized): RateInterface;
+    /**
+     * @param string|null $conditionalsSerialized
+     * @return RateInterface
+     */
+    public function setConditionsSerialized($conditionalsSerialized): RateInterface;
 
-    public function getIsActive(): ?bool;
+    /**
+     * @return int
+     */
+    public function getIsActive();
 
-    public function setIsActive(?bool $isActive): RateInterface;
+    /**
+     * @param int|null $isActive
+     * @return RateInterface
+     */
+    public function setIsActive($isActive): RateInterface;
 
-    public function getSortOrder(): ?int;
+    /**
+     * @return int|null
+     */
+    public function getSortOrder();
 
-    public function setSortOrder(?int $sortOrder): RateInterface;
+    /**
+     * @param int|null $sortOrder
+     * @return RateInterface
+     */
+    public function setSortOrder($sortOrder): RateInterface;
 
-    public function getTitle(): ?string;
+    /**
+     * @return string|null
+     */
+    public function getTitle();
 
+    /**
+     * @param string $title
+     * @return RateInterface
+     */
     public function setTitle(string $title): RateInterface;
 
-    public function getPrice(): ?float;
+    /**
+     * @return string
+     */
+    public function getPrice();
 
+    /**
+     * @param float|null $price
+     * @return RateInterface
+     */
     public function setPrice(float $price): RateInterface;
 
-    public function getAllowFree(): ?bool;
+    /**
+     * @return bool
+     */
+    public function getAllowFree();
 
-    public function setAllowFree(?bool $allowFree);
+    /**
+     * @param bool $allowFree
+     * @return mixed
+     */
+    public function setAllowFree($allowFree);
 
-    public function getStoreId(): ?string;
+    /**
+     * @return string|null
+     */
+    public function getStoreId();
 
-    public function setStoreId(?string $storeIds): RateInterface;
+    /**
+     * @param int $storeIds
+     * @return RateInterface
+     */
+    public function setStoreId($storeIds): RateInterface;
 
     /**
      * @return AbstractCondition

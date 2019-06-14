@@ -15,7 +15,7 @@ use Wexo\Shipping\Api\Data\RateInterface;
 use Wexo\Shipping\Api\Data\RateInterfaceFactory;
 use Wexo\Shipping\Model\RateRepository;
 
-class Save extends Action implements HttpPostActionInterface
+class Save extends Action
 {
     const ADMIN_RESOURCE = 'Wexo_Shipping::edit';
 

@@ -7,7 +7,7 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Rule\Model\Condition\AbstractCondition;
 use Wexo\Shipping\Api\Data\RateInterface;
 
-class NewConditionHtml extends Action implements HttpPostActionInterface
+class NewConditionHtml extends Action
 {
     /**
      * @return void

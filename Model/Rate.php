@@ -80,16 +80,15 @@ class Rate extends AbstractModel implements RateInterface
     }
 
     /**
-     * @return string|null
+     * @inheritDoc
      */
-    public function getCarrierType(): ?string
+    public function getCarrierType()
     {
         return $this->getData(static::CARRIER_TYPE);
     }
 
     /**
-     * @param string $carrierType
-     * @return RateInterface
+     * @inheritDoc
      */
     public function setCarrierType(string $carrierType): RateInterface
     {
@@ -98,16 +97,15 @@ class Rate extends AbstractModel implements RateInterface
     }
 
     /**
-     * @return string|null
+     * @inheritDoc
      */
-    public function getMethodType(): ?string
+    public function getMethodType()
     {
         return $this->getData(static::METHOD_TYPE);
     }
 
     /**
-     * @param string $methodType
-     * @return RateInterface
+     * @inheritDoc
      */
     public function setMethodType(string $methodType): RateInterface
     {
@@ -116,52 +114,49 @@ class Rate extends AbstractModel implements RateInterface
     }
 
     /**
-     * @return bool|null
+     * @inheritDoc
      */
-    public function getIsActive(): ?bool
+    public function getIsActive()
     {
         return boolval($this->getData(static::IS_ACTIVE));
     }
 
     /**
-     * @param bool $isActive
-     * @return RateInterface
+     * @inheritDoc
      */
-    public function setIsActive(?bool $isActive): RateInterface
+    public function setIsActive($isActive): RateInterface
     {
         $this->setData(static::IS_ACTIVE, $isActive);
         return $this;
     }
 
     /**
-     * @return int|null
+     * @inheritDoc
      */
-    public function getSortOrder(): ?int
+    public function getSortOrder()
     {
         return $this->getData(static::SORT_ORDER);
     }
 
     /**
-     * @param int $sortOrder
-     * @return RateInterface
+     * @inheritDoc
      */
-    public function setSortOrder(?int $sortOrder): RateInterface
+    public function setSortOrder($sortOrder): RateInterface
     {
         $this->setData(static::SORT_ORDER, $sortOrder);
         return $this;
     }
 
     /**
-     * @return string|null
+     * @inheritDoc
      */
-    public function getTitle(): ?string
+    public function getTitle()
     {
         return $this->getData(static::TITLE);
     }
 
     /**
-     * @param string $title
-     * @return RateInterface
+     * @inheritDoc
      */
     public function setTitle(string $title): RateInterface
     {
@@ -170,16 +165,15 @@ class Rate extends AbstractModel implements RateInterface
     }
 
     /**
-     * @return float|null
+     * @inheritDoc
      */
-    public function getPrice(): ?float
+    public function getPrice()
     {
         return $this->getData(static::PRICE);
     }
 
     /**
-     * @param float $price
-     * @return RateInterface
+     * @inheritDoc
      */
     public function setPrice(float $price): RateInterface
     {
@@ -188,18 +182,17 @@ class Rate extends AbstractModel implements RateInterface
     }
 
     /**
-     * @return bool|null
+     * @inheritDoc
      */
-    public function getAllowFree(): ?bool
+    public function getAllowFree()
     {
         return boolval($this->getData(static::ALLOW_FREE));
     }
 
     /**
-     * @param bool $allowFree
-     * @return $this
+     * @inheritDoc
      */
-    public function setAllowFree(?bool $allowFree)
+    public function setAllowFree($allowFree)
     {
         $this->setData(static::ALLOW_FREE, $allowFree);
         return $this;
@@ -282,18 +275,17 @@ class Rate extends AbstractModel implements RateInterface
     }
 
     /**
-     * @return string|null
+     * @inheritDoc
      */
-    public function getConditionsSerialized(): ?string
+    public function getConditionsSerialized()
     {
         return $this->getData(static::CONDITIONS_SERIALIZED);
     }
 
     /**
-     * @param string $conditionalsSerialized
-     * @return RateInterface
+     * @inheritDoc
      */
-    public function setConditionsSerialized(?string $conditionalsSerialized): RateInterface
+    public function setConditionsSerialized($conditionalsSerialized): RateInterface
     {
         $this->setData(static::CONDITIONS_SERIALIZED, $conditionalsSerialized);
         return $this;
@@ -384,18 +376,17 @@ class Rate extends AbstractModel implements RateInterface
     }
 
     /**
-     * @return string|null
+     * @inheritDoc
      */
-    public function getStoreId(): ?string
+    public function getStoreId()
     {
         return $this->getData(static::STORE_ID);
     }
 
     /**
-     * @param string|null $storeIds
-     * @return RateInterface
+     * @inheritDoc
      */
-    public function setStoreId(?string $storeIds): RateInterface
+    public function setStoreId($storeIds): RateInterface
     {
         return $this->setData(static::STORE_ID, $storeIds);
     }

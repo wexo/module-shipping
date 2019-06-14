@@ -34,8 +34,8 @@ interface CarrierInterface
     /**
      * @param ShippingMethodInterface $shippingMethod
      * @param Rate $rate
-     * @param $typeHandler
+     * @param string|null $typeHandler
      * @return mixed
      */
-    public function getImageUrl(ShippingMethodInterface $shippingMethod, Rate $rate, ?string $typeHandler);
+    public function getImageUrl(ShippingMethodInterface $shippingMethod, Rate $rate, $typeHandler);
 }

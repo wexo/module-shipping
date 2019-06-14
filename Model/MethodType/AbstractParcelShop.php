@@ -68,10 +68,13 @@ abstract class AbstractParcelShop
         $parcelShop = $this->objectFactory->create($this->parcelShopClass, []);
         $this->dataObjectHelper->populateWithArray($parcelShop, $shippingData['parcelShop'], $this->parcelShopClass);
 
-        if ($parcelShop->getServicePointId()) {
+        if ($parcelShop->getNumber()) {
             $order->getShippingAddress()->addData([
                 OrderAddressInterface::COMPANY => $parcelShop->getCompanyName(),
-                OrderAddressInterface::STREET => [$parcelShop->getStreetName()],
+                OrderAddressInterface::STREET => [
+                    $parcelShop->getStreetName(),
+                    'ParcelShop: ' . $parcelShop->getNumber()
+                ],
                 OrderAddressInterface::POSTCODE => $parcelShop->getZipCode(),
                 OrderAddressInterface::REGION => '',
                 OrderAddressInterface::FAX => '',
