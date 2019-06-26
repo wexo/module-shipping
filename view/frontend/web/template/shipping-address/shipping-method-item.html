@@ -6,7 +6,7 @@
 -->
 <tr class="row"
     click="element.selectShippingMethod">
-    <td class="col col-method">
+    <td class="col col-method" colspan="2">
         <input attr="'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
                     'checked': element.rates().length == 1 || element.isSelected"
                class="radio"
@@ -22,7 +22,7 @@
 
     <td attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
         class="col col-carrier"
-        colspan="2"
+        colspan="1"
         data-bind="visible: !(method.extension_attributes && method.extension_attributes.wexo_shipping_method_image)"
         text="method.carrier_title"
     />
@@ -32,7 +32,7 @@
         colspan="2"
         data-bind="if: method.extension_attributes && method.extension_attributes.wexo_shipping_method_image"
     >
-        <img data-bind="attr: { src: method.extension_attributes.wexo_shipping_method_image }">
+        <img data-bind="attr: { src: method.extension_attributes.wexo_shipping_method_image }" width="75px">
     </td>
 </tr>
 <tr class="row row-error"
