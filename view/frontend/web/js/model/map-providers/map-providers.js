@@ -1,10 +1,8 @@
 define([
-    './mapbox',
     './leaflet'
-], function(MapBox, Leaflet) {
+], function(Leaflet) {
 
     return {
-        mapBox: MapBox,
         leaflet: Leaflet
     };
 });
