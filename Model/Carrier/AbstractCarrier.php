@@ -100,8 +100,8 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         $this->defaultMethodTypeHandler = $defaultMethodTypeHandler;
         $this->methodTypesHandlers = $methodTypeHandlers;
         $this->assetRepository = $assetRepository;
-        parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
         $this->storeManager = $storeManager;
+        parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
     }
 
     /**
