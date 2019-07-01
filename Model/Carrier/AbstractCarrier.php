@@ -14,6 +14,7 @@ use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
+use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 use Wexo\Reepay\Api\Reepay\MethodInterface;
 use Wexo\Shipping\Api\Carrier\CarrierInterface;
@@ -62,14 +63,20 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     protected $assetRepository;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * @param ScopeConfigInterface $scopeConfig
      * @param ErrorFactory $rateErrorFactory
      * @param LoggerInterface $logger
      * @param RateManagement $rateManagement
      * @param MethodFactory $methodFactory
      * @param ResultFactory $resultFactory
-     * @param MethodTypeHandlerInterface $defaultMethodTypeHandler
      * @param Repository $assetRepository
+     * @param MethodTypeHandlerInterface $defaultMethodTypeHandler
+     * @param StoreManagerInterface $storeManager
      * @param array $methodTypeHandlers
      * @param array $data
      */
@@ -81,6 +88,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         MethodFactory $methodFactory,
         ResultFactory $resultFactory,
         Repository $assetRepository,
+        StoreManagerInterface $storeManager,
         MethodTypeHandlerInterface $defaultMethodTypeHandler = null,
         array $methodTypeHandlers = [],
         array $data = []
@@ -93,6 +101,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         $this->methodTypesHandlers = $methodTypeHandlers;
         $this->assetRepository = $assetRepository;
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -118,19 +127,25 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         /** @var RateInterface $rate */
         foreach ($rates as $rate) {
 
-            if ($rate->getConditions() && $rate->getConditions()->validate($quote->getShippingAddress())) {
-
-                /** @var Method $method */
-                $method = $this->methodFactory->create();
-                $method->setData('carrier', $this->_code);
-                $method->setData('carrier_title', $this->getTitle());
-                $method->setData('method', $this->makeMethodCode($rate));
-                $method->setData('method_title', $rate->getTitle());
-                $method->setPrice(
-                    $request->getFreeShipping() && $rate->getAllowFree() ? 0 : $rate->getPrice()
-                );
-                $result->append($method);
+            if ($rate->getConditions() && !$rate->getConditions()->validate($quote->getShippingAddress())) {
+                continue;
             }
+
+            $storeId = $this->storeManager->getStore()->getId();
+            if ($rate->getStoreId() && !in_array($storeId, explode(',', $rate->getStoreId()))) {
+                continue;
+            }
+
+            /** @var Method $method */
+            $method = $this->methodFactory->create();
+            $method->setData('carrier', $this->_code);
+            $method->setData('carrier_title', $this->getTitle());
+            $method->setData('method', $this->makeMethodCode($rate));
+            $method->setData('method_title', $rate->getTitle());
+            $method->setPrice(
+                $request->getFreeShipping() && $rate->getAllowFree() ? 0 : $rate->getPrice()
+            );
+            $result->append($method);
         }
 
         return $result;
