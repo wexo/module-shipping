@@ -67,12 +67,20 @@ define([
                 this.oldShippingMethodType = key;
             }, this);
 
+            this.isChosenShippingMethod = ko.pureComputed(function() {
+                if (!this.shippingMethod() || !this.shippingMethod().extension_attributes) {
+                    return false;
+                }
+                return (this.shippingMethod().carrier_code + '-' +
+                    this.shippingMethod().extension_attributes.wexo_shipping_method_type_handler) === this.index;
+            }, this);
+
             return this;
         },
 
         initObservable: function() {
             return this._super()
-                .observe('parcelShops label chosenParcelShop postcode shippingPostcode shippingCountryId')
+                .observe('parcelShops disableFields label chosenParcelShop postcode shippingPostcode shippingCountryId')
                 .observe('wexoShippingData activeParcelShop errorMessage');
         },
 
@@ -81,17 +89,6 @@ define([
          */
         validateAddress: function() {
             this.source.trigger('wexoShippingData.data.validate');
-        },
-
-        /**
-         * @returns {boolean}
-         */
-        isChosenShippingMethod: function() {
-            if (!this.shippingMethod() || !this.shippingMethod().extension_attributes) {
-                return false;
-            }
-            return (this.shippingMethod().carrier_code + '-' +
-                this.shippingMethod().extension_attributes.wexo_shipping_method_type_handler) === this.index;
         },
 
         /**
