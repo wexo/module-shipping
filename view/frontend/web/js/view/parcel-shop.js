@@ -84,10 +84,21 @@ define([
         },
 
         /**
+         * @returns {boolean}
+         */
+        isChosenShippingMethod: function() {
+            if (!this.shippingMethod() || !this.shippingMethod().extension_attributes) {
+                return false;
+            }
+            return (this.shippingMethod().carrier_code + '-' +
+                this.shippingMethod().extension_attributes.wexo_shipping_method_type_handler) === this.index;
+        },
+
+        /**
          * @returns {{isValid: boolean, target: exports}}
          */
         validate: function() {
-            var isValid = !!this.chosenParcelShop();
+            var isValid = !this.isChosenShippingMethod() || !!this.chosenParcelShop();
 
             if (!isValid) {
                 this.source.set('params.invalid', true);
