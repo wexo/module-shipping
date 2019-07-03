@@ -55,7 +55,7 @@ define([
             this.activeParcelShop.subscribe(this._onActiveParcelShop.bind(this));
 
             quote.shippingMethod.subscribe(function(newVal) {
-                if (!newVal) {
+                if (!newVal || !newVal.carrier_code || !newVal.method_code) {
                     this.chosenParcelShop(null);
                     return;
                 }
