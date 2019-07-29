@@ -5,3 +5,6 @@
 "%1 service points in postcode <u>%2</u>", "%1 pakkeshops i postnummeret <u>%2</u>"
 "Service Point must be set!", "Der skal vælges en Pakkeshop!"
 "Service Point number was not found!", "Pakkeshop blev ikke fundet!"
+"Search by postcode:", "Indtast postnummer:"
+"Choose ParcelShop", "Vælg Pakkeshop"
+"Choose Another ParcelShop", "Vælg en anden Pakkeshop"
