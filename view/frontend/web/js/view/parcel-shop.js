@@ -102,6 +102,14 @@ define([
                 this.errorMessage($t('You must choose a Service Point!'));
             }
 
+            if(!isValid) {
+                if($('.wexo-shipping-additional .field-error').length) {
+                    $('body, html').animate({
+                        scrollTop: jQuery('.wexo-shipping-additional').offset().top - (window.screen.height / 4)
+                    }, 1000);
+                }
+            }
+
             return {
                 isValid: isValid,
                 target: this
