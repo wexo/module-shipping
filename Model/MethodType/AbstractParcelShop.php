@@ -79,6 +79,7 @@ abstract class AbstractParcelShop
                     'ParcelShop: ' . $parcelShop->getNumber()
                 ],
                 OrderAddressInterface::POSTCODE => $parcelShop->getZipCode(),
+                OrderAddressInterface::CITY => $parcelShop->getCity(),
                 OrderAddressInterface::REGION => '',
                 OrderAddressInterface::FAX => '',
                 'save_in_address_book' => 0,
