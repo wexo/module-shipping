@@ -18,6 +18,7 @@ interface RateInterface
     const PRICE = 'price';
     const ALLOW_FREE = 'allow_free';
     const STORE_ID = 'store_id';
+    const CUSTOMER_GROUPS = 'customer_groups';
 
     /**
      * @return string
@@ -133,4 +134,15 @@ interface RateInterface
      * @return RateInterface
      */
     public function setConditions(AbstractCondition $condition);
+
+    /**
+     * @return string
+     */
+    public function getCustomerGroups();
+
+    /**
+     * @param string $groups
+     * @return RateInterface
+     */
+    public function setCustomerGroups($groups): RateInterface;
 }

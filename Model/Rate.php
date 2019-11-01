@@ -390,5 +390,22 @@ class Rate extends AbstractModel implements RateInterface
     {
         return $this->setData(static::STORE_ID, $storeIds);
     }
+
+    /**
+     * @return string
+     */
+    public function getCustomerGroups()
+    {
+        return $this->getData(static::CUSTOMER_GROUPS);
+    }
+
+    /**
+     * @param string $groups
+     * @return RateInterface
+     */
+    public function setCustomerGroups($groups): RateInterface
+    {
+        return $this->setData(static::CUSTOMER_GROUPS, $groups);
+    }
 }
 

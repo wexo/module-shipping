@@ -15,7 +15,7 @@
             <button name="save">
                 <label>Save</label>
                 <class>save primary</class>
-                <url path="*/*/save"></url>
+                <url path="*/*/save" />
             </button>
         </buttons>
         <namespace>wexo_shipping_rate_form</namespace>
@@ -276,7 +276,23 @@
             </formElements>
         </field>
 
-        <container name="conditions_apply_to" sortOrder="20">
+        <field name="customer_groups" sortOrder="20" formElement="multiselect">
+            <settings>
+                <label translate="true">Customer Groups</label>
+                <visible>true</visible>
+                <dataType>int</dataType>
+                <dataScope>customer_groups</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Wexo\Shipping\Model\Options\CustomerGroups" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <container name="conditions_apply_to" sortOrder="30">
             <htmlContent name="html_content">
                 <block name="conditions_apply_to" class="Wexo\Shipping\Block\Adminhtml\Rate\Edit\Conditions"/>
             </htmlContent>

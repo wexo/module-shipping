@@ -15,16 +15,14 @@
         <column xsi:type="varchar" name="method_type" nullable="true" length="128"
                 comment="Method Type. Ex ParcelShop"/>
         <column xsi:type="mediumtext" name="conditions_serialized" nullable="true" comment="Conditions Serialized"/>
-
-        <column xsi:type="varchar" name="store_id" nullable="true" length="128" comment="Store Ids"/>
-
+        <column xsi:type="varchar" name="store_id" nullable="true" length="255" comment="Store Ids"/>
+        <column xsi:type="varchar" name="customer_groups" nullable="true" length="255" comment="Customer Groups"/>
         <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" default="0"
                 comment="Is Active"/>
         <column xsi:type="smallint" name="allow_free" padding="6" unsigned="false" nullable="false" default="1"
                 comment="If allows free shipping"/>
         <column xsi:type="int" name="sort_order" padding="10" unsigned="true" nullable="false" default="0"
                 comment="Sort Order"/>
-
         <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Shipping Rate Title."/>
         <column xsi:type="decimal" name="price" scale="2" precision="12" unsigned="false" nullable="false" default="0" comment="Price"/>
 

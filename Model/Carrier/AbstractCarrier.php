@@ -4,6 +4,7 @@ namespace Wexo\Shipping\Model\Carrier;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Quote\Api\Data\ShippingMethodInterface;
 use Magento\Quote\Model\Quote;
@@ -107,6 +108,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     /**
      * @param RateRequest $request
      * @return bool|DataObject|Result|null
+     * @throws NoSuchEntityException
      */
     public function collectRates(RateRequest $request)
     {
@@ -133,6 +135,11 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
 
             $storeId = $this->storeManager->getStore()->getId();
             if ($rate->getStoreId() && !in_array($storeId, explode(',', $rate->getStoreId()))) {
+                continue;
+            }
+
+            if ($rate->getCustomerGroups()
+                && !in_array($quote->getCustomerGroupId(), explode(',', $rate->getCustomerGroups()))) {
                 continue;
             }
 
@@ -200,6 +207,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     public function getMethodTypeByMethod(string $method)
     {
         $methodCodeParts = explode('_', $method);
+
         return implode('_',
             array_slice($methodCodeParts, 0, count($methodCodeParts) - 1, true)
         );
@@ -215,6 +223,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         if (isset($types[$type])) {
             return $types[$type];
         }
+
         return $types['default'] ?? null;
     }
 
