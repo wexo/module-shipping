@@ -74,6 +74,10 @@ class Save extends Action
                 $data['store_id'] = implode(',', $data['store_id']);
             }
 
+            if (isset($data['customer_groups'])) {
+                $data['customer_groups'] = implode(',', $data['customer_groups']);
+            }
+
             $rate = $this->rateInterfaceFactory->create();
 
             $id = $this->getRequest()->getParam('entity_id');
