@@ -26,7 +26,7 @@
                 comment="Sort Order"/>
 
         <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Shipping Rate Title."/>
-        <column xsi:type="decimal" name="price" nullable="false" default="0" comment="Price"/>
+        <column xsi:type="decimal" name="price" scale="2" precision="12" unsigned="false" nullable="false" default="0" comment="Price"/>
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
