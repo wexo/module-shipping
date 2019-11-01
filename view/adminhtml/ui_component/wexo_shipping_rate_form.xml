@@ -14,7 +14,8 @@
             <button name="delete" class="Wexo\Shipping\Block\Adminhtml\Rate\Edit\DeleteButton"/>
             <button name="save">
                 <label>Save</label>
-                <url path="*/*/save">
+                <class>save primary</class>
+                <url path="*/*/save"></url>
             </button>
         </buttons>
         <namespace>wexo_shipping_rate_form</namespace>
