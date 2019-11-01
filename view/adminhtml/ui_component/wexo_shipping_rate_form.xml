@@ -12,7 +12,10 @@
         <buttons>
             <button name="back" class="Wexo\Shipping\Block\Adminhtml\Rate\Edit\BackButton"/>
             <button name="delete" class="Wexo\Shipping\Block\Adminhtml\Rate\Edit\DeleteButton"/>
-            <button name="save" class="Wexo\Shipping\Block\Adminhtml\Rate\Edit\SaveButton"/>
+            <button name="save">
+                <label>Save</label>
+                <url path="*/*/save">
+            </button>
         </buttons>
         <namespace>wexo_shipping_rate_form</namespace>
         <dataScope>data</dataScope>
