@@ -1,6 +1,6 @@
 "Find a Service Point", "Velg postbutikk"
 "You must choose a Service Point!", "Du må velge utleveringssted!"
-"Sorry, we couldn't find any service points in your area", "Beklager, men vi finner ingen nærmeste utleveringssteder basert på ditt postnummer"
+"Sorry, we could not find any service points in your area", "Beklager, men vi finner ingen nærmeste utleveringssteder basert på ditt postnummer"
 "%1 service points", "%1 hentesteder"
 "%1 service points in postcode <u>%2</u>", "%1 hentesteder i postnummer <u>%2</u>"
 "Service Point must be set!", "Utleveringssted må velges!"

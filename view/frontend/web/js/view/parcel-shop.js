@@ -159,7 +159,7 @@ define([
                         this.errorMessage('');
                     }
                     else {
-                        this.errorMessage($t('Sorry, we couldn\'t find any service points in your area'));
+                        this.errorMessage($t('Sorry, we could not find any service points in your area'));
                     }
                 }.bind(this));
         },
