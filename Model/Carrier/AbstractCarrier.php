@@ -13,6 +13,7 @@ use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
+use Magento\Shipping\Model\Carrier\CarrierInterface as ShippingCarrierInterface;
 use Magento\Shipping\Model\Rate\Result;
 use Magento\Shipping\Model\Rate\ResultFactory;
 use Magento\Store\Model\StoreManagerInterface;
@@ -26,7 +27,8 @@ use Wexo\Shipping\Model\RateManagement;
 /**
  * @package Wexo\Shipping\Model\Carrier
  */
-abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements CarrierInterface
+abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractCarrier
+    implements CarrierInterface, ShippingCarrierInterface
 {
     /**
      * @var bool
@@ -249,5 +251,21 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         ];
 
         return $handlers;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllowedMethods()
+    {
+        $rates = $this->rateManagement->getRates($this, true);
+        $methods = [];
+
+        /** @var RateInterface $rate */
+        foreach ($rates as $rate) {
+            $methods[$this->makeMethodCode($rate)] = "{$rate->getTitle()} ({$rate->getId()})";
+        }
+
+        return $methods;
     }
 }
