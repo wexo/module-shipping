@@ -74,7 +74,7 @@ class Save extends Action
                 $data['store_id'] = implode(',', $data['store_id']);
             }
 
-            if (isset($data['customer_groups'])) {
+            if (isset($data['customer_groups']) && is_array($data['customer_groups'])) {
                 $data['customer_groups'] = implode(',', $data['customer_groups']);
             }
 
