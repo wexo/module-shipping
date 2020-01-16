@@ -11,6 +11,7 @@ define([
          */
         validate: function() {
             var checkoutProvider = uiRegistry.get('checkoutProvider');
+            checkoutProvider.set('params.invalid', false);
             checkoutProvider.trigger('wexoShippingData.data.validate');
             return !checkoutProvider.get('params.invalid');
         }
