@@ -39,7 +39,7 @@ class QuoteSubmitBefore implements ObserverInterface
         /** @var Order $order */
         $order = $observer->getEvent()->getData('order');
 
-        if ($quote && $order) {
+        if ($quote && $order && !$order->getIsVirtual()) {
             $order->setData('wexo_shipping_data', $quote->getData('wexo_shipping_data'));
 
             $shippingMethod = $order->getShippingMethod(true);
