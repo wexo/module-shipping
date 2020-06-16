@@ -229,14 +229,18 @@
                     flex-direction: column;
 
                     .choose-parcel-shop {
-                        margin-top: auto;
+                        margin-top: 15px;
                         display: flex;
                         justify-content: center;
                     }
 
                     .parcel-shop-info-opening-hours {
-                        padding: @indent__m 0;
+                        margin-top: 15px;
                         font-size: 0.9em;
+
+                        table > tbody > tr > th, table > tbody > tr > td {
+                            padding: 3px 9px;
+                        }
 
                         .day {
                             font-weight: 500;

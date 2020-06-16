@@ -19,11 +19,11 @@
         <div class="parcel-shop-info-parcelshop">
             <!-- ko template: $parent.getModalItemTemplate() --><!-- /ko -->
         </div>
-        <div class="parcel-shop-info-opening-hours" data-bind="html: $parent.formatOpeningHours($data)"></div>
         <div class="choose-parcel-shop">
             <button class="action primary" data-bind="click: $parent.setChoosenParcelShop.bind($parent, $data)">
                 <span data-bind="i18n: 'Choose ParcelShop'"></span>
             </button>
         </div>
+        <div class="parcel-shop-info-opening-hours" data-bind="html: $parent.formatOpeningHours($data)"></div>
     </div>
 </div>
