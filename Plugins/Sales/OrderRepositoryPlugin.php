@@ -30,7 +30,7 @@ class OrderRepositoryPlugin
         $ret
     ) {
         /** @var OrderInterface $order */
-        foreach ($ret->getItems as $order) {
+        foreach ($ret->getItems() as $order) {
             $order->getExtensionAttributes()->setWexoShippingData($order->getData('wexo_shipping_data'));
         }
         return $ret;
