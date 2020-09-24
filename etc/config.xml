@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <wexo_flatrate>
+                <active>1</active>
+                <test_mode>0</test_mode>
+                <sallowspecific>0</sallowspecific>
+                <model>Wexo\Shipping\Model\Carrier\FlatRate</model>
+                <name>Wexo Flatrate</name>
+                <title>Wexo Flatrate</title>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+            </wexo_flatrate>
+        </carriers>
+    </default>
+</config>

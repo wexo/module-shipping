@@ -3,6 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Wexo\Shipping\Api\Data\RateInterface" type="Wexo\Shipping\Model\Rate"/>
     <type name="Wexo\Shipping\Model\Provider\CurrentRate" shared="true"/>
+    <preference for="Wexo\Shipping\Api\Carrier\FlatRateInterface" type="Wexo\Shipping\Model\Carrier\FlatRate"/>
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
@@ -26,5 +27,20 @@
     </type>
     <type name="Magento\Checkout\Api\ShippingInformationManagementInterface">
         <plugin name="saveWexoShippingData" type="Wexo\Shipping\Plugins\Checkout\ShippingInformationManagementPlugin"/>
+    </type>
+    <type name="Wexo\Shipping\Model\ComponentManagement">
+        <arguments>
+            <argument name="carriers" xsi:type="array">
+                <item name="flatrate" xsi:type="object">Wexo\Shipping\Api\Carrier\FlatRateInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Wexo\Shipping\Model\Carrier\FlatRate">
+        <arguments>
+            <argument name="defaultMethodTypeHandler" xsi:type="object">Wexo\Shipping\Model\MethodType\Address</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="wexo_shipping" type="Wexo\Shipping\Plugins\Sales\OrderRepositoryPlugin"/>
     </type>
 </config>

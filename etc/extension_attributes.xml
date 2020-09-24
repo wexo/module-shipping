@@ -9,4 +9,7 @@
     <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
         <attribute code="wexo_shipping_data" type="string"/>
     </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="wexo_shipping_data" type="string"/>
+    </extension_attributes>
 </config>
