@@ -9,7 +9,6 @@ define([
             rates: ko.pureComputed(function() {
                 var rates = shippingService.getShippingRates()();
 
-                console.log(rates);
                 rates.sort(function (a, b) {
                     if(!a.extension_attributes.wexo_shipping_method_sort_order) {
                         return -1;
