@@ -17,6 +17,9 @@ var config = {
         mixins: {
             'Magento_Checkout/js/model/shipping-save-processor/payload-extender': {
                 'Wexo_Shipping/js/mixins/model/shipping-save-processor/payload-extender-mixin': true
+            },
+            'Magento_Checkout/js/view/shipping': {
+                'Wexo_Shipping/js/mixins/view/shipping-mixin': true
             }
         }
     }

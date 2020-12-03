@@ -48,4 +48,14 @@ class RateManagement
             $searchCriteriaBuilder->create()
         )->getItems();
     }
+
+    /**
+     * @param $rateId
+     * @return RateInterface|Rate
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getRate($rateId)
+    {
+        return $this->rateRepository->get($rateId);
+    }
 }
