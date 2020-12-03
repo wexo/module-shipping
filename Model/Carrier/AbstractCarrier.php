@@ -184,6 +184,14 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      */
     public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate)
     {
+        $rateId = $this->getRateIdFromCode($rate->getCode());
+
+        try {
+            $methodRate = $this->rateManagement->getRate($rateId);
+        } catch (NoSuchEntityException $e) {
+            $methodRate = null;
+        }
+
         $methodType = $this->getMethodTypeByMethod($rate->getMethod());
         $shippingMethod->getExtensionAttributes()->setWexoShippingMethodType($methodType);
 
@@ -200,6 +208,10 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         $shippingMethod->getExtensionAttributes()->setWexoShippingMethodImage(
             $this->getImageUrl($shippingMethod, $rate, $typeCode ?? null) ?: ''
         );
+
+        $shippingMethod->getExtensionAttributes()->setWexoShippingMethodSortOrder(
+            $methodRate ? (int) $methodRate->getSortOrder() : 1000
+        );
     }
 
     /**
@@ -213,6 +225,16 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         return implode('_',
             array_slice($methodCodeParts, 0, count($methodCodeParts) - 1, true)
         );
+    }
+
+    /**
+     * @param string $code
+     * @return mixed|string
+     */
+    public function getRateIdFromCode(string $code)
+    {
+        $parts = explode('_', $code);
+        return array_pop($parts);
     }
 
     /**

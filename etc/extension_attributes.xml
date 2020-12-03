@@ -5,6 +5,7 @@
         <attribute code="wexo_shipping_method_type" type="string"/>
         <attribute code="wexo_shipping_method_type_handler" type="string"/>
         <attribute code="wexo_shipping_method_image" type="string"/>
+        <attribute code="wexo_shipping_method_sort_order" type="integer"/>
     </extension_attributes>
     <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
         <attribute code="wexo_shipping_data" type="string"/>

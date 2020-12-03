@@ -38,6 +38,11 @@ class RateRepository
     private $rateResource;
 
     /**
+     * @var RateInterface[]
+     */
+    private $cache = [];
+
+    /**
      * @param RateInterfaceFactory $rateFactory
      * @param CollectionFactory $collectionFactory
      * @param SearchResultFactory $searchResultFactory
@@ -65,12 +70,16 @@ class RateRepository
      */
     public function get($rateId): RateInterface
     {
+        if(isset($this->cache[$rateId])) {
+            return $this->cache[$rateId];
+        }
+
         $rate = $this->rateFactory->create();
         $this->rateResource->load($rate, $rateId);
-
         if (!$rate->getId()) {
             throw new NoSuchEntityException(__('Rate with %1 does not exist', $rateId));
         }
+        $this->cache($rate);
 
         return $rate;
     }
@@ -84,13 +93,19 @@ class RateRepository
         $collection = $this->collectionFactory->create();
         $this->collectionProcessor->process($criteria, $collection);
 
-        return $this->searchResultFactory->create([
+        $result = $this->searchResultFactory->create([
             'data' => [
                 SearchResultInterface::ITEMS => $collection->getItems(),
                 SearchResultInterface::TOTAL_COUNT => $collection->getSize(),
                 SearchResultInterface::SEARCH_CRITERIA => $criteria
             ]
         ]);
+
+        foreach ($result->getItems() as $item) {
+            $this->cache($item);
+        }
+
+        return $result;
     }
 
     /**
@@ -101,6 +116,7 @@ class RateRepository
     public function save(RateInterface $rate)
     {
         $this->rateResource->save($rate);
+        unset($this->cache[$rate->getId()]);
         return $rate;
     }
 
@@ -112,6 +128,17 @@ class RateRepository
     public function delete(RateInterface $rate)
     {
         $this->rateResource->delete($rate);
+        unset($this->cache[$rate->getId()]);
         return true;
+    }
+
+    /**
+     * @param RateInterface $rate
+     * @return $this
+     */
+    public function cache(RateInterface $rate)
+    {
+        $this->cache[$rate->getId()] = $rate;
+        return $this;
     }
 }
