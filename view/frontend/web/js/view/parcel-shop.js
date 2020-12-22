@@ -199,18 +199,20 @@ define([
          */
         _onActiveParcelShop: function(parcelShop) {
             if (parcelShopPopup.modal().options.isOpen && parcelShopPopup.component() === this) {
-
+                
                 map.clearMarkers();
-                map.addMarker(
-                    parcelShop.longitude,
-                    parcelShop.latitude
-                );
-                setTimeout(function() {
-                    map.moveTo(
+                if(parcelShop.longitude && parcelShop.latitude) {
+                    map.addMarker(
                         parcelShop.longitude,
                         parcelShop.latitude
                     );
-                });
+                    setTimeout(function() {
+                        map.moveTo(
+                            parcelShop.longitude,
+                            parcelShop.latitude
+                        );
+                    });    
+                }
 
                 if (window.matchMedia('(max-width: ' + this.mobileWidth + ')').matches) {
                     var $modalInnerWrapper = $('.ws-parcelshop-popup.modal-popup.modal-slide .modal-inner-wrap');
