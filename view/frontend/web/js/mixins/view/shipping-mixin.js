@@ -10,10 +10,11 @@ define([
                 var rates = shippingService.getShippingRates()();
 
                 rates.sort(function (a, b) {
-                    if(!a.extension_attributes.wexo_shipping_method_sort_order) {
+                    if(!a.extension_attributes || !a.extension_attributes.wexo_shipping_method_sort_order) {
                         return -1;
                     }
-                    if(!b.extension_attributes.wexo_shipping_method_sort_order) {
+                    
+                    if(!b.extension_attributes || !b.extension_attributes.wexo_shipping_method_sort_order) {
                         return 1;
                     }
 
