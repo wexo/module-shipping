@@ -2,7 +2,7 @@
   "name": "wexo/module-shipping",
   "description": "Wexo Shipping Module that supports GLS, PostNord and Bring",
   "require": {
-    "php": "~7.0.0|~7.1.0|~7.2.0|~7.3.0|~7.4.0",
+    "php": "^7.2.0",
     "wexo/module-core": "^1.0.0"
   },
   "type": "magento2-module",
