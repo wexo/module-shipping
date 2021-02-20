@@ -37,7 +37,10 @@ class ShippingInformationManagementPlugin
     ) {
         if ($addressInformation->getExtensionAttributes()) {
             $quote = $this->quoteRepository->getActive($cartId);
-            $quote->setData('wexo_shipping_data', $addressInformation->getExtensionAttributes()->getWexoShippingData());
+            $additionalData = $addressInformation->getExtensionAttributes()->getWexoShippingData();
+            if(!empty($additionalData) || empty($quote->getData('wexo_shipping_data'))) {
+                $quote->setData('wexo_shipping_data', $addressInformation->getExtensionAttributes()->getWexoShippingData());
+            }
         }
         return [$cartId, $addressInformation];
     }

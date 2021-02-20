@@ -11,9 +11,15 @@
     <type name="Magento\Checkout\Block\Onepage">
         <arguments>
             <argument name="layoutProcessors" xsi:type="array">
-                <item name="wexoShippingDataProcessor" xsi:type="object">
-                    Wexo\Shipping\Block\Checkout\WexoShippingDataProcessor
-                </item>
+                <item name="wexoShippingDataProcessor" xsi:type="object">Wexo\Shipping\Block\Checkout\WexoShippingDataProcessor</item>
+                <item name="wexoShippingModulesProcessor" xsi:type="object">Wexo\Shipping\Model\Layout\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\OneStepCheckout\Model\Layout\LayoutProcessorProvider">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="wexoShipping" xsi:type="string">Wexo\Shipping\Model\Layout\Aheadworks\OneStepCheckout\ShippingProcessor</item>
             </argument>
         </arguments>
     </type>
