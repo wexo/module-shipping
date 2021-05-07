@@ -109,7 +109,7 @@ class Rate extends AbstractModel implements RateInterface
      */
     public function setMethodType(string $methodType): RateInterface
     {
-        $this->setData(static::METHOD_TYPE);
+        $this->setData(static::METHOD_TYPE, $methodType);
         return $this;
     }
 
