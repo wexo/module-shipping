@@ -181,7 +181,9 @@ define([
         },
 
         setMapElement: function(element) {
-            map.changeElement(element);
+            setTimeout(function() {
+                map.changeElement(element);
+            })
             this.activeParcelShop.valueHasMutated();
         },
 
@@ -241,18 +243,20 @@ define([
         },
 
         showMap: function(parcelShop, element) {
-            map.changeElement(element);
-            map.clearMarkers();
-            map.addMarker(
-                parcelShop.longitude,
-                parcelShop.latitude
-            );
-
             setTimeout(function() {
-                map.moveTo(
+                map.changeElement(element);
+                map.clearMarkers();
+                map.addMarker(
                     parcelShop.longitude,
                     parcelShop.latitude
                 );
+
+                setTimeout(function() {
+                    map.moveTo(
+                        parcelShop.longitude,
+                        parcelShop.latitude
+                    );
+                })
             });
         }
     });
