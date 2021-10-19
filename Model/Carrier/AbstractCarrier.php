@@ -130,7 +130,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
 
         /** @var RateInterface $rate */
         foreach ($rates as $rate) {
-
+            $quote->getShippingAddress()->setData('weight', $request->getPackageWeight());
             if ($rate->getConditions() && !$rate->getConditions()->validate($quote->getShippingAddress())) {
                 continue;
             }
