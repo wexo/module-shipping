@@ -18,8 +18,10 @@
         background: @sidebar__background-color;
         padding: @indent__m;
         border-top: 2px solid @border-color__base;
-        .lib-css(box-shadow, @ws-shipping__box-shadow);
+        z-index: 5;
 
+        .lib-css(box-shadow, @ws-shipping__box-shadow);
+        
         .leaflet-container,
         .mapboxgl-map {
             height: inherit;
