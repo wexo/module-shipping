@@ -27,7 +27,7 @@
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Wexo_Shipping::page</aclResource>
+        <aclResource>Wexo_Shipping::rates</aclResource>
         <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
                       name="wexo_shipping_rate_listing_data_source">
             <settings>
