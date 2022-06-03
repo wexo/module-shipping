@@ -5,76 +5,56 @@
  */
 -->
 <li class="checkout-shipping-address" data-bind="fadeVisible: visible()" id="shipping">
-    <div class="step-title" data-role="title" translate="'Shipping Address'"/>
-    <div class="step-content"
-         data-role="content"
-         id="checkout-step-shipping">
+    <div class="step-title" data-role="title" translate="'Shipping Address'" ></div>
+    <div class="step-content" data-role="content" id="checkout-step-shipping">
 
-        <each args="getRegion('customer-email')" if="!quoteIsVirtual" render=""/>
-        <each args="getRegion('address-list')" render=""/>
-        <each args="getRegion('address-list-additional-addresses')" render=""/>
+        <each args="getRegion('customer-email')" if="!quoteIsVirtual" render="" ></each>
+        <each args="getRegion('address-list')" render="" ></each>
+        <each args="getRegion('address-list-additional-addresses')" render="" ></each>
 
         <!-- Address form pop up -->
         <if args="!isFormInline">
-            <button class="action action-show-popup"
-                    click="showFormPopUp"
-                    type="button"
-                    visible="!isNewAddressAdded()">
-                <span translate="'New Address'"/>
+            <button class="action action-show-popup" click="showFormPopUp" type="button" visible="!isNewAddressAdded()">
+                <span translate="'New Address'" ></span>
             </button>
-            <div id="opc-new-shipping-address"
-                 render="shippingFormTemplate"
-                 visible="isFormPopUpVisible()"/>
+            <div id="opc-new-shipping-address" render="shippingFormTemplate" visible="isFormPopUpVisible()" ></div>
         </if>
 
-        <each args="getRegion('before-form')" render=""/>
+        <each args="getRegion('before-form')" render="" ></each>
 
         <!-- Inline address form -->
-        <render args="shippingFormTemplate" if="isFormInline"/>
+        <render args="shippingFormTemplate" if="isFormInline" ></render>
     </div>
 </li>
 
 <!--Shipping method template-->
-<li class="checkout-shipping-method"
-    data-bind="fadeVisible: visible(), blockLoader: isLoading"
-    id="opc-shipping_method"
+<li class="checkout-shipping-method" data-bind="fadeVisible: visible(), blockLoader: isLoading" id="opc-shipping_method"
     role="presentation">
     <div class="checkout-shipping-method">
-        <div class="step-title"
-             data-role="title"
-             translate="'Shipping Methods'"/>
+        <div class="step-title" data-role="title" translate="'Shipping Methods'" ></div>
 
-        <each args="getRegion('before-shipping-method-form')" render=""/>
+        <each args="getRegion('before-shipping-method-form')" render="" ></each>
 
-        <div aria-hidden="false"
-             class="step-content"
-             data-role="content"
-             id="checkout-step-shipping_method"
-             role="tabpanel">
-            <form class="form methods-shipping"
-                  id="co-shipping-method-form"
-                  if="rates().length"
-                  novalidate="novalidate"
-                  submit="setShippingInformation">
+        <div aria-hidden="false" class="step-content" data-role="content" id="checkout-step-shipping_method"
+            role="tabpanel">
+            <form class="form methods-shipping" id="co-shipping-method-form" if="rates().length" novalidate="novalidate"
+                submit="setShippingInformation">
 
-                <render args="shippingMethodListTemplate"/>
+                <render args="shippingMethodListTemplate" ></render>
 
-                <div class="message notice"
-                     if="errorValidationMessage().length"
-                     role="alert">
-                    <span text="errorValidationMessage()"/>
+                <div class="message notice" if="errorValidationMessage().length" role="alert">
+                    <span text="errorValidationMessage()" ></span>
                 </div>
                 <div class="actions-toolbar" id="shipping-method-buttons-container">
                     <div class="primary">
                         <button class="button action continue primary" data-role="opc-continue" type="submit">
-                            <span translate="'Next'"/>
+                            <span translate="'Next'" ></span>
                         </button>
                     </div>
                 </div>
             </form>
-            <div class="no-quotes-block"
-                 ifnot="rates().length > 0"
-                 translate="'Sorry, no quotes are available for this order at this time'"/>
+            <div class="no-quotes-block" ifnot="rates().length > 0"
+                translate="'Sorry, no quotes are available for this order at this time'" ></div>
         </div>
     </div>
 </li>
