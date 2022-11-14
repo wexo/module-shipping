@@ -127,10 +127,14 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
 
         /** @var Quote $quote */
         $quote = reset($items)->getQuote();
+        $quote->getShippingAddress()->setData('weight', $request->getPackageWeight());
+
+        if ($quote->getShippingAddress()->getBaseSubtotalWithDiscount() !== $quote->getBaseSubtotalWithDiscount()) {
+            $quote->getShippingAddress()->setBaseSubtotalWithDiscount($quote->getBaseSubtotalWithDiscount());
+        }
 
         /** @var RateInterface $rate */
         foreach ($rates as $rate) {
-            $quote->getShippingAddress()->setData('weight', $request->getPackageWeight());
             if ($rate->getConditions() && !$rate->getConditions()->validate($quote->getShippingAddress())) {
                 continue;
             }
