@@ -26,6 +26,7 @@ define([
             links: {
                 chosenParcelShop: '${ $.provider }:wexoShippingData.parcelShop',
                 wexoShippingData: '${ $.provider }:wexoShippingData',
+                postcode: '${ $.provider }:wexoShippingData.postcode',
 
                 shippingCountryId: '${ $.provider }:shippingAddress.country_id',
                 shippingPostcode: '${ $.provider }:shippingAddress.postcode'
@@ -53,6 +54,11 @@ define([
 
             this.shippingCountryId.subscribe(this.chosenParcelShop.bind(this, null));
             this.activeParcelShop.subscribe(this._onActiveParcelShop.bind(this));
+            this.shippingPostcode.subscribe(this.updatePostcode.bind(this));
+
+            if(this.shippingPostcode()){
+                this.updatePostcode(this.shippingPostcode());
+            }
 
             quote.shippingMethod.subscribe(function(newVal) {
                 if (!newVal || !newVal.carrier_code || !newVal.method_code) {
@@ -166,6 +172,12 @@ define([
 
         _onPopupShow: function() {
 
+        },
+
+        updatePostcode(postcode) {
+            if(!this.chosenParcelShop()){
+                this.postcode(postcode);
+            }
         },
 
         getModalTemplate: function() {
