@@ -1,0 +1,35 @@
+
+{
+    "wexo_shipping_rate": {
+        "column": {
+            "entity_id": true,
+            "carrier_type": true,
+            "method_type": true,
+            "conditions_serialized": true,
+            "store_id": true,
+            "customer_groups": true,
+            "is_active": true,
+            "allow_free": true,
+            "sort_order": true,
+            "title": true,
+            "price": true
+        },
+        "index": {
+            "WEXO_SHIPPING_RATE_IS_ACTIVE_SORT_ORDER": true,
+            "WEXO_SHIPPING_RATE_CARRIER_TYPE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "wexo_shipping_data": true
+        }
+    },
+    "quote": {
+        "column": {
+            "wexo_shipping_data": true
+        }
+    }
+}
