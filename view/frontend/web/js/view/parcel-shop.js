@@ -144,7 +144,6 @@ define([
         },
 
         search: function() {
-
             if (this.hasInvalidFields()) {
               return;
             }
