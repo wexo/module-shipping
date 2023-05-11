@@ -143,7 +143,6 @@ define([
           return validationResults.some((isValid) => isValid === false);
         },
 
-
         search: function() {
 
             if (this.hasInvalidFields()) {
