@@ -27,9 +27,15 @@ define([
                 chosenParcelShop: '${ $.provider }:wexoShippingData.parcelShop',
                 wexoShippingData: '${ $.provider }:wexoShippingData',
                 postcode: '${ $.provider }:wexoShippingData.postcode',
+                firstname: '${ $.provider }:wexoShippingData.name',
+                lastname: '${ $.provider }:wexoShippingData.lastname',
+                phone: '${ $.provider }:wexoShippingData.phone',
 
                 shippingCountryId: '${ $.provider }:shippingAddress.country_id',
-                shippingPostcode: '${ $.provider }:shippingAddress.postcode'
+                shippingPostcode: '${ $.provider }:shippingAddress.postcode',
+                shippingFirstname: '${ $.provider }:shippingAddress.firstname',
+                shippingLastname: '${ $.provider }:shippingAddress.lastname',
+                shippingPhone: '${ $.provider }:shippingAddress.telephone'
             },
 
             shippingMethod: quote.shippingMethod,
@@ -55,9 +61,21 @@ define([
             this.shippingCountryId.subscribe(this.chosenParcelShop.bind(this, null));
             this.activeParcelShop.subscribe(this._onActiveParcelShop.bind(this));
             this.shippingPostcode.subscribe(this.updatePostcode.bind(this));
+            this.shippingFirstname.subscribe(this.updateFirstname.bind(this));
+            this.shippingLastname.subscribe(this.updateLastname.bind(this));
+            this.shippingPhone.subscribe(this.updatePhone.bind(this));
 
-            if(this.shippingPostcode()){
+            if (this.shippingPostcode()){
                 this.updatePostcode(this.shippingPostcode());
+            }
+            if (this.shippingFirstname) {
+                this.updateFirstname(this.shippingFirstname());
+            }
+            if (this.shippingLastname) {
+                this.updateLastname(this.shippingLastname());
+            }
+            if (this.shippingPhone) {
+                this.updatePhone(this.shippingPhone());
             }
 
             quote.shippingMethod.subscribe(function(newVal) {
@@ -87,7 +105,8 @@ define([
         initObservable: function() {
             return this._super()
                 .observe('parcelShops disableFields label chosenParcelShop postcode shippingPostcode shippingCountryId')
-                .observe('wexoShippingData activeParcelShop errorMessage');
+                .observe('firstname lastname phone shippingFirstname shippingLastname shippingPhone wexoShippingData')
+                .observe('activeParcelShop errorMessage');
         },
 
         /**
@@ -186,6 +205,24 @@ define([
         updatePostcode(postcode) {
             if(!this.chosenParcelShop()){
                 this.postcode(postcode);
+            }
+        },
+
+        updateFirstname(firstname) {
+            if (!this.chosenParcelShop()) {
+                this.firstname(firstname);
+            }
+        },
+
+        updateLastname(lastname) {
+            if (!this.chosenParcelShop()) {
+                this.lastname(lastname);
+            }
+        },
+
+        updatePhone(phone) {
+            if (!this.chosenParcelShop()) {
+                this.phone(phone);
             }
         },
 
