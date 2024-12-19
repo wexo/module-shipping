@@ -31,13 +31,13 @@ define([
                 lastname: '${ $.provider }:wexoShippingData.lastname',
                 phone: '${ $.provider }:wexoShippingData.phone',
 
-                shippingCountryId: '${ $.provider }:shippingAddress.country_id',
                 shippingPostcode: '${ $.provider }:shippingAddress.postcode',
                 shippingFirstname: '${ $.provider }:shippingAddress.firstname',
                 shippingLastname: '${ $.provider }:shippingAddress.lastname',
                 shippingPhone: '${ $.provider }:shippingAddress.telephone'
             },
 
+            shippingCountryId: ko.observable(null),
             shippingMethod: quote.shippingMethod,
             parcelShops: [],
             parcelShopSearcher: null,
@@ -49,7 +49,6 @@ define([
 
         initialize: function() {
             this._super();
-            this.source.on('shippingAddress.data.validate', this.validateAddress.bind(this));
             this.source.on('wexoShippingData.data.validate', this.validate.bind(this));
 
             this.chosenParcelShop.subscribe(function(value, oldValue) {
@@ -58,7 +57,12 @@ define([
                 this.errorMessage('');
             }, this);
 
-            this.shippingCountryId.subscribe(this.chosenParcelShop.bind(this, null));
+            quote.shippingAddress.subscribe(function(newVal) {
+                if (newVal.countryId) {
+                    this.shippingCountryId(newVal.countryId);
+                }
+            }.bind(this));
+
             this.activeParcelShop.subscribe(this._onActiveParcelShop.bind(this));
             this.shippingPostcode.subscribe(this.updatePostcode.bind(this));
             this.shippingFirstname.subscribe(this.updateFirstname.bind(this));
@@ -110,14 +114,7 @@ define([
         },
 
         /**
-         * @returns {{isValid: boolean, target: exports}}
-         */
-        validateAddress: function() {
-            this.source.trigger('wexoShippingData.data.validate');
-        },
-
-        /**
-         * @returns {{isValid: boolean, target: exports}}
+         * @returns {boolean}
          */
         validate: function() {
             var isValid = !this.isChosenShippingMethod() || !!this.chosenParcelShop();
@@ -135,10 +132,7 @@ define([
                 }
             }
 
-            return {
-                isValid: isValid,
-                target: this
-            };
+            return isValid;
         },
 
         /**
