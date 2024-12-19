@@ -31,7 +31,7 @@ define([
             this.validateShippingInformation = wrapper.wrap(
                 this.validateShippingInformation,
                 function (originalFunction) {
-                    let result = originalFunction.apply(this, arguments);
+                    const result = originalFunction.apply(this, arguments);
 
                     if (!result) {
                         return result;
