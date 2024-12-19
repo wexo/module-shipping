@@ -33,9 +33,11 @@ define([
                 function (originalFunction) {
                     let result = originalFunction.apply(this, arguments);
 
-                    result = this.source.trigger('wexoShippingData.data.validate');
+                    if (!result) {
+                        return result;
+                    }
 
-                    return result;
+                    return this.source.trigger('wexoShippingData.data.validate');
                 }
             );
 
