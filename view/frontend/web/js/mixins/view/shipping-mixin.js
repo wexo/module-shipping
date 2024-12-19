@@ -1,7 +1,8 @@
 define([
     'Magento_Checkout/js/model/shipping-service',
-    'ko'
-],function (shippingService, ko) {
+    'ko',
+    'mage/utils/wrapper'
+],function (shippingService, ko, wrapper) {
     'use strict';
 
     var mixin = {
@@ -25,6 +26,23 @@ define([
                 return rates;
             })
         },
+
+        initialize: function () {
+            this.validateShippingInformation = wrapper.wrap(
+                this.validateShippingInformation,
+                function (originalFunction) {
+                    const result = originalFunction.apply(this, arguments);
+
+                    if (!result) {
+                        return result;
+                    }
+
+                    return this.source.trigger('wexoShippingData.data.validate');
+                }
+            );
+
+            return this._super();
+        }
     };
 
     return function (target) {
