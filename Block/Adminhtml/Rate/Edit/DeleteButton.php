@@ -9,23 +9,16 @@ class DeleteButton implements ButtonProviderInterface
 {
 
     /**
-     * @var Context
-     */
-    private $context;
-
-    /**
      * @param Context $context
      */
-    public function __construct(
-        Context $context
-    ) {
-        $this->context = $context;
+    public function __construct(private readonly Context $context)
+    {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getButtonData()
+    public function getButtonData(): array
     {
         $data = [];
         if ($this->getId()) {
@@ -33,15 +26,15 @@ class DeleteButton implements ButtonProviderInterface
                 'label' => __('Delete'),
                 'class' => 'delete',
                 'on_click' => 'deleteConfirm(\'' . __(
-                        'Are you sure you want to do this?'
-                    ) . '\', \'' . $this->getDeleteUrl() . '\')',
+                    'Are you sure you want to do this?'
+                ) . '\', \'' . $this->getDeleteUrl() . '\')',
                 'sort_order' => 20,
             ];
         }
         return $data;
     }
 
-    public function getId()
+    public function getId(): mixed
     {
         return $this->context->getRequest()->getParam('entity_id');
     }
@@ -49,7 +42,7 @@ class DeleteButton implements ButtonProviderInterface
     /**
      * @return string
      */
-    public function getDeleteUrl()
+    public function getDeleteUrl(): string
     {
         return $this->context->getUrlBuilder()->getUrl('*/*/delete', ['entity_id' => $this->getId()]);
     }

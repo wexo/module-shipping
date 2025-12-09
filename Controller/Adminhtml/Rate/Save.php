@@ -5,7 +5,6 @@ namespace Wexo\Shipping\Controller\Adminhtml\Rate;
 use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
@@ -17,33 +16,15 @@ use Wexo\Shipping\Model\RateRepository;
 
 class Save extends Action
 {
-    const ADMIN_RESOURCE = 'Wexo_Shipping::edit';
-
-    /**
-     * @var RateRepository
-     */
-    private $repository;
-
-    /**
-     * @var RateInterfaceFactory
-     */
-    private $rateInterfaceFactory;
-
-    /**
-     * @var DataPersistorInterface
-     */
-    private $dataPersistor;
+    const string ADMIN_RESOURCE = 'Wexo_Shipping::edit';
 
     public function __construct(
         Action\Context $context,
-        RateRepository $repository,
-        RateInterfaceFactory $rateInterfaceFactory,
-        DataPersistorInterface $dataPersistor
+        private readonly RateRepository $repository,
+        private readonly RateInterfaceFactory $rateInterfaceFactory,
+        private readonly DataPersistorInterface $dataPersistor
     ) {
         parent::__construct($context);
-        $this->repository = $repository;
-        $this->rateInterfaceFactory = $rateInterfaceFactory;
-        $this->dataPersistor = $dataPersistor;
     }
 
     /**
@@ -54,7 +35,7 @@ class Save extends Action
      * @return ResultInterface|ResponseInterface
      * @throws Exception
      */
-    public function execute()
+    public function execute(): ResultInterface|ResponseInterface
     {
         $data = $this->getRequest()->getPostValue();
         /** @var Redirect $resultRedirect */
@@ -84,7 +65,7 @@ class Save extends Action
             if ($id) {
                 try {
                     $rate = $this->repository->get($id);
-                } catch (NoSuchEntityException $e) {
+                } catch (NoSuchEntityException) {
                     $this->messageManager->addErrorMessage(__('This rate no longer exists.'));
                     return $resultRedirect->setPath('*/*/');
                 }

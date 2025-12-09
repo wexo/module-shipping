@@ -12,17 +12,10 @@ use Zend_Db_Exception;
 class InstallSchema implements InstallSchemaInterface
 {
     /**
-     * @var ProductMetadataInterface
-     */
-    private $productMetadata;
-
-    /**
      * @param ProductMetadataInterface $productMetadata
      */
-    public function __construct(
-        ProductMetadataInterface $productMetadata
-    ) {
-        $this->productMetadata = $productMetadata;
+    public function __construct(private readonly ProductMetadataInterface $productMetadata)
+    {
     }
 
     /**
@@ -33,7 +26,7 @@ class InstallSchema implements InstallSchemaInterface
      * @return void
      * @throws Zend_Db_Exception
      */
-    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
+    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context): void
     {
         if (version_compare($this->productMetadata->getVersion(), '2.3.0', '<')) {
             $installer = $setup;
@@ -111,8 +104,12 @@ class InstallSchema implements InstallSchemaInterface
 
                 $installer->getConnection()->createTable($table);
             }
-            if (!$installer->getConnection()->tableColumnExists($installer->getTable('sales_order'),
-                'wexo_shipping_data')) {
+
+            if (!$installer->getConnection()->tableColumnExists(
+                $installer->getTable('sales_order'),
+                'wexo_shipping_data'
+            )
+            ) {
                 $installer->getConnection()->addColumn(
                     $installer->getTable('sales_order'),
                     'wexo_shipping_data',
@@ -122,7 +119,12 @@ class InstallSchema implements InstallSchemaInterface
                     'Wexo Shipping Data'
                 );
             }
-            if (!$installer->getConnection()->tableColumnExists($installer->getTable('quote'), 'wexo_shipping_data')) {
+
+            if (!$installer->getConnection()->tableColumnExists(
+                $installer->getTable('quote'),
+                'wexo_shipping_data'
+            )
+            ) {
                 $installer->getConnection()->addColumn(
                     $installer->getTable('quote'),
                     'wexo_shipping_data',
@@ -132,6 +134,7 @@ class InstallSchema implements InstallSchemaInterface
                     'Wexo Shipping Data'
                 );
             }
+
             $installer->endSetup();
         }
     }

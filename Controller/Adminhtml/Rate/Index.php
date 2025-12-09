@@ -10,12 +10,7 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action
 {
-    const ADMIN_RESOURCE = 'Wexo_Shipping::rates';
-
-    /**
-     * @var PageFactory
-     */
-    private $pageFactory;
+    const string ADMIN_RESOURCE = 'Wexo_Shipping::rates';
 
     /**
      * @param Action\Context $context
@@ -23,16 +18,15 @@ class Index extends Action
      */
     public function __construct(
         Action\Context $context,
-        PageFactory $pageFactory
+        private readonly PageFactory $pageFactory
     ) {
         parent::__construct($context);
-        $this->pageFactory = $pageFactory;
     }
 
     /**
      * @return ResultInterface|ResponseInterface
      */
-    public function execute()
+    public function execute(): ResultInterface|ResponseInterface
     {
         /** @var Page $page */
         $page = $this->pageFactory->create();

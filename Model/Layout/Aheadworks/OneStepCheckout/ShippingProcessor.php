@@ -9,35 +9,18 @@ use Wexo\Shipping\Model\Layout\LayoutProcessor;
 
 class ShippingProcessor implements LayoutProcessorInterface
 {
-    const NEW_PATH = 'components/checkout/children/shippingMethod/children/shippingAdditional';
-
-    /**
-     * @var ObjectFactory
-     */
-    private $objectFactory;
-
-    /**
-     * @var string
-     */
-    private $processor;
-
-    /**
-     * @var ArrayManager
-     */
-    private $arrayManager;
+    const string NEW_PATH = 'components/checkout/children/shippingMethod/children/shippingAdditional';
 
     /**
      * @param ObjectFactory $objectFactory
+     * @param ArrayManager $arrayManager
      * @param string $processor
      */
     public function __construct(
-        ObjectFactory $objectFactory,
-        ArrayManager $arrayManager,
-        $processor = LayoutProcessor::class
+        private readonly ObjectFactory $objectFactory,
+        private readonly ArrayManager $arrayManager,
+        private readonly string $processor = LayoutProcessor::class
     ) {
-        $this->objectFactory = $objectFactory;
-        $this->arrayManager = $arrayManager;
-        $this->processor = $processor;
     }
 
     /**
@@ -46,14 +29,13 @@ class ShippingProcessor implements LayoutProcessorInterface
      * @param array $jsLayout
      * @return array
      */
-    public function process($jsLayout)
+    public function process($jsLayout): array
     {
         $processor = $this->objectFactory->create($this->processor, [
             'setPath' => static::NEW_PATH
         ]);
         $jsLayout = $processor->process($jsLayout);
-        $jsLayout = $this->arrayManager->set(static::NEW_PATH . '/displayArea', $jsLayout, 'delivery-date');
 
-        return $jsLayout;
+        return $this->arrayManager->set(static::NEW_PATH . '/displayArea', $jsLayout, 'delivery-date');
     }
 }

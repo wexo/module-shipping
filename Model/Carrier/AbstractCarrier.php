@@ -27,48 +27,14 @@ use Wexo\Shipping\Model\RateManagement;
 /**
  * @package Wexo\Shipping\Model\Carrier
  */
-abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractCarrier
-    implements CarrierInterface, ShippingCarrierInterface
+abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements
+    CarrierInterface,
+    ShippingCarrierInterface
 {
     /**
      * @var bool
      */
     protected $_isFixed = true;
-
-    /**
-     * @var RateManagement
-     */
-    protected $rateManagement;
-
-    /**
-     * @var MethodFactory
-     */
-    protected $methodFactory;
-
-    /**
-     * @var ResultFactory
-     */
-    protected $resultFactory;
-
-    /**
-     * @var array
-     */
-    protected $methodTypesHandlers;
-
-    /**
-     * @var MethodInterface|null
-     */
-    protected $defaultMethodTypeHandler;
-
-    /**
-     * @var Repository
-     */
-    protected $assetRepository;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    private $storeManager;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -78,32 +44,25 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      * @param MethodFactory $methodFactory
      * @param ResultFactory $resultFactory
      * @param Repository $assetRepository
-     * @param MethodTypeHandlerInterface $defaultMethodTypeHandler
+     * @param MethodTypeHandlerInterface|null $defaultMethodTypeHandler
      * @param StoreManagerInterface $storeManager
-     * @param array $methodTypeHandlers
+     * @param array $methodTypesHandlers
      * @param array $data
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         ErrorFactory $rateErrorFactory,
         LoggerInterface $logger,
-        RateManagement $rateManagement,
-        MethodFactory $methodFactory,
-        ResultFactory $resultFactory,
-        Repository $assetRepository,
-        StoreManagerInterface $storeManager,
-        MethodTypeHandlerInterface $defaultMethodTypeHandler = null,
-        array $methodTypeHandlers = [],
+        protected \Wexo\Shipping\Model\RateManagement $rateManagement,
+        private readonly MethodFactory $methodFactory,
+        private readonly ResultFactory $resultFactory,
+        protected \Magento\Framework\View\Asset\Repository $assetRepository,
+        private readonly StoreManagerInterface $storeManager,
+        protected ?\Wexo\Shipping\Api\Carrier\MethodTypeHandlerInterface $defaultMethodTypeHandler = null,
+        protected array $methodTypesHandlers = [],
         array $data = []
     ) {
         $this->_code = $this->getTypeName();
-        $this->rateManagement = $rateManagement;
-        $this->methodFactory = $methodFactory;
-        $this->resultFactory = $resultFactory;
-        $this->defaultMethodTypeHandler = $defaultMethodTypeHandler;
-        $this->methodTypesHandlers = $methodTypeHandlers;
-        $this->assetRepository = $assetRepository;
-        $this->storeManager = $storeManager;
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
     }
 
@@ -112,7 +71,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      * @return bool|DataObject|Result|null
      * @throws NoSuchEntityException
      */
-    public function collectRates(RateRequest $request)
+    public function collectRates(RateRequest $request): bool|DataObject|Result|null
     {
         if (!$this->getConfigFlag('active')) {
             return false;
@@ -167,7 +126,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getConfigData('title') ?? $this->getTypeName();
     }
@@ -176,7 +135,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      * @param RateInterface $rate
      * @return string
      */
-    public function makeMethodCode(RateInterface $rate)
+    public function makeMethodCode(RateInterface $rate): string
     {
         return "{$rate->getMethodType()}_{$rate->getId()}";
     }
@@ -184,15 +143,15 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     /**
      * @param ShippingMethodInterface $shippingMethod
      * @param Rate $rate
-     * @return void|CarrierInterface
+     * @return void
      */
-    public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate)
+    public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate): void
     {
         $rateId = $this->getRateIdFromCode($rate->getCode());
 
         try {
             $methodRate = $this->rateManagement->getRate($rateId);
-        } catch (NoSuchEntityException $e) {
+        } catch (NoSuchEntityException) {
             $methodRate = null;
         }
 
@@ -214,28 +173,26 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
         );
 
         $shippingMethod->getExtensionAttributes()->setWexoShippingMethodSortOrder(
-            $methodRate ? (int) $methodRate->getSortOrder() : 1000
+            $methodRate instanceof \Wexo\Shipping\Api\Data\RateInterface ? (int) $methodRate->getSortOrder() : 1000
         );
     }
 
     /**
      * @param string $method
-     * @return mixed
+     * @return string
      */
-    public function getMethodTypeByMethod(string $method)
+    public function getMethodTypeByMethod(string $method): string
     {
         $methodCodeParts = explode('_', $method);
 
-        return implode('_',
-            array_slice($methodCodeParts, 0, count($methodCodeParts) - 1, true)
-        );
+        return implode('_', array_slice($methodCodeParts, 0, count($methodCodeParts) - 1, true));
     }
 
     /**
      * @param string $code
-     * @return mixed|string
+     * @return string
      */
-    public function getRateIdFromCode(string $code)
+    public function getRateIdFromCode(string $code): string
     {
         $parts = explode('_', $code);
         return array_pop($parts);
@@ -245,14 +202,11 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
      * @param string $type
      * @return array|null
      */
-    public function getMethodTypeHandler(string $type)
+    public function getMethodTypeHandler(string $type): ?array
     {
         $types = $this->getMethodTypesHandlers();
-        if (isset($types[$type])) {
-            return $types[$type];
-        }
 
-        return $types['default'] ?? null;
+        return $types[$type] ?? $types['default'] ?? null;
     }
 
     /**
@@ -282,7 +236,7 @@ abstract class AbstractCarrier extends \Magento\Shipping\Model\Carrier\AbstractC
     /**
      * @return array
      */
-    public function getAllowedMethods()
+    public function getAllowedMethods(): array
     {
         $rates = $this->rateManagement->getRates($this, true);
         $methods = [];

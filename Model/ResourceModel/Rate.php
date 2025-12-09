@@ -9,9 +9,8 @@ class Rate extends AbstractDb
     /**
      * @return void
      */
-    public function _construct()
+    public function _construct(): void
     {
         $this->_init('wexo_shipping_rate', 'entity_id');
     }
 }
-

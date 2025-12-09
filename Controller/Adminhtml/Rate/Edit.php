@@ -6,7 +6,6 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
 use Wexo\Shipping\Api\Data\RateInterface;
@@ -16,24 +15,7 @@ use Wexo\Shipping\Model\RateRepository;
 
 class Edit extends Action
 {
-    const ADMIN_RESOURCE = 'Wexo_Shipping::edit';
-
-    /**
-     * @var PageFactory
-     */
-    private $resultPageFactory;
-    /**
-     * @var CurrentRate
-     */
-    private $currentRate;
-    /**
-     * @var RateRepository
-     */
-    private $rateRepository;
-    /**
-     * @var RateInterfaceFactory
-     */
-    private $rateInterfaceFactory;
+    const string ADMIN_RESOURCE = 'Wexo_Shipping::edit';
 
     /**
      * @param Context $context
@@ -44,33 +26,29 @@ class Edit extends Action
      */
     public function __construct(
         Context $context,
-        PageFactory $resultPageFactory,
-        CurrentRate $currentRate,
-        RateRepository $rateRepository,
-        RateInterfaceFactory $rateInterfaceFactory
+        private readonly PageFactory $resultPageFactory,
+        private readonly CurrentRate $currentRate,
+        private readonly RateRepository $rateRepository,
+        private readonly RateInterfaceFactory $rateInterfaceFactory
     ) {
-        $this->resultPageFactory = $resultPageFactory;
-        $this->currentRate = $currentRate;
-        $this->rateRepository = $rateRepository;
-        $this->rateInterfaceFactory = $rateInterfaceFactory;
         parent::__construct($context);
     }
 
     /**
      * @return Page|Redirect|\Magento\Framework\Controller\Result\Redirect
      */
-    public function execute()
+    public function execute(): Page|Redirect|\Magento\Framework\Controller\Result\Redirect
     {
         $id = $this->getRequest()->getParam('entity_id');
 
         try {
             $rate = $this->rateRepository->get($id);
 
-            if (!$rate->getId()) {
+            if ($rate->getId() === '') {
                 $this->messageManager->addErrorMessage(__('This Rate no longer exists'));
                 return $this->resultRedirectFactory->create()->setPath('*/*/');
             }
-        } catch (NoSuchEntityException $e) {
+        } catch (NoSuchEntityException) {
             /** @var RateInterface $rate */
             $rate = $this->rateInterfaceFactory->create();
         }
@@ -93,7 +71,7 @@ class Edit extends Action
     /**
      * @return Page
      */
-    protected function _initAction()
+    protected function _initAction(): Page
     {
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();

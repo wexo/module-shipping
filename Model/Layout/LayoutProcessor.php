@@ -2,47 +2,28 @@
 
 namespace Wexo\Shipping\Model\Layout;
 
+use Magento\Framework\Stdlib\ArrayManager;
+
 class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcessorInterface
 {
-    const SHIPPING_ADDITIONAL = 'components/checkout/children/steps/children/shipping-step/children/shippingAddress/children/shippingAdditional';
+    const string SHIPPING_ADDITIONAL = 'components/checkout/children/steps/children/shipping-step/children/'
+        . 'shippingAddress/children/shippingAdditional';
 
     /**
-     * @var array
-     */
-    private $processors;
-
-    /**
-     * @var string
-     */
-    private $path;
-
-    /**
-     * @var \Magento\Framework\Stdlib\ArrayManager
-     */
-    private $arrayManager;
-
-    /**
-     * @var string
-     */
-    private $setPath;
-
-    /**
+     * @param ArrayManager $arrayManager
      * @param array $processors
+     * @param string $path
+     * @param string $setPath
      */
     public function __construct(
-        \Magento\Framework\Stdlib\ArrayManager $arrayManager,
-        $processors = [],
-        $path = self::SHIPPING_ADDITIONAL,
-        $setPath = self::SHIPPING_ADDITIONAL
-    )
-    {
-        $this->processors = $processors;
-        $this->path = $path;
-        $this->arrayManager = $arrayManager;
-        $this->setPath = $setPath;
+        private readonly ArrayManager $arrayManager,
+        private readonly array $processors = [],
+        private readonly string $path = self::SHIPPING_ADDITIONAL,
+        private readonly string $setPath = self::SHIPPING_ADDITIONAL
+    ) {
     }
 
-    public function process($jsLayout)
+    public function process($jsLayout): array
     {
         $additionalData = $this->arrayManager->get($this->path, $jsLayout);
 

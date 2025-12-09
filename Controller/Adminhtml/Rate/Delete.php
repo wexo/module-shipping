@@ -13,17 +13,7 @@ use Wexo\Shipping\Model\RateRepository;
 
 class Delete extends Action
 {
-    const ADMIN_RESOURCE = 'Wexo_Shipping::edit';
-
-    /**
-     * @var RateRepository
-     */
-    private $repository;
-
-    /**
-     * @var DataPersistorInterface
-     */
-    private $dataPersistor;
+    const string ADMIN_RESOURCE = 'Wexo_Shipping::edit';
 
     /**
      * @param Action\Context $context
@@ -32,12 +22,10 @@ class Delete extends Action
      */
     public function __construct(
         Action\Context $context,
-        RateRepository $repository,
-        DataPersistorInterface $dataPersistor
+        private readonly RateRepository $repository,
+        private readonly DataPersistorInterface $dataPersistor
     ) {
         parent::__construct($context);
-        $this->repository = $repository;
-        $this->dataPersistor = $dataPersistor;
     }
 
     /**
@@ -48,7 +36,7 @@ class Delete extends Action
      * @return ResultInterface|ResponseInterface
      * @throws Exception
      */
-    public function execute()
+    public function execute(): ResultInterface|ResponseInterface
     {
         $id = $this->getRequest()->getParam('entity_id');
 
@@ -62,7 +50,7 @@ class Delete extends Action
                 );
                 $this->messageManager->addSuccessMessage(__('Rate was deleted'));
 
-            } catch (NoSuchEntityException $e) {
+            } catch (NoSuchEntityException) {
                 $this->messageManager->addErrorMessage(__('This rate no longer exists.'));
             }
 

@@ -22,14 +22,14 @@ interface CarrierInterface
     /**
      * @return string
      */
-    public function getTitle();
+    public function getTitle(): string;
 
     /**
      * @param ShippingMethodInterface $shippingMethod
      * @param Rate $rate
-     * @return CarrierInterface
+     * @return void
      */
-    public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate);
+    public function convertAdditionalRateData(ShippingMethodInterface $shippingMethod, Rate $rate): void;
 
     /**
      * @param ShippingMethodInterface $shippingMethod
@@ -37,5 +37,5 @@ interface CarrierInterface
      * @param string|null $typeHandler
      * @return mixed
      */
-    public function getImageUrl(ShippingMethodInterface $shippingMethod, Rate $rate, $typeHandler);
+    public function getImageUrl(ShippingMethodInterface $shippingMethod, Rate $rate, string|null $typeHandler): mixed;
 }

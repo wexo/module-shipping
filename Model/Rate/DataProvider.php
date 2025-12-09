@@ -16,36 +16,39 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
     /**
      * @var Collection
      */
-    protected $collection;
-
-    /**
-     * @var DataPersistorInterface
-     */
-    protected $dataPersistor;
+    protected Collection $collection;
 
     /**
      * @var array
      */
-    protected $loadedData;
+    protected array $loadedData = [];
 
     public function __construct(
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
+        string $name,
+        string $primaryFieldName,
+        string $requestFieldName,
         ReportingInterface $reporting,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         RequestInterface $request,
         FilterBuilder $filterBuilder,
         CollectionFactory $collectionFactory,
-        DataPersistorInterface $dataPersistor,
+        protected DataPersistorInterface $dataPersistor,
         array $meta = [],
         array $data = []
     ) {
         $this->collection = $collectionFactory->create();
-        $this->dataPersistor = $dataPersistor;
 
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $reporting, $searchCriteriaBuilder, $request,
-            $filterBuilder, $meta, $data);
+        parent::__construct(
+            $name,
+            $primaryFieldName,
+            $requestFieldName,
+            $reporting,
+            $searchCriteriaBuilder,
+            $request,
+            $filterBuilder,
+            $meta,
+            $data
+        );
     }
 
     /**
@@ -53,11 +56,13 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
      *
      * @return array
      */
-    public function getData()
+    #[\Override]
+    public function getData(): array
     {
-        if (isset($this->loadedData)) {
+        if ($this->loadedData !== []) {
             return $this->loadedData;
         }
+
         $items = $this->collection->getItems();
         /** @var $rate Rate */
         foreach ($items as $rate) {

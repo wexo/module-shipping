@@ -17,49 +17,26 @@ use Wexo\PostNord\Api\Data\ParcelShopInterface;
 abstract class AbstractParcelShop
 {
     /**
-     * @var Json
-     */
-    private $jsonSerializer;
-
-    /**
-     * @var DataObjectHelper
-     */
-    private $dataObjectHelper;
-
-    /**
-     * @var ObjectFactory
-     */
-    private $objectFactory;
-
-    /**
-     * @var null
-     */
-    private $parcelShopClass;
-
-    /**
      * @param Json $jsonSerializer
      * @param DataObjectHelper $dataObjectHelper
      * @param ObjectFactory $objectFactory
-     * @param null $parcelShopClass
+     * @param ?string $parcelShopClass
      */
     public function __construct(
-        Json $jsonSerializer,
-        DataObjectHelper $dataObjectHelper,
-        ObjectFactory $objectFactory,
-        $parcelShopClass = null
+        private readonly Json $jsonSerializer,
+        private readonly DataObjectHelper $dataObjectHelper,
+        private readonly ObjectFactory $objectFactory,
+        private readonly ?string $parcelShopClass = null
     ) {
-        $this->jsonSerializer = $jsonSerializer;
-        $this->dataObjectHelper = $dataObjectHelper;
-        $this->objectFactory = $objectFactory;
-        $this->parcelShopClass = $parcelShopClass;
     }
 
     /**
      * @param CartInterface $quote
      * @param OrderInterface $order
+     * @return bool
      * @throws LocalizedException
      */
-    public function saveOrderInformation(CartInterface $quote, OrderInterface $order)
+    public function saveOrderInformation(CartInterface $quote, OrderInterface $order): bool
     {
         $shippingData = $this->jsonSerializer->unserialize($order->getData('wexo_shipping_data'));
 
@@ -84,6 +61,8 @@ abstract class AbstractParcelShop
                 OrderAddressInterface::FAX => '',
                 'save_in_address_book' => 0,
             ]);
+
+            return true;
         } else {
             throw new LocalizedException(__('Service Point number was not found!'));
         }

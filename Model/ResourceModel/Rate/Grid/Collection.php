@@ -20,7 +20,7 @@ class Collection extends RateCollection implements SearchResultInterface
     /**
      * @var AggregationInterface
      */
-    protected $aggregations;
+    protected AggregationInterface $aggregations;
 
     /**
      * @var string
@@ -32,10 +32,10 @@ class Collection extends RateCollection implements SearchResultInterface
      * @param LoggerInterface $logger
      * @param FetchStrategyInterface $fetchStrategy
      * @param ManagerInterface $eventManager
-     * @param $mainTable
-     * @param $eventPrefix
-     * @param $eventObject
-     * @param $resourceModel
+     * @param string $mainTable
+     * @param string $eventPrefix
+     * @param string $eventObject
+     * @param string $resourceModel
      * @param string $model
      * @param AdapterInterface|null $connection
      * @param AbstractDb|null $resource
@@ -45,13 +45,13 @@ class Collection extends RateCollection implements SearchResultInterface
         LoggerInterface $logger,
         FetchStrategyInterface $fetchStrategy,
         ManagerInterface $eventManager,
-        $mainTable,
-        $eventPrefix,
-        $eventObject,
-        $resourceModel,
-        $model = Document::class,
-        AdapterInterface $connection = null,
-        AbstractDb $resource = null
+        string $mainTable,
+        string $eventPrefix,
+        string $eventObject,
+        string $resourceModel,
+        string $model = Document::class,
+        ?AdapterInterface $connection = null,
+        ?AbstractDb $resource = null
     ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->_eventPrefix = $eventPrefix;
@@ -61,18 +61,18 @@ class Collection extends RateCollection implements SearchResultInterface
     }
 
     /**
-     * @return AggregationInterface
+     * @return ?AggregationInterface
      */
-    public function getAggregations()
+    public function getAggregations(): ?AggregationInterface
     {
         return $this->aggregations;
     }
 
     /**
      * @param AggregationInterface $aggregations
-     * @return Collection
+     * @return $this
      */
-    public function setAggregations($aggregations)
+    public function setAggregations($aggregations): self
     {
         $this->aggregations = $aggregations;
         return $this;
@@ -83,7 +83,7 @@ class Collection extends RateCollection implements SearchResultInterface
      *
      * @return SearchCriteriaInterface|null
      */
-    public function getSearchCriteria()
+    public function getSearchCriteria(): ?SearchCriteriaInterface
     {
         return null;
     }
@@ -91,11 +91,11 @@ class Collection extends RateCollection implements SearchResultInterface
     /**
      * Set search criteria.
      *
-     * @param SearchCriteriaInterface $searchCriteria
+     * @param SearchCriteriaInterface|null $searchCriteria
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setSearchCriteria(SearchCriteriaInterface $searchCriteria = null)
+    public function setSearchCriteria(?SearchCriteriaInterface $searchCriteria = null): self
     {
         return $this;
     }
@@ -105,7 +105,7 @@ class Collection extends RateCollection implements SearchResultInterface
      *
      * @return int
      */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->getSize();
     }
@@ -117,7 +117,7 @@ class Collection extends RateCollection implements SearchResultInterface
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setTotalCount($totalCount)
+    public function setTotalCount($totalCount): self
     {
         return $this;
     }
@@ -125,11 +125,11 @@ class Collection extends RateCollection implements SearchResultInterface
     /**
      * Set items list.
      *
-     * @param ExtensibleDataInterface[] $items
+     * @param ExtensibleDataInterface[]|null $items
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setItems(array $items = null)
+    public function setItems(?array $items = null): self
     {
         return $this;
     }

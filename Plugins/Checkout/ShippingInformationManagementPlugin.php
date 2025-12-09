@@ -10,17 +10,10 @@ use Magento\Quote\Api\CartRepositoryInterface;
 class ShippingInformationManagementPlugin
 {
     /**
-     * @var CartRepositoryInterface
-     */
-    private $quoteRepository;
-
-    /**
      * @param CartRepositoryInterface $quoteRepository
      */
-    public function __construct(
-        CartRepositoryInterface $quoteRepository
-    ) {
-        $this->quoteRepository = $quoteRepository;
+    public function __construct(private readonly CartRepositoryInterface $quoteRepository)
+    {
     }
 
     /**
@@ -32,14 +25,17 @@ class ShippingInformationManagementPlugin
      */
     public function beforeSaveAddressInformation(
         ShippingInformationManagementInterface $subject,
-        $cartId,
+        int $cartId,
         ShippingInformationInterface $addressInformation
-    ) {
+    ): array {
         if ($addressInformation->getExtensionAttributes()) {
             $quote = $this->quoteRepository->getActive($cartId);
             $additionalData = $addressInformation->getExtensionAttributes()->getWexoShippingData();
-            if(!empty($additionalData) || empty($quote->getData('wexo_shipping_data'))) {
-                $quote->setData('wexo_shipping_data', $addressInformation->getExtensionAttributes()->getWexoShippingData());
+            if (!empty($additionalData) || empty($quote->getData('wexo_shipping_data'))) {
+                $quote->setData(
+                    'wexo_shipping_data',
+                    $addressInformation->getExtensionAttributes()->getWexoShippingData()
+                );
             }
         }
         return [$cartId, $addressInformation];

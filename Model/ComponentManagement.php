@@ -8,40 +8,33 @@ use Wexo\Shipping\Api\Carrier\CarrierInterface;
 class ComponentManagement
 {
     /**
-     * @var array
-     */
-    private $carriers;
-
-    /**
      * @param CarrierInterface[] $carriers
      */
     public function __construct(
-        array $carriers = []
+        private readonly array $carriers = []
     ) {
-        $this->carriers = $carriers;
-
         foreach ($this->carriers as $carrier) {
             if (!($carrier instanceof CarrierInterface)) {
                 throw new InvalidArgumentException(
-                    __('%1 is not an instace of %2', get_class($carrier), CarrierInterface::class)->__toString()
+                    __('%1 is not an instace of %2', $carrier::class, CarrierInterface::class)->__toString()
                 );
             }
         }
     }
 
     /**
-     * @param $name
-     * @return mixed|null
+     * @param string $name
+     * @return CarrierInterface|null
      */
-    public function getComponent($name)
+    public function getComponent(string $name): ?CarrierInterface
     {
-        return isset($this->carriers[$name]) ? $this->carriers[$name] : null;
+        return $this->carriers[$name] ?? null;
     }
 
     /**
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         return $this->carriers;
     }
