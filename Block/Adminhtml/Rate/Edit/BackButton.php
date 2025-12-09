@@ -9,17 +9,11 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 class BackButton implements ButtonProviderInterface
 {
     /**
-     * @var Context
-     */
-    private $context;
-
-    /**
      * @param Context $context
      */
     public function __construct(
-        Context $context
+        private readonly Context $context
     ) {
-        $this->context = $context;
     }
 
     /**
@@ -27,7 +21,7 @@ class BackButton implements ButtonProviderInterface
      *
      * @return array
      */
-    public function getButtonData()
+    public function getButtonData(): array
     {
         return [
             'label' => __('Back'),

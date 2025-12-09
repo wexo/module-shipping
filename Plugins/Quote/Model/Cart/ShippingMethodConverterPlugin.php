@@ -2,7 +2,6 @@
 
 namespace Wexo\Shipping\Plugins\Quote\Model\Cart;
 
-use Magento\Framework\Api\DataObjectHelper;
 use Magento\Quote\Api\Data\ShippingMethodExtensionFactory;
 use Magento\Quote\Api\Data\ShippingMethodInterface;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
@@ -13,34 +12,14 @@ use Wexo\Shipping\Api\Carrier\CarrierInterface;
 class ShippingMethodConverterPlugin
 {
     /**
-     * @var DataObjectHelper
-     */
-    private $dataObjectHelper;
-
-    /**
-     * @var ShippingMethodExtensionFactory
-     */
-    private $shippingMethodExtensionFactory;
-
-    /**
-     * @var Config
-     */
-    private $shippingConfig;
-
-    /**
      * ShippingMethodConvertPlugin constructor.
-     * @param DataObjectHelper $dataObjectHelper
      * @param ShippingMethodExtensionFactory $shippingMethodExtensionFactory
      * @param Config $shippingConfig
      */
     public function __construct(
-        DataObjectHelper $dataObjectHelper,
-        ShippingMethodExtensionFactory $shippingMethodExtensionFactory,
-        Config $shippingConfig
+        private readonly ShippingMethodExtensionFactory $shippingMethodExtensionFactory,
+        private readonly Config $shippingConfig
     ) {
-        $this->dataObjectHelper = $dataObjectHelper;
-        $this->shippingMethodExtensionFactory = $shippingMethodExtensionFactory;
-        $this->shippingConfig = $shippingConfig;
     }
 
     /**

@@ -15,35 +15,20 @@ use Magento\Framework\Registry;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Rule\Model\Condition\AbstractCondition;
 use Magento\Rule\Model\Condition\Combine;
-use Magento\SalesRule\Model\Rule\Condition\CombineFactory;
 use Wexo\Shipping\Api\Data\RateInterface;
+use Magento\SalesRule\Model\Rule\Condition\CombineFactory;
 
 class Rate extends AbstractModel implements RateInterface
 {
     /**
-     * @var AbstractCondition
+     * @var AbstractCondition|null
      */
-    protected $conditions = null;
+    protected ?AbstractCondition $conditions;
 
     /**
      * @var Form
      */
-    protected $form = null;
-
-    /**
-     * @var CombineFactory
-     */
-    private $combineConditionFactory;
-
-    /**
-     * @var Json
-     */
-    private $serializer;
-
-    /**
-     * @var FormFactory
-     */
-    private $formFactory;
+    protected Form $form;
 
     /**
      * @param Context $context
@@ -51,30 +36,30 @@ class Rate extends AbstractModel implements RateInterface
      * @param CombineFactory $combineConditionFactory
      * @param Json $serializer
      * @param FormFactory $formFactory
-     * @param AbstractResource $resource
-     * @param AbstractDb|null $resourceCollection
+     * @param ?AbstractResource $resource
+     * @param ?AbstractDb $resourceCollection
      * @param array $data
+     * @throws LocalizedException
      */
     public function __construct(
         Context $context,
         Registry $registry,
-        CombineFactory $combineConditionFactory,
-        Json $serializer,
-        FormFactory $formFactory,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
+        private CombineFactory $combineConditionFactory,
+        private readonly Json $serializer,
+        private readonly FormFactory $formFactory,
+        ?AbstractResource $resource = null,
+        ?AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->combineConditionFactory = $combineConditionFactory;
-        $this->serializer = $serializer;
-        $this->formFactory = $formFactory;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
     /**
      * @return void
+     * @throws LocalizedException
      */
-    public function _construct()
+    public function _construct(): void
     {
         $this->_init(ResourceModel\Rate::class);
     }
@@ -82,7 +67,16 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getCarrierType()
+    #[\Override]
+    public function getId(): string
+    {
+        return (string) parent::getId();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCarrierType(): string
     {
         return $this->getData(static::CARRIER_TYPE);
     }
@@ -99,7 +93,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getMethodType()
+    public function getMethodType(): string
     {
         return $this->getData(static::METHOD_TYPE);
     }
@@ -116,15 +110,15 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getIsActive()
+    public function getIsActive(): int
     {
-        return boolval($this->getData(static::IS_ACTIVE));
+        return (int) $this->getData(static::IS_ACTIVE);
     }
 
     /**
      * @inheritDoc
      */
-    public function setIsActive($isActive): RateInterface
+    public function setIsActive(int|null $isActive): RateInterface
     {
         $this->setData(static::IS_ACTIVE, $isActive);
         return $this;
@@ -133,15 +127,15 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getSortOrder()
+    public function getSortOrder(): int
     {
-        return $this->getData(static::SORT_ORDER);
+        return (int) $this->getData(static::SORT_ORDER);
     }
 
     /**
      * @inheritDoc
      */
-    public function setSortOrder($sortOrder): RateInterface
+    public function setSortOrder(int|null $sortOrder): RateInterface
     {
         $this->setData(static::SORT_ORDER, $sortOrder);
         return $this;
@@ -150,7 +144,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->getData(static::TITLE);
     }
@@ -167,7 +161,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getPrice()
+    public function getPrice(): string
     {
         return $this->getData(static::PRICE);
     }
@@ -184,7 +178,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getAllowFree()
+    public function getAllowFree(): bool
     {
         return boolval($this->getData(static::ALLOW_FREE));
     }
@@ -192,7 +186,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function setAllowFree($allowFree)
+    public function setAllowFree(bool $allowFree): static
     {
         $this->setData(static::ALLOW_FREE, $allowFree);
         return $this;
@@ -201,7 +195,8 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @return AbstractModel
      */
-    public function beforeSave()
+    #[\Override]
+    public function beforeSave(): AbstractModel
     {
         // Serialize conditions
         if ($this->getConditions()) {
@@ -218,7 +213,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @return AbstractCondition
      */
-    public function getConditions()
+    public function getConditions(): AbstractCondition
     {
         if (empty($this->conditions)) {
             $this->resetConditions();
@@ -226,40 +221,39 @@ class Rate extends AbstractModel implements RateInterface
 
         if ($this->hasData(static::CONDITIONS_SERIALIZED)) {
             $conditions = $this->getConditionsSerialized();
-            if (!empty($conditions)) {
+            if (!$conditions === null && $conditions !== '') {
                 $conditions = $this->serializer->unserialize($conditions);
-                if (is_array($conditions) && !empty($conditions)) {
+                if (is_array($conditions) && $conditions !== []) {
                     $this->conditions->loadArray($conditions);
                 }
             }
             $this->unsetData(static::CONDITIONS_SERIALIZED);
         }
 
-
         return $this->conditions;
     }
 
     /**
-     * @param AbstractCondition $conditions
+     * @param AbstractCondition $condition
      * @return $this
      */
-    public function setConditions(AbstractCondition $conditions)
+    public function setConditions(AbstractCondition $condition): RateInterface
     {
-        $this->conditions = $conditions;
+        $this->conditions = $condition;
         return $this;
     }
 
     /**
      * Reset rule combine conditions
      *
-     * @param null|Combine $conditions
+     * @param ?Combine $conditions
      * @return Rate
      */
-    protected function resetConditions($conditions = null)
+    protected function resetConditions(?Combine $conditions = null): self
     {
-        if (null === $conditions) {
-            $conditions = $this->getConditionsInstance();
-        }
+
+        $conditions ??= $this->getConditionsInstance();
+
         $conditions->setData('rule', $this)->setData('id', '1')->setData('prefix', 'conditions');
         $this->setConditions($conditions);
 
@@ -269,7 +263,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @return AbstractCondition
      */
-    protected function getConditionsInstance()
+    protected function getConditionsInstance(): AbstractCondition
     {
         return $this->combineConditionFactory->create();
     }
@@ -277,7 +271,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getConditionsSerialized()
+    public function getConditionsSerialized(): string
     {
         return $this->getData(static::CONDITIONS_SERIALIZED);
     }
@@ -285,7 +279,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function setConditionsSerialized($conditionalsSerialized): RateInterface
+    public function setConditionsSerialized(string|null $conditionalsSerialized): RateInterface
     {
         $this->setData(static::CONDITIONS_SERIALIZED, $conditionalsSerialized);
         return $this;
@@ -297,7 +291,7 @@ class Rate extends AbstractModel implements RateInterface
      * @return Form
      * @throws LocalizedException
      */
-    public function getForm()
+    public function getForm(): Form
     {
         if (!$this->form) {
             $this->form = $this->formFactory->create();
@@ -311,7 +305,7 @@ class Rate extends AbstractModel implements RateInterface
      * @param string $formName
      * @return string
      */
-    public function getConditionsFieldSetId($formName = '')
+    public function getConditionsFieldSetId(string $formName = ''): string
     {
         return $formName . 'rule_conditions_fieldset_' . $this->getId();
     }
@@ -323,7 +317,7 @@ class Rate extends AbstractModel implements RateInterface
      * @return Rate
      * @throws Exception
      */
-    public function loadPost(array $data)
+    public function loadPost(array $data): static
     {
         $arr = $this->convertFlatToRecursive($data);
         if (isset($arr['conditions'])) {
@@ -343,13 +337,13 @@ class Rate extends AbstractModel implements RateInterface
      * @return array
      * @throws Exception
      */
-    protected function convertFlatToRecursive(array $data)
+    protected function convertFlatToRecursive(array $data): array
     {
         $arr = [];
         foreach ($data as $key => $value) {
             if ($key === 'conditions' && is_array($value)) {
                 foreach ($value as $id => $data) {
-                    $path = explode('--', $id);
+                    $path = explode('--', (string) $id);
                     $node = &$arr;
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
                         if (!isset($node[$key][$path[$i]])) {
@@ -378,7 +372,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @inheritDoc
      */
-    public function getStoreId()
+    public function getStoreId(): string
     {
         return $this->getData(static::STORE_ID);
     }
@@ -394,7 +388,7 @@ class Rate extends AbstractModel implements RateInterface
     /**
      * @return string
      */
-    public function getCustomerGroups()
+    public function getCustomerGroups(): string
     {
         return $this->getData(static::CUSTOMER_GROUPS);
     }
@@ -403,9 +397,8 @@ class Rate extends AbstractModel implements RateInterface
      * @param string $groups
      * @return RateInterface
      */
-    public function setCustomerGroups($groups): RateInterface
+    public function setCustomerGroups(string $groups): RateInterface
     {
         return $this->setData(static::CUSTOMER_GROUPS, $groups);
     }
 }
-

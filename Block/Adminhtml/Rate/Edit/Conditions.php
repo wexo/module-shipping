@@ -20,32 +20,9 @@ use Wexo\Shipping\Model\RateRepository;
 class Conditions extends Generic implements TabInterface
 {
     /**
-     * @var Fieldset
-     */
-    protected $_rendererFieldset;
-
-    /**
-     * @var \Magento\Rule\Block\Conditions
-     */
-    protected $_conditions;
-
-    /**
      * @var string
      */
     protected $_nameInLayout = 'conditions_apply_to';
-
-    /**
-     * @var RateInterfaceFactory
-     */
-    private $rateFactory;
-    /**
-     * @var CurrentRate
-     */
-    private $currentRateProvider;
-    /**
-     * @var RateRepository
-     */
-    private $rateRepository;
 
     /**
      * Constructor
@@ -64,74 +41,70 @@ class Conditions extends Generic implements TabInterface
         Context $context,
         Registry $registry,
         FormFactory $formFactory,
-        \Magento\Rule\Block\Conditions $conditions,
-        Fieldset $rendererFieldset,
-        RateInterfaceFactory $rateFactory,
-        CurrentRate $currentRateProvider,
-        RateRepository $rateRepository,
+        protected \Magento\Rule\Block\Conditions $conditions,
+        protected Fieldset $rendererFieldset,
+        private readonly RateInterfaceFactory $rateFactory,
+        private readonly CurrentRate $currentRateProvider,
+        private readonly RateRepository $rateRepository,
         array $data = []
     ) {
-        $this->_rendererFieldset = $rendererFieldset;
-        $this->_conditions = $conditions;
-        $this->rateFactory = $rateFactory;
-        $this->currentRateProvider = $currentRateProvider;
-        $this->rateRepository = $rateRepository;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
+     *
      * @codeCoverageIgnore
      */
-    public function getTabClass()
+    public function getTabClass(): ?string
     {
         return null;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    public function getTabUrl()
+    public function getTabUrl(): ?string
     {
         return null;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    public function isAjaxLoaded()
+    public function isAjaxLoaded(): bool
     {
         return false;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    public function getTabLabel()
+    public function getTabLabel(): string
     {
         return __('Conditions');
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    public function getTabTitle()
+    public function getTabTitle(): string
     {
         return __('Conditions');
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    public function canShowTab()
+    public function canShowTab(): bool
     {
         return true;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    public function isHidden()
+    public function isHidden(): bool
     {
         return false;
     }
@@ -142,7 +115,8 @@ class Conditions extends Generic implements TabInterface
      * @return Generic
      * @throws LocalizedException
      */
-    protected function _prepareForm()
+    #[\Override]
+    protected function _prepareForm(): Generic
     {
         $rate = $this->currentRateProvider->getCurrentRate();
         $form = $this->addTabToForm($rate);
@@ -154,19 +128,22 @@ class Conditions extends Generic implements TabInterface
     /**
      * Handles addition of conditions tab to supplied form.
      *
-     * @param Rate $rate
+     * @param Rate|null $rate
      * @param string $fieldsetId
      * @param string $formName
      * @return Form
      * @throws LocalizedException
      */
-    protected function addTabToForm($rate, $fieldsetId = 'conditions_fieldset', $formName = 'wexo_shipping_rate_form')
-    {
-        if (!$rate) {
+    protected function addTabToForm(
+        ?Rate $rate,
+        string $fieldsetId = 'conditions_fieldset',
+        string $formName = 'wexo_shipping_rate_form'
+    ): Form {
+        if (!$rate instanceof \Wexo\Shipping\Model\Rate) {
             $id = $this->getRequest()->getParam('entity_id');
             try {
                 $rate = $this->rateRepository->get($id);
-            } catch (NoSuchEntityException $e) {
+            } catch (NoSuchEntityException) {
                 $rate = $this->rateFactory->create();
             }
         }
@@ -180,7 +157,7 @@ class Conditions extends Generic implements TabInterface
         /** @var Form $form */
         $form = $this->_formFactory->create();
         $form->setData('html_id_prefix', 'rule_');
-        $renderer = $this->_rendererFieldset
+        $renderer = $this->rendererFieldset
             ->setTemplate('Magento_CatalogRule::promo/fieldset.phtml')
             ->setData('new_child_url', $newChildUrl)
             ->setData('field_set_id', $conditionsFieldSetId);
@@ -208,7 +185,7 @@ class Conditions extends Generic implements TabInterface
             'rule',
             $rate
         )->setRenderer(
-            $this->_conditions
+            $this->conditions
         );
 
         $form->setValues($rate->getData());
@@ -223,7 +200,7 @@ class Conditions extends Generic implements TabInterface
      * @param string $formName
      * @return void
      */
-    private function setConditionFormName(AbstractCondition $conditions, $formName)
+    private function setConditionFormName(AbstractCondition $conditions, string $formName): void
     {
         $conditions->setData('form_name', $formName);
         if ($conditions->getConditions() && is_array($conditions->getConditions())) {

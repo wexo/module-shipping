@@ -14,17 +14,10 @@ class QuoteSubmitBefore implements ObserverInterface
 {
 
     /**
-     * @var ComponentManagement
-     */
-    private $componentManagement;
-
-    /**
      * @param ComponentManagement $componentManagement
      */
-    public function __construct(
-        ComponentManagement $componentManagement
-    ) {
-        $this->componentManagement = $componentManagement;
+    public function __construct(private readonly ComponentManagement $componentManagement)
+    {
     }
 
     /**
@@ -32,7 +25,7 @@ class QuoteSubmitBefore implements ObserverInterface
      * @return void
      * @throws LocalizedException
      */
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
         /** @var Quote $quote */
         $quote = $observer->getEvent()->getData('quote');

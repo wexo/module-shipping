@@ -3,7 +3,6 @@
 namespace Wexo\Shipping\Controller\Adminhtml\Rate;
 
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Rule\Model\Condition\AbstractCondition;
 use Wexo\Shipping\Api\Data\RateInterface;
 
@@ -12,12 +11,12 @@ class NewConditionHtml extends Action
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         $id = $this->getRequest()->getParam('id');
-        $formName = $this->getRequest()->getParam('form_namespace');
+        $this->getRequest()->getParam('form_namespace');
         $type = $this->getRequest()->getParam('type') ?? '';
-        $typeArr = explode('|', str_replace('-', '/',  (string) $type));
+        $typeArr = explode('|', str_replace('-', '/', (string) $type));
         $type = $typeArr[0];
 
         $model = $this->_objectManager->create(
@@ -32,13 +31,13 @@ class NewConditionHtml extends Action
             'conditions'
         );
 
-        if (!empty($typeArr[1])) {
+        if (isset($typeArr[1]) && ($typeArr[1] !== '' && $typeArr[1] !== '0')) {
             $model->setAttribute($typeArr[1]);
         }
 
         if ($model instanceof AbstractCondition) {
             $model->setJsFormObject($this->getRequest()->getParam('form'));
-            $model->setFormName($formName);
+            $model->setFormName();
             $html = $model->asHtmlRecursive();
         } else {
             $html = '';

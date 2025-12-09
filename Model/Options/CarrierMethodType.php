@@ -10,26 +10,18 @@ class CarrierMethodType implements OptionSourceInterface
 {
 
     /**
-     * @var ComponentManagement
-     */
-    private $componentManagement;
-
-    /**
      * @param ComponentManagement $componentManagement
      */
-    public function __construct(
-        ComponentManagement $componentManagement
-    ) {
-        $this->componentManagement = $componentManagement;
+    public function __construct(private readonly ComponentManagement $componentManagement)
+    {
     }
-
 
     /**
      * Return array of options as value-label pairs
      *
      * @return array Format: array(array('value' => '<value>', 'label' => '<label>'), ...)
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         $option = [];
 

@@ -16,7 +16,7 @@ class FlatRate extends AbstractCarrier implements FlatRateInterface
         return $this->_code;
     }
 
-    public function getImageUrl(ShippingMethodInterface $shippingMethod, Rate $rate, $typeHandler)
+    public function getImageUrl(ShippingMethodInterface $shippingMethod, Rate $rate, $typeHandler): ?string
     {
         return null;
     }

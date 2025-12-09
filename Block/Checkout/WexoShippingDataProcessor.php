@@ -4,30 +4,18 @@ namespace Wexo\Shipping\Block\Checkout;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
 use Magento\Checkout\Model\Session;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Serialize\Serializer\Json;
 
 class WexoShippingDataProcessor implements LayoutProcessorInterface
 {
     /**
-     * @var Session
-     */
-    private $checkoutSession;
-
-    /**
-     * @var Json
-     */
-    private $jsonSerializer;
-
-    /**
      * @param Session $checkoutSession
      * @param Json $jsonSerializer
      */
-    public function __construct(
-        Session $checkoutSession,
-        Json $jsonSerializer
-    ) {
-        $this->checkoutSession = $checkoutSession;
-        $this->jsonSerializer = $jsonSerializer;
+    public function __construct(private readonly Session $checkoutSession, private readonly Json $jsonSerializer)
+    {
     }
 
     /**
@@ -35,8 +23,10 @@ class WexoShippingDataProcessor implements LayoutProcessorInterface
      *
      * @param array $jsLayout
      * @return array
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
      */
-    public function process($jsLayout)
+    public function process($jsLayout): array
     {
         if (!isset($jsLayout['components']['checkoutProvider']['wexoShippingData'])) {
             $wexoShippingData = $this->checkoutSession->getQuote()->getData('wexo_shipping_data');

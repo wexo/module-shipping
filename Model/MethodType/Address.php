@@ -25,7 +25,7 @@ class Address implements MethodTypeHandlerInterface
         return 'address';
     }
 
-    public function saveOrderInformation(CartInterface $quote, OrderInterface $order)
+    public function saveOrderInformation(CartInterface $quote, OrderInterface $order): bool
     {
         return true;
     }

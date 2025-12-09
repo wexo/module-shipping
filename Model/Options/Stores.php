@@ -6,12 +6,13 @@ use Magento\Store\Ui\Component\Listing\Column\Store\Options;
 
 class Stores extends Options
 {
-    const ALL_STORE_VIEWS = '0';
+    const string ALL_STORE_VIEWS = '0';
 
     /**
      * @return array
      */
-    public function toOptionArray()
+    #[\Override]
+    public function toOptionArray(): array
     {
         if ($this->options !== null) {
             return $this->options;

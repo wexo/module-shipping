@@ -6,29 +6,29 @@ use Magento\Rule\Model\Condition\AbstractCondition;
 
 interface RateInterface
 {
-    CONST STATUS_ENABLED = 1;
-    CONST STATUS_DISABLED = 0;
+    const int STATUS_ENABLED = 1;
+    const int STATUS_DISABLED = 0;
 
-    const CARRIER_TYPE = 'carrier_type';
-    const METHOD_TYPE = 'method_type';
-    const CONDITIONS_SERIALIZED = 'conditions_serialized';
-    const IS_ACTIVE = 'is_active';
-    const SORT_ORDER = 'sort_order';
-    const TITLE = 'title';
-    const PRICE = 'price';
-    const ALLOW_FREE = 'allow_free';
-    const STORE_ID = 'store_id';
-    const CUSTOMER_GROUPS = 'customer_groups';
+    const string CARRIER_TYPE = 'carrier_type';
+    const string METHOD_TYPE = 'method_type';
+    const string CONDITIONS_SERIALIZED = 'conditions_serialized';
+    const string IS_ACTIVE = 'is_active';
+    const string SORT_ORDER = 'sort_order';
+    const string TITLE = 'title';
+    const string PRICE = 'price';
+    const string ALLOW_FREE = 'allow_free';
+    const string STORE_ID = 'store_id';
+    const string CUSTOMER_GROUPS = 'customer_groups';
 
     /**
      * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getCarrierType();
+    public function getCarrierType(): ?string;
 
     /**
      * @param string $carrierType
@@ -39,51 +39,51 @@ interface RateInterface
     /**
      * @return string
      */
-    public function getMethodType();
+    public function getMethodType(): string;
 
     /**
-     * @param string|null $methodType
+     * @param string $methodType
      * @return RateInterface
      */
     public function setMethodType(string $methodType): RateInterface;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getConditionsSerialized();
+    public function getConditionsSerialized(): ?string;
 
     /**
-     * @param string|null $conditionalsSerialized
+     * @param ?string $conditionalsSerialized
      * @return RateInterface
      */
-    public function setConditionsSerialized($conditionalsSerialized): RateInterface;
+    public function setConditionsSerialized(?string $conditionalsSerialized): RateInterface;
 
     /**
      * @return int
      */
-    public function getIsActive();
+    public function getIsActive(): int;
 
     /**
      * @param int|null $isActive
      * @return RateInterface
      */
-    public function setIsActive($isActive): RateInterface;
+    public function setIsActive(int|null $isActive): RateInterface;
 
     /**
      * @return int|null
      */
-    public function getSortOrder();
+    public function getSortOrder(): int|null;
 
     /**
      * @param int|null $sortOrder
      * @return RateInterface
      */
-    public function setSortOrder($sortOrder): RateInterface;
+    public function setSortOrder(int|null $sortOrder): RateInterface;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getTitle();
+    public function getTitle(): ?string;
 
     /**
      * @param string $title
@@ -94,10 +94,10 @@ interface RateInterface
     /**
      * @return string
      */
-    public function getPrice();
+    public function getPrice(): string;
 
     /**
-     * @param float|null $price
+     * @param float $price
      * @return RateInterface
      */
     public function setPrice(float $price): RateInterface;
@@ -105,44 +105,44 @@ interface RateInterface
     /**
      * @return bool
      */
-    public function getAllowFree();
+    public function getAllowFree(): bool;
 
     /**
      * @param bool $allowFree
      * @return mixed
      */
-    public function setAllowFree($allowFree);
+    public function setAllowFree(bool $allowFree): mixed;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getStoreId();
+    public function getStoreId(): ?string;
 
     /**
      * @param int $storeIds
      * @return RateInterface
      */
-    public function setStoreId($storeIds): RateInterface;
+    public function setStoreId(int $storeIds): RateInterface;
 
     /**
      * @return AbstractCondition
      */
-    public function getConditions();
+    public function getConditions(): AbstractCondition;
 
     /**
      * @param AbstractCondition $condition
      * @return RateInterface
      */
-    public function setConditions(AbstractCondition $condition);
+    public function setConditions(AbstractCondition $condition): RateInterface;
 
     /**
      * @return string
      */
-    public function getCustomerGroups();
+    public function getCustomerGroups(): string;
 
     /**
      * @param string $groups
      * @return RateInterface
      */
-    public function setCustomerGroups($groups): RateInterface;
+    public function setCustomerGroups(string $groups): RateInterface;
 }

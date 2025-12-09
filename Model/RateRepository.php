@@ -17,30 +17,9 @@ use Wexo\Shipping\Model\ResourceModel\Rate\CollectionFactory;
 class RateRepository
 {
     /**
-     * @var RateFactory
-     */
-    private $rateFactory;
-    /**
-     * @var CollectionProcessor
-     */
-    private $collectionProcessor;
-    /**
-     * @var SearchResultFactory
-     */
-    private $searchResultFactory;
-    /**
-     * @var CollectionFactory
-     */
-    private $collectionFactory;
-    /**
-     * @var ResourceModel\Rate
-     */
-    private $rateResource;
-
-    /**
      * @var RateInterface[]
      */
-    private $cache = [];
+    private array $cache = [];
 
     /**
      * @param RateInterfaceFactory $rateFactory
@@ -50,17 +29,12 @@ class RateRepository
      * @param ResourceModel\Rate $rateResource
      */
     public function __construct(
-        RateInterfaceFactory $rateFactory,
-        CollectionFactory $collectionFactory,
-        SearchResultFactory $searchResultFactory,
-        CollectionProcessor $collectionProcessor,
-        \Wexo\Shipping\Model\ResourceModel\Rate $rateResource
+        private readonly RateInterfaceFactory $rateFactory,
+        private readonly CollectionFactory $collectionFactory,
+        private readonly SearchResultFactory $searchResultFactory,
+        private readonly CollectionProcessor $collectionProcessor,
+        private readonly \Wexo\Shipping\Model\ResourceModel\Rate $rateResource
     ) {
-        $this->rateFactory = $rateFactory;
-        $this->collectionFactory = $collectionFactory;
-        $this->searchResultFactory = $searchResultFactory;
-        $this->collectionProcessor = $collectionProcessor;
-        $this->rateResource = $rateResource;
     }
 
     /**
@@ -68,9 +42,9 @@ class RateRepository
      * @return Rate
      * @throws NoSuchEntityException
      */
-    public function get($rateId): RateInterface
+    public function get(string $rateId): RateInterface
     {
-        if(isset($this->cache[$rateId])) {
+        if (isset($this->cache[$rateId])) {
             return $this->cache[$rateId];
         }
 
@@ -88,7 +62,7 @@ class RateRepository
      * @param SearchCriteriaInterface $criteria
      * @return SearchResultsInterface
      */
-    public function getList(SearchCriteriaInterface $criteria)
+    public function getList(SearchCriteriaInterface $criteria): SearchResultsInterface
     {
         $collection = $this->collectionFactory->create();
         $this->collectionProcessor->process($criteria, $collection);
@@ -113,7 +87,7 @@ class RateRepository
      * @return RateInterface
      * @throws AlreadyExistsException
      */
-    public function save(RateInterface $rate)
+    public function save(RateInterface $rate): RateInterface
     {
         $this->rateResource->save($rate);
         unset($this->cache[$rate->getId()]);
@@ -125,7 +99,7 @@ class RateRepository
      * @return bool
      * @throws Exception
      */
-    public function delete(RateInterface $rate)
+    public function delete(RateInterface $rate): bool
     {
         $this->rateResource->delete($rate);
         unset($this->cache[$rate->getId()]);
@@ -136,7 +110,7 @@ class RateRepository
      * @param RateInterface $rate
      * @return $this
      */
-    public function cache(RateInterface $rate)
+    public function cache(RateInterface $rate): static
     {
         $this->cache[$rate->getId()] = $rate;
         return $this;

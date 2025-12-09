@@ -7,101 +7,101 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 interface ParcelShopInterface extends ExtensibleDataInterface
 {
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getNumber();
+    public function getNumber(): ?string;
 
     /**
      * @param string $string
      * @return ParcelShopInterface
      */
-    public function setNumber($string): ParcelShopInterface;
+    public function setNumber(string $string): ParcelShopInterface;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getCompanyName();
-
-    /**
-     * @param string $string
-     * @return ParcelShopInterface
-     */
-    public function setCompanyName($string): ParcelShopInterface;
-
-    /**
-     * @return string|null
-     */
-    public function getStreetName();
+    public function getCompanyName(): ?string;
 
     /**
      * @param string $string
      * @return ParcelShopInterface
      */
-    public function setStreetName($string): ParcelShopInterface;
+    public function setCompanyName(string $string): ParcelShopInterface;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getZipCode();
-
-    /**
-     * @param string $string
-     * @return ParcelShopInterface
-     */
-    public function setZipCode($string): ParcelShopInterface;
-
-    /**
-     * @return string|null
-     */
-    public function getCity();
+    public function getStreetName(): ?string;
 
     /**
      * @param string $string
      * @return ParcelShopInterface
      */
-    public function setCity($string): ParcelShopInterface;
+    public function setStreetName(string $string): ParcelShopInterface;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getCountryCode();
-
-    /**
-     * @param string $string
-     * @return ParcelShopInterface
-     */
-    public function setCountryCode($string): ParcelShopInterface;
-
-    /**
-     * @return string|null
-     */
-    public function getLongitude();
+    public function getZipCode(): ?string;
 
     /**
      * @param string $string
      * @return ParcelShopInterface
      */
-    public function setLongitude($string): ParcelShopInterface;
+    public function setZipCode(string $string): ParcelShopInterface;
 
     /**
-     * @return string|null
+     * @return ?string
      */
-    public function getLatitude();
-
-    /**
-     * @param string $string
-     * @return ParcelShopInterface
-     */
-    public function setLatitude($string): ParcelShopInterface;
-
-    /**
-     * @return string|null
-     */
-    public function getOpeningHours();
+    public function getCity(): ?string;
 
     /**
      * @param string $string
      * @return ParcelShopInterface
      */
-    public function setOpeningHours($string): ParcelShopInterface;
+    public function setCity(string $string): ParcelShopInterface;
+
+    /**
+     * @return ?string
+     */
+    public function getCountryCode(): ?string;
+
+    /**
+     * @param string $string
+     * @return ParcelShopInterface
+     */
+    public function setCountryCode(string $string): ParcelShopInterface;
+
+    /**
+     * @return ?string
+     */
+    public function getLongitude(): ?string;
+
+    /**
+     * @param string $string
+     * @return ParcelShopInterface
+     */
+    public function setLongitude(string $string): ParcelShopInterface;
+
+    /**
+     * @return ?string
+     */
+    public function getLatitude(): ?string;
+
+    /**
+     * @param string $string
+     * @return ParcelShopInterface
+     */
+    public function setLatitude(string $string): ParcelShopInterface;
+
+    /**
+     * @return ?string
+     */
+    public function getOpeningHours(): ?string;
+
+    /**
+     * @param string $string
+     * @return ParcelShopInterface
+     */
+    public function setOpeningHours(string $string): ParcelShopInterface;
 }

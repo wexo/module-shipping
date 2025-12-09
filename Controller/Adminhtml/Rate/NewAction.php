@@ -6,16 +6,10 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Forward;
 use Magento\Backend\Model\View\Result\ForwardFactory;
-use Magento\Framework\App\Action\HttpGetActionInterface;
 
 class NewAction extends Action
 {
-    const ADMIN_RESOURCE = 'Wexo_Shipping::edit';
-
-    /**
-     * @var Forward
-     */
-    private $resultForwardFactory;
+    const string ADMIN_RESOURCE = 'Wexo_Shipping::edit';
 
     /**
      * @param Context $context
@@ -23,16 +17,15 @@ class NewAction extends Action
      */
     public function __construct(
         Context $context,
-        ForwardFactory $resultForwardFactory
+        private readonly ForwardFactory $resultForwardFactory
     ) {
-        $this->resultForwardFactory = $resultForwardFactory;
         parent::__construct($context);
     }
 
     /**
      * @return Forward
      */
-    public function execute()
+    public function execute(): Forward
     {
         /** @var Forward $resultForward */
         $resultForward = $this->resultForwardFactory->create();

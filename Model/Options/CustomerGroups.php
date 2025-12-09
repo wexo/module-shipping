@@ -13,22 +13,7 @@ class CustomerGroups implements OptionSourceInterface
     /**
      * @var array|null
      */
-    protected $options;
-
-    /**
-     * @var GroupRepositoryInterface
-     */
-    private $groupRepository;
-
-    /**
-     * @var SearchCriteriaBuilder
-     */
-    private $searchCriteriaBuilder;
-
-    /**
-     * @var DataObject
-     */
-    private $objectConverter;
+    protected ?array $options = null;
 
     /**
      * @param GroupRepositoryInterface $groupRepository
@@ -36,20 +21,17 @@ class CustomerGroups implements OptionSourceInterface
      * @param DataObject $objectConverter
      */
     public function __construct(
-        GroupRepositoryInterface $groupRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        DataObject $objectConverter
+        private readonly GroupRepositoryInterface $groupRepository,
+        private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
+        private readonly DataObject $objectConverter
     ) {
-        $this->groupRepository = $groupRepository;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->objectConverter = $objectConverter;
     }
 
     /**
      * @return array
      * @throws LocalizedException
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         if (!$this->options) {
             $customerGroups = $this->groupRepository->getList($this->searchCriteriaBuilder->create())->getItems();
